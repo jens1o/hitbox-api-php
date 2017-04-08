@@ -1,0 +1,14 @@
+{
+    "name": "jens1o/hitbox-api-php",
+    "description": "Handles api requests to hitbox nicely!",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jens Hausdorf",
+            "email": "jenshausdorf@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

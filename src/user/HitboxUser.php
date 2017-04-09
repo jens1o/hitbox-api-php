@@ -71,13 +71,28 @@ class HitboxUser extends AbstractModel {
         return new self(null, $request);
     }
 
+    /**
+     * Returns the user the token belongs to
+     * @param   string  $token  The token to Check
+     * @return HitboxUser
+     * @throws HitboxApiException When the token is not connected to a user
+     */
     public static function getUserByToken(string $token) {
         $userName = static::getUserNameByToken($token);
 
-        if($userName === null)
+        if($userName === null) {
+            throw new HitboxApiException('The auth token is not in use by somebody!');
+        }
+
+        return new self($userName, null);
     }
 
-    d
+    /**
+     * Returns to which username the token belongs to(returns null when not existing)
+     *
+     * @param   string  $token  The token to Check
+     * @return string|null
+     */
     public static function getUserNameByToken(string $token) {
         $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
 

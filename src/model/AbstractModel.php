@@ -7,6 +7,13 @@ use jens1o\hitbox\util\RequestUtil;
 abstract class AbstractModel implements IModel {
 
     /**
+     * Saved data about the model
+     * @var mixed[]
+     */
+    public $data = null;
+
+
+    /**
      * Wether the optional auth token will be appended or set via a GET parameter
      */
     private $appendAuthToken = false;
@@ -21,7 +28,19 @@ abstract class AbstractModel implements IModel {
      * @see RequestUtil::doRequest()
      */
     public function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = false) {
-        RequestUtil::doRequest($method, $path, $parameters, $needsAuthToken);
+        return RequestUtil::doRequest($method, $path, $parameters, $needsAuthToken);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function __get($needle) {
+        if(isset($this->data->$needle)) {
+            return $this->data->$needle;
+        }
+
+        return null;
+    }
+
 
 }

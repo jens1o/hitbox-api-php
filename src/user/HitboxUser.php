@@ -26,17 +26,17 @@ class HitboxUser extends AbstractModel {
      * Creates a new User object.
      * **Warning!** This executes immediately a request to hitbox fetching all data when `$row` is not provided!
      *
-     * @param   string|null     $userName   The name of the user, can be `null` when `$row` is provided
+     * @param   string|null     $identifier   The name of the user, can be `null` when `$row` is provided
      * @param   mixed[]|null    $row        All information about the user fetched from the api, can be `null` when `$userName` is provided
      * @throws \BadMethodCallException  when `$userName` and `$row` are null
      */
-    public function __construct(?string $userName = null, ?array $row = null) {
+    public function __construct(?string $identifier = null, ?\stdClass $row = null) {
         if($row !== null) {
             // prefer $row when provided, so we don't need to call their api again
             $this->data = $row;
-        } elseif($userName !== null) {
+        } elseif($identifier !== null) {
             // call their api
-            $this->data = $this->doRequest(HttpMethod::GET, 'user/' . $userName);
+            $this->data = $this->doRequest(HttpMethod::GET, 'user/' . $identifier);
         } else {
             throw new \BadMethodCallException('Try to call ' . self::class . ' with both arguments null. One must be given!');
         }

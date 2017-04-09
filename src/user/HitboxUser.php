@@ -4,7 +4,8 @@ namespace jens1o\hitbox\user;
 use jens1o\hitbox\HitboxApi;
 use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
 use jens1o\hitbox\model\AbstractModel;
-use jens1o\hitbox\util\{HttpMethod, RequestUtil};
+use jens1o\hitbox\user\logos\LogosHandler;
+use jens1o\hitbox\util\{HttpMethod, LogoSize, RequestUtil};
 
 /**
  * Represents a Hitbox User that can access to channels and media
@@ -21,6 +22,12 @@ class HitboxUser extends AbstractModel {
      * @inheritDoc
      */
     public $appendAuthToken = false;
+
+    /**
+     * Holds the logos
+     * @var LogosHandler
+     */
+    private $logosHandler = null;
 
     /**
      * Creates a new User object.
@@ -40,7 +47,44 @@ class HitboxUser extends AbstractModel {
         } else {
             throw new \BadMethodCallException('Try to call ' . self::class . ' with both arguments null. One must be given!');
         }
+    }
 
+    /**
+     * Returns the id for this user
+     *
+     * @return int
+     */
+    public function getUserId(): int {
+        return (int) $this->data->user_id;
+    }
+
+    /**
+     * Shorthand function to check wether this user exists
+     *
+     * @return bool
+     */
+    public function exists(): bool {
+        return ($this->data->user_id !== null);
+    }
+
+    /**
+     * Returns the logohandler that manages the logos(or null when the user does not exist)
+     *
+     * @return LogosHandler|null
+     */
+    public function getLogos(): ?LogosHandler {
+        if($this->logosHandler === null) {
+            if(!$this->exists()) {
+                throw new \BadMethodCallException('Cannot show logos on non-existing users!');
+                return null;
+            }
+            $this->logosHandler = new LogosHandler([
+                LogoSize::SMALL => $this->data->user_logo_small,
+                LogoSize::DEFAULT => $this->data->user_logo
+            ]);
+        }
+
+        return $this->logosHandler;
     }
 
     /**
@@ -52,7 +96,11 @@ class HitboxUser extends AbstractModel {
      * @return HitboxUser
      * @throws HitboxAuthException
      */
-    public static function getUserByLogin(string $userName, string $password, string $app = 'desktop') {
+    public static function getUserByLogin(string $userName, string $password, ?string $app = null): HitboxUser {
+        if($app === null) {
+            $app = 'desktop';
+        }
+
         $request = null;
         try {
             $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/login', [
@@ -77,7 +125,7 @@ class HitboxUser extends AbstractModel {
      * @return HitboxUser
      * @throws HitboxApiException When the token is not connected to a user
      */
-    public static function getUserByToken(string $token) {
+    public static function getUserByToken(string $token): HitboxUser {
         $userName = static::getUserNameByToken($token);
 
         if($userName === null) {
@@ -93,7 +141,7 @@ class HitboxUser extends AbstractModel {
      * @param   string  $token  The token to Check
      * @return string|null
      */
-    public static function getUserNameByToken(string $token) {
+    public static function getUserNameByToken(string $token): string {
         $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
 
         if(isset($request->user_name)) {

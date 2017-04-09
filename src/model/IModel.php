@@ -20,11 +20,16 @@ interface IModel {
     /**
      * Executes an api request
      */
-    public function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = false);
+    public function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null);
 
     /**
      * Returns the data
      */
     public function __get($needle);
 
+
+    /**
+     * Updates the options of this model
+     */
+    // public function update(array $options);
 }

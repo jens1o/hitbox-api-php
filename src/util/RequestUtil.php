@@ -32,7 +32,10 @@ class RequestUtil {
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
      * @throws HitboxApiException
      */
-    public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = false) {
+    public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
+        if($needsAuthToken === null) {
+            $needsAuthToken = false;
+        }
         $authToken = HitboxApi::getAuthToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;

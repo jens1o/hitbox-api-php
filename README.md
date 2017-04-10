@@ -16,7 +16,7 @@ This is a php library making api requests to hitbox quite easy. It's designed to
     - PHP 7.1+
     - Composer
     - `allow_url_fopen` must be enabled
-    - You comply with the [MIT License](LICENSE.md)
+    - You comply with the [MIT License](LICENSE)
 1. Download/Clone this repository
 2. Execute `composer install` in your clone
 3. In your script, add:

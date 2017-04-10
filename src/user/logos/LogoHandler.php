@@ -24,7 +24,7 @@ class LogoHandler {
      * Holds a list of initiated logos
      * @var Logo[]
      */
-    private static $initiatedLogos = [];
+    private $initiatedLogos = [];
 
     /**
      * Inits the logo handler
@@ -50,13 +50,13 @@ class LogoHandler {
                 throw new \InvalidArgumentException('The size neither `small` or `normal`!');
         }
 
-        $location = static::$initiatedLogos[$this->images[$size]];
+        // $location = static::$initiatedLogos[$this->images[$size]];
 
-        if(!isset($location)) {
-            $location = new Logo($this->images[$size]);
+        if(!isset($this->initiatedLogos[$this->images[$size]])) {
+            $this->initiatedLogos[$this->images[$size]] = new Logo($this->images[$size]);
         }
 
-        return $location;
+        return $this->initiatedLogos[$this->images[$size]];;
     }
 
 }

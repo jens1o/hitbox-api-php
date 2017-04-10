@@ -1,6 +1,7 @@
 <?php
 namespace jens1o\hitbox\user;
 
+use GuzzleHttp\Exception\GuzzleException;
 use jens1o\hitbox\HitboxApi;
 use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
 use jens1o\hitbox\model\AbstractModel;

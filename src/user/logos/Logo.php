@@ -16,9 +16,16 @@ use jens1o\hitbox\util\HttpMethod;
 class Logo {
 
     /**
-     * 
+     * Holds the url where this logo is saved on
+     * @var string
      */
     private $url = null;
+
+    /**
+     * Cached stream of the logo
+     * @var string
+     */
+    private $stream = null;
 
     /**
      * Creates a new logo representation
@@ -29,11 +36,53 @@ class Logo {
         $this->url = $url;
     }
 
-    public function download(string $location) {
-        HitboxApi::getClient()
-            ->request(HttpMethod::GET, $this->getPath())
-            ->setResponseBody($location)
-            ->send();
+    /**
+     * Tries to download the logo to the given destination. Returns false on failure, true on success
+     *
+     * @param   string  $location   Where you want to have the file
+     * @return bool
+     */
+    public function download(string $location): bool {
+        $stream = $this->getStream();
+
+        // couldn't download it
+        if($stream === false) {
+            return false;
+        }
+
+        if(file_put_contents($location, $stream) === false) {
+            // couldn't write it
+            return false;
+        }
+
+        // yada yada yada!
+        return true;
+    }
+
+    /**
+     * Returns the stream of the downloaded logo, null on failure
+     *
+     * @return string|null
+     */
+    public function getStream(): ?string {
+        if($this->stream !== null) {
+            return $this->stream;
+        }
+
+        try {
+            $stream = HitboxApi::getClient()
+                ->request(HttpMethod::GET, $this->getPath())
+                ->getBody()
+                ->getContents();
+        } catch(\RuntimeException $e) {
+            // rethrow exception
+            throw new HitboxApiException('Cannot download the logo!', 0, $e);
+            return null;
+        }
+
+        $this->stream = $stream;
+
+        return $stream;
     }
 
     /**

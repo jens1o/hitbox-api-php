@@ -34,4 +34,5 @@ Todo... Soon...
 
 ## Todo
 - [ ] Finish with every model
+- [ ] Write documentation
 - [ ] Create tests

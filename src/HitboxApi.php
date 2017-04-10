@@ -2,6 +2,7 @@
 namespace jens1o\hitbox;
 
 use GuzzleHttp\Client;
+use jens1o\hitbox\token\HitboxAuthToken;
 
 /**
  * The main class for connecting to the api of hitbox
@@ -44,9 +45,9 @@ class HitboxApi {
     /**
      * Sets the auth token
      *
-     * @param   string  $token  The auth token you'd got from a previous request
+     * @param   HitboxAuthToken  $token  The auth token you'd got from a previous request
      */
-    public static function setAuthToken(string $token) {
+    public static function setUserAuthToken(HitboxAuthToken $token) {
         self::$authToken = $token;
     }
 

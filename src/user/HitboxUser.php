@@ -26,9 +26,9 @@ class HitboxUser extends AbstractModel {
 
     /**
      * Holds the logos
-     * @var LogosHandler
+     * @var LogoHandler
      */
-    private $logosHandler = null;
+    private $logoHandler = null;
 
     /**
      * Creates a new User object.
@@ -71,21 +71,39 @@ class HitboxUser extends AbstractModel {
     /**
      * Returns the logohandler that manages the logos(or null when the user does not exist)
      *
-     * @return LogosHandler|null
+     * @return LogoHandler|null
      */
     public function getLogos(): ?LogoHandler {
-        if($this->logosHandler === null) {
+        if($this->logoHandler === null) {
             if(!$this->exists()) {
                 throw new \BadMethodCallException('Cannot show logos on non-existing users!');
                 return null;
             }
-            $this->logosHandler = new LogoHandler([
+            $this->logoHandler = new LogoHandler([
                 LogoSize::SMALL => $this->data->user_logo_small,
                 LogoSize::DEFAULT => $this->data->user_logo
             ]);
         }
 
-        return $this->logosHandler;
+        return $this->logoHandler;
+    }
+
+    /**
+     * Returns wether the user is live atm
+     *
+     * @return bool
+     */
+    public function isLive(): bool {
+        if(isset($this->data->media_is_live)) {
+            // authorized api
+            return (bool) $this->data->media_is_live;
+        } elseif(isset($this->data->is_live)) {
+            // public api
+            return (bool) $this->data->is_live;
+        }
+
+        // not implemented, feel free to create a pr adding this!
+        return false;
     }
 
     /**
@@ -119,8 +137,8 @@ class HitboxUser extends AbstractModel {
     }
 
     /**
-     * Returns the user the token belongs to
-     * @param   string  $token  The token to Check
+     * Returns the user the token belongs to or null when it is not assigned to anyone
+     * @param   string  $token  The token to check
      * @return HitboxUser|null
      * @throws HitboxApiException When the token is not connected to a user
      */

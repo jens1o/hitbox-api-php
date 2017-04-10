@@ -29,6 +29,7 @@ class HitboxAuthToken {
 
     /**
      * Returns the token
+     *
      * @return string
      */
     public function getToken(): string {

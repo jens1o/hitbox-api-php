@@ -36,7 +36,7 @@ class RequestUtil {
         if($needsAuthToken === null) {
             $needsAuthToken = false;
         }
-        $authToken = HitboxApi::getAuthToken();
+        $authToken = HitboxApi::getAuthToken()->getToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;
 

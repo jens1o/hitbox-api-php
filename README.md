@@ -31,3 +31,7 @@ require_once 'vendor/autoload.php';
 The following chapter will teach you about the differents models this library offers at the moment. If you feel something is missing, feel free to create a pr. Also, if you want to improve the English(fix grammar and spelling mistakes) in this documentation, it would be quite nice!
 ### Hitbox User
 Todo... Soon...
+
+## Todo
+- [ ] Finish with every model
+- [ ] Create tests

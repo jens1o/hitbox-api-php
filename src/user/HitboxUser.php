@@ -72,7 +72,7 @@ class HitboxUser extends AbstractModel {
      *
      * @return LogosHandler|null
      */
-    public function getLogos(): ?LogosHandler {
+    public function getLogos(): ?LogoHandler {
         if($this->logosHandler === null) {
             if(!$this->exists()) {
                 throw new \BadMethodCallException('Cannot show logos on non-existing users!');

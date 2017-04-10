@@ -111,6 +111,7 @@ class HitboxUser extends AbstractModel {
      * Returns wether this user had validated their email
      *
      * @var bool
+     * @throws HitboxApiException
      */
     public function hasVerifiedEmail(): bool {
         $request = RequestUtil::doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
@@ -134,7 +135,6 @@ class HitboxUser extends AbstractModel {
     public static function getUserByLogin(string $userName, string $password, ?string $app = null): HitboxUser {
         $app = $app ?? 'desktop';
 
-        $request = null;
         try {
             $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/login', [
                 'json' => [
@@ -146,6 +146,7 @@ class HitboxUser extends AbstractModel {
             ]);
         } catch(HitboxApiException $e) {
             throw new HitboxAuthException('Cannot authenticate with hitbox api! Check username or password.', 0, $e);
+            return null;
         }
 
 

@@ -35,15 +35,15 @@ class RequestUtil {
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
         $needsAuthToken = $needsAuthToken ?? false;
 
-        $authToken = HitboxApi::getAuthToken()->getToken();
+        $authToken = HitboxApi::getAuthToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;
 
         if($authToken !== null && !$noAuthToken) {
             if($appendAuthToken) {
-                $path .= '/' . $authToken;
+                $path .= '/' . $authToken->getToken();
             } else {
-                $parameters['query']['authToken'] = $authToken;
+                $parameters['query']['authToken'] = $authToken->getToken();
             }
         } elseif($needsAuthToken) {
             throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with HitboxApi::setAuthToken($authToken)!');
@@ -63,6 +63,11 @@ class RequestUtil {
         return json_decode(self::$lastRequest->getBody());
     }
 
+    /**
+     * Returns the latest request
+     *
+     * @return GuzzleHttp\Psr7\Response
+     */
     public static function getLastRequest() {
         return self::$lastRequest;
     }

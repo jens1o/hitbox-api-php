@@ -12,12 +12,19 @@ use jens1o\hitbox\util\LogoSize;
  * @package    jens1o\hitbox\user
  * @subpackage logos
  */
-class LogosHandler {
+class LogoHandler {
 
     /**
      * Holds the links and sizes to the images
+     * @var string[][]
      */
     private $images = [];
+
+    /**
+     * Holds a list of initiated logos
+     * @var Logo[]
+     */
+    private static $initiatedLogos = [];
 
     /**
      * Inits the logo handler

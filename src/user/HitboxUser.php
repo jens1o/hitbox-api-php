@@ -4,7 +4,7 @@ namespace jens1o\hitbox\user;
 use jens1o\hitbox\HitboxApi;
 use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
 use jens1o\hitbox\model\AbstractModel;
-use jens1o\hitbox\user\logos\LogosHandler;
+use jens1o\hitbox\user\logos\LogoHandler;
 use jens1o\hitbox\util\{HttpMethod, LogoSize, RequestUtil};
 
 /**
@@ -52,10 +52,10 @@ class HitboxUser extends AbstractModel {
     /**
      * Returns the id for this user
      *
-     * @return int
+     * @return int|null
      */
-    public function getUserId(): int {
-        return (int) $this->data->user_id;
+    public function getUserId(): ?int {
+        return $this->data->user_id;
     }
 
     /**
@@ -78,7 +78,7 @@ class HitboxUser extends AbstractModel {
                 throw new \BadMethodCallException('Cannot show logos on non-existing users!');
                 return null;
             }
-            $this->logosHandler = new LogosHandler([
+            $this->logosHandler = new LogoHandler([
                 LogoSize::SMALL => $this->data->user_logo_small,
                 LogoSize::DEFAULT => $this->data->user_logo
             ]);
@@ -97,9 +97,7 @@ class HitboxUser extends AbstractModel {
      * @throws HitboxAuthException
      */
     public static function getUserByLogin(string $userName, string $password, ?string $app = null): HitboxUser {
-        if($app === null) {
-            $app = 'desktop';
-        }
+        $app = $app ?? 'desktop';
 
         $request = null;
         try {
@@ -122,14 +120,15 @@ class HitboxUser extends AbstractModel {
     /**
      * Returns the user the token belongs to
      * @param   string  $token  The token to Check
-     * @return HitboxUser
+     * @return HitboxUser|null
      * @throws HitboxApiException When the token is not connected to a user
      */
-    public static function getUserByToken(string $token): HitboxUser {
+    public static function getUserByToken(string $token): ?HitboxUser {
         $userName = static::getUserNameByToken($token);
 
         if($userName === null) {
             throw new HitboxApiException('The auth token is not in use by somebody!');
+            return null;
         }
 
         return new self($userName, null);
@@ -141,7 +140,7 @@ class HitboxUser extends AbstractModel {
      * @param   string  $token  The token to Check
      * @return string|null
      */
-    public static function getUserNameByToken(string $token): string {
+    public static function getUserNameByToken(string $token): ?string {
         $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
 
         if(isset($request->user_name)) {

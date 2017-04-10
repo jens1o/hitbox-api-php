@@ -8,7 +8,14 @@ Handles api requests to hitbox nicely!
 1. [Hitbox User](#hitbox-user)
 
 ### Preample
+**tl;dr**: PHP library, not available via composer, clone it and execute `composer install`
+
 This is a php library making api requests to hitbox quite easy. It's designed to use models(like `HitboxUser`). It's using the composer autoloader, so if you want to init the library, here's how you go:
+
+0. Make sure you meet the requirements of this lib:
+    - PHP 7.1+
+    - Composer
+    - `allow_url_fopen` must be enabled
 1. Download/Clone this repository
 2. Execute `composer install` in your clone
 3. In your script, add:

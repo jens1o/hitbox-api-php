@@ -4,7 +4,7 @@ Handles api requests to hitbox nicely!
 
 ## Documentation
 
-0. [Preample](#preamples)
+0. [Preample](#preample)
 1. [Hitbox User](#hitbox-user)
 
 ### Preample

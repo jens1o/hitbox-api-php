@@ -64,7 +64,7 @@ class RequestUtil {
     }
 
     /**
-     * Returns the latest request
+     * Returns the response of the latest request
      *
      * @return GuzzleHttp\Psr7\Response
      */

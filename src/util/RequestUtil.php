@@ -33,9 +33,8 @@ class RequestUtil {
      * @throws HitboxApiException
      */
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
-        if($needsAuthToken === null) {
-            $needsAuthToken = false;
-        }
+        $needsAuthToken = $needsAuthToken ?? false;
+
         $authToken = HitboxApi::getAuthToken()->getToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;

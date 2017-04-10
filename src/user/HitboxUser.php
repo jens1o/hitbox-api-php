@@ -79,6 +79,7 @@ class HitboxUser extends AbstractModel {
                 throw new \BadMethodCallException('Cannot show logos on non-existing users!');
                 return null;
             }
+
             $this->logoHandler = new LogoHandler([
                 LogoSize::SMALL => $this->data->user_logo_small,
                 LogoSize::DEFAULT => $this->data->user_logo
@@ -104,6 +105,21 @@ class HitboxUser extends AbstractModel {
 
         // not implemented, feel free to create a pr adding this!
         return false;
+    }
+
+    /**
+     * Returns wether this user had validated their email
+     *
+     * @var bool
+     */
+    public function hasVerifiedEmail(): bool {
+        $request = RequestUtil::doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+
+        if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
+            return false;
+        }
+
+        return true;
     }
 
     /**

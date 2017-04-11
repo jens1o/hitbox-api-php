@@ -1,6 +1,9 @@
 # hitbox-api-php
 Handles api requests to hitbox nicely!
 
+### This libray is not finished nor complete!
+I'll work on it, but it may take some time. At the moment, I'm completing the user object and will go on with implementing the Channel/Media object.
+
 
 ## Documentation
 
@@ -46,7 +49,7 @@ $user = new HitboxUser('jens1o');
 > ⚠️ Instantiating a user immediately executes a http request to hitbox asking for the account data! You should cache users and avoid instantiating them twice in one period of time(e.g. per request)! If you don't want that a http request is being executed, [you need to pass the account data as a row yourself as second parameter and set the first parameter to `null`](#about-row-parameter).
 
 ##### Get data
-There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.hitbox.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private informaation) `user_email`, `livestream_count` and `partner_type` will be sent, too.
+There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.hitbox.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private information) `user_email`, `livestream_count` and `partner_type` will be sent, too.
 
 ```php
 <?php
@@ -69,7 +72,7 @@ $newUser->user_email; // => someEmail@someHost.tld
 
 > ⚠️ Warning: Check first if there is a matching method. Prefer that! Field names may vary on how you created the user. The methods will return consistent values!
 
-> ℹ️ Tip: You get the auth token by [loggin in with user credentials](#build-users-from-other-parameters)
+> ℹ️ Tip: You get the auth token by [logging in with user credentials](#build-users-from-other-parameters)
 
 #### getUserId()
 Returns the id of this user in the database of hitbox.
@@ -110,7 +113,7 @@ use jens1o\hitbox\user\HitboxUser;
 
 $user = new HitboxUser('jens1o');
 
-$user->getLogos(); // => instance of jens1o\hitbox}user\logos\LogoHandler
+$user->getLogos(); // => instance of jens1o\hitbox\user\logos\LogoHandler
 ```
 
 #### isLive()
@@ -144,6 +147,7 @@ Todo.
 > todo...
 
 ## Todo
+- [ ] Implement HitboxChannel Class
 - [ ] Finish with every model
 - [ ] Write documentation
 - [ ] Create tests

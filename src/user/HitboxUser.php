@@ -95,6 +95,9 @@ class HitboxUser extends AbstractModel {
      * @return bool
      */
     public function isLive(): bool {
+        // non existing user can stream? ;)
+        if(!$this->exists()) return false;
+
         if(isset($this->data->media_is_live)) {
             // authorized api
             return (bool) $this->data->media_is_live;
@@ -114,7 +117,7 @@ class HitboxUser extends AbstractModel {
      * @throws HitboxApiException
      */
     public function hasVerifiedEmail(): bool {
-        $request = RequestUtil::doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+        $request = $this->doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
 
         if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
             return false;

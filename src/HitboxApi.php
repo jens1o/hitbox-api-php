@@ -56,7 +56,7 @@ class HitboxApi {
      *
      * @return HitboxAuthToken
      */
-    public static function getAuthToken() {
+    public static function getUserAuthToken() {
         return self::$authToken;
     }
 

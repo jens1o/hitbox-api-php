@@ -10,4 +10,4 @@ namespace jens1o\hitbox\exception;
  * @package    hitbox
  * @subpackage exception
  */
-class HitboxAuthException extends \Exception {}
+class HitboxAuthException extends HitboxApiException {}

@@ -4,6 +4,7 @@ Handles api requests to hitbox nicely!
 ### This libray is not finished nor complete!
 I'll work on it, but it may take some time. At the moment, I'm completing the user object and will go on with implementing the Channel/Media object.
 
+If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/hitbox-api-php/issues/new).
 
 ## Documentation
 
@@ -40,6 +41,8 @@ The following chapter will teach you about the different models this library off
 > Members of the hitbox community, owns streams and can broadcast
 
 #### Get information about a user
+Instantiate a new class with the first parameter being the username as a string.
+
 ```php
 <?php
 use jens1o\hitbox\user\HitboxUser;
@@ -72,7 +75,7 @@ $newUser->user_email; // => someEmail@someHost.tld
 
 > ⚠️ Warning: Check first if there is a matching method. Prefer that! Field names may vary on how you created the user. The methods will return consistent values!
 
-> ℹ️ Tip: You get the auth token by [logging in with user credentials](#build-users-from-other-parameters)
+> ℹ️ Tip: You get the auth token by [logging in with user credentials](#build-users-from-other-parameters) or [use the OAuth flow](#oauth-flow)[not implemented yet].
 
 #### getUserId()
 Returns the id of this user in the database of hitbox.
@@ -129,13 +132,57 @@ $user->isLive(); // => false, user is not streaming
 ```
 
 #### hasVerifiedEmail()
-Todo.
+Returns a bool wether this user had validated their email.
+
+```php
+<?php
+use jens1o\hitbox\user\HitboxUser;
+
+$user = new HitboxUser('jens1o');
+
+$user->hasVerifiedEmail(); // => true, user validated their email
+```
+
+#### getData()
+Returns the raw data this handler fetched from the api, useful for caching purposes.
+```php
+<?php
+
+use jens1o\hitbox\user\HitboxUser;
+
+$user = new HitboxUser('jens1o');
+```
+
+> ️ℹ️ Note: This is useful for runtime caches.
 
 ### Build users from other parameters
-Todo.
+It is also possible to build users from other parameters. This is supposed to be used as caching method. If you've saved the output you can restore the user from it like this:
+
+```php
+<?php
+
+use jens1o\hitbox\user\HitboxUser;
+
+// first time initiate the user
+$user = new HitboxUser('jens1o');
+
+// save data
+$dump = $user->getData();
+
+// ...
+
+// need the user again later
+$restoredUser = new HitboxUser(null, $dump);
+
+// you can work now like before
+$user->user_name; // => jens1o
+
+```
+
+> ️ℹ️ Note: This way the handler won't ask the (slow) hitbox api but uses the data you provided. This is useful for runtime caches. Note you should update the runtime cache at least each 10 minutes.
 
 #### getUserByLogin()
-Todo.
+
 
 #### getUserByToken()
 Todo.
@@ -146,8 +193,12 @@ Todo.
 ## About row parameter
 > todo...
 
+## OAuth flow
+> todo... c:
+
 ## Todo
 - [ ] Implement HitboxChannel Class
+- [ ] Implement OAuth Flow
 - [ ] Finish with every model
 - [ ] Write documentation
 - [ ] Create tests

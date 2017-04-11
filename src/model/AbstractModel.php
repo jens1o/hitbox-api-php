@@ -42,5 +42,13 @@ abstract class AbstractModel implements IModel {
         return null;
     }
 
+    /**
+     * Returns the data this model requested from the api
+     *
+     * @return \stdClass
+     */
+    public function getData(): \stdClass {
+        return $this->data;
+    }
 
 }

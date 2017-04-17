@@ -132,10 +132,10 @@ class HitboxUser extends AbstractModel {
      * @param   string  $userName   The username of the user that you want the info from
      * @param   string  $password   The password of the user
      * @param   string  $app        The type of app this is(defaults to 'desktop')
-     * @return HitboxUser
+     * @return HitboxUser|null
      * @throws HitboxAuthException
      */
-    public static function getUserByLogin(string $userName, string $password, ?string $app = null): HitboxUser {
+    public static function getUserByLogin(string $userName, string $password, ?string $app = null): ?HitboxUser {
         $app = $app ?? 'desktop';
 
         try {

@@ -52,7 +52,7 @@ $user = new HitboxUser('jens1o');
 > ⚠️ Instantiating a user immediately executes a http request to hitbox asking for the account data! You should cache users and avoid instantiating them twice in one period of time(e.g. per request)! If you don't want that a http request is being executed, [you need to pass the account data as a row yourself as second parameter and set the first parameter to `null`](#about-row-parameter).
 
 ##### Get data
-There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.hitbox.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private information) `user_email`, `livestream_count` and `partner_type` will be sent, too.
+There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.hitbox.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private information) `user_email`, `recordings`, `videos`, `teams`, `livestream_count` and `partner_type` will be sent, too.
 
 ```php
 <?php
@@ -160,7 +160,6 @@ It is also possible to build users from other parameters. This is supposed to be
 
 ```php
 <?php
-
 use jens1o\hitbox\user\HitboxUser;
 
 // first time initiate the user
@@ -181,14 +180,61 @@ $user->user_name; // => jens1o
 
 > ️ℹ️ Note: This way the handler won't ask the (slow) hitbox api but uses the data you provided. This is useful for runtime caches. Note you should update the runtime cache at least each 10 minutes.
 
-#### getUserByLogin()
+#### static getUserByLogin()
+It's possible to get a user (with private information) by login with the user credentials.
+```php
+<?php
+use jens1o\hitbox\exception\HitboxAuthException;
+use jens1o\hitbox\user\HitboxUser;
 
+$user = null;
 
-#### getUserByToken()
-Todo.
+try {
+    $user = HitboxUser::getUserByLogin('mycoolusername', 'mycoolpass');
+} catch(HitboxAuthException $e) {
+    // something went wrong with logging in
+}
 
-#### getUserNameByToken()
-Todo.
+// now it's possible to get the user email:
+$user->user_email; // => someaddress@somehost.sometld
+```
+> ️ℹ️ Note: This api throws `HitboxAuthException` instead of `HitboxApiException`.
+
+> ️ℹ️ Note: With the third parameter you are able to change the app. (Most likely you don't use that, it defaults to `desktop`).
+
+#### static getUserByToken()
+Returns the user that is mapped to that auth token.
+```php
+<?php
+
+use jens1o\hitbox\user\HitboxUser;
+
+$authToken = 'SuperSecretAuthToken';
+
+$user = HitboxUser::getUserByToken($authToken);
+
+$user->user_name; // => jens1o
+```
+> ️ℹ️ Note: This api throws `HitboxApiException` when no user is connected to the auth token.
+
+> ️ℹ️ Tip: When you just want the user name, use [HitboxUser::getUserNameByToken($authToken)](#static-getUserNameByToken) instead!
+
+#### static getUserNameByToken()
+Returns the user name that is connected to the auth token.
+```php
+<?php
+use jens1o\hitbox\user\HitboxUser;
+
+$authToken = 'SuperSecretAuthToken';
+
+$user = HitboxUser::getUserNameByToken($authToken);
+
+// user exists:
+echo $user; // => jens1o
+
+// user doesn't exist:
+var_dump($user === null); // => bool(true)
+```
 
 ## About row parameter
 > todo...

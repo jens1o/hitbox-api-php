@@ -1,7 +1,6 @@
 <?php
 namespace jens1o\hitbox\user;
 
-use GuzzleHttp\Exception\GuzzleException;
 use jens1o\hitbox\HitboxApi;
 use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
 use jens1o\hitbox\model\AbstractModel;
@@ -113,7 +112,7 @@ class HitboxUser extends AbstractModel {
     /**
      * Returns wether this user had validated their email
      *
-     * @var bool
+     * @return bool
      * @throws HitboxApiException
      */
     public function hasVerifiedEmail(): bool {
@@ -158,6 +157,7 @@ class HitboxUser extends AbstractModel {
 
     /**
      * Returns the user the token belongs to or null when it is not assigned to anyone
+     *
      * @param   string  $token  The token to check
      * @return HitboxUser|null
      * @throws HitboxApiException When the token is not connected to a user

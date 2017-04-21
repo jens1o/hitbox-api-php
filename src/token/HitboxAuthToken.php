@@ -1,6 +1,7 @@
 <?php
 namespace jens1o\hitbox\token;
 
+use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
 use jens1o\hitbox\util\{HttpMethod, RequestUtil};
 
 /**
@@ -49,7 +50,7 @@ class HitboxAuthToken {
     }
 
     /**
-     * Returns an auth token by logging in with credentials. Returns null when an error occured
+     * Returns an auth token by logging in with credentials. Returns null when an error occurred
      *
      * @return Token|null
      * @throws HitboxAuthException

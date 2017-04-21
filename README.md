@@ -1,7 +1,7 @@
 # hitbox-api-php
 Handles api requests to hitbox nicely!
 
-### This libray is not finished nor complete!
+### This library is not finished nor complete!
 I'll work on it, but it may take some time. At the moment, I'm completing the user object and will go on with implementing the Channel/Media object.
 
 If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/hitbox-api-php/issues/new).
@@ -12,9 +12,10 @@ If something is missing, or something is not well explained or when you have a q
 1. [Hitbox User](#hitbox-user)
     1. [Get information about a user](#get-information-about-a-user)
     2. [Build users from other parameters](#build-users-from-other-parameters)
+    3. [HitboxAuthToken](#hitboxauthtoken)
 
 ### Preample
-**tl;dr**: PHP library, not available via composer, clone it and execute `composer install`
+**tl;dr**: PHP library, not available via composer yet, clone it and execute `composer install`
 
 This is a php library making api requests to hitbox quite easy. It's designed to use models(like `HitboxUser`). It's using the composer autoloader, so if you want to init the library, here's how you go:
 
@@ -151,6 +152,8 @@ Returns the raw data this handler fetched from the api, useful for caching purpo
 use jens1o\hitbox\user\HitboxUser;
 
 $user = new HitboxUser('jens1o');
+
+$data = $user->getData(); // $data holds now the data of the user
 ```
 
 > ️ℹ️ Note: This is useful for runtime caches.
@@ -178,7 +181,7 @@ $user->user_name; // => jens1o
 
 ```
 
-> ️ℹ️ Note: This way the handler won't ask the (slow) hitbox api but uses the data you provided. This is useful for runtime caches. Note you should update the runtime cache at least each 10 minutes.
+> ️ℹ️ Note: This way the handler won't ask the (slow) hitbox api but uses the data you provided. This is useful for runtime caches. Note you should update the cache at least each 10 minutes.
 
 #### static getUserByLogin()
 It's possible to get a user (with private information) by login with the user credentials.
@@ -202,6 +205,8 @@ $user->user_email; // => someaddress@somehost.sometld
 
 > ️ℹ️ Note: With the third parameter you are able to change the app. (Most likely you don't use that, it defaults to `desktop`).
 
+> ️ℹ️ Tip: When you just want the user authtoken, use [HitboxAuthToken::getTokenByLogin()](#static-gettokenbylogin) instead!
+
 #### static getUserByToken()
 Returns the user that is mapped to that auth token.
 ```php
@@ -217,7 +222,7 @@ $user->user_name; // => jens1o
 ```
 > ️ℹ️ Note: This api throws `HitboxApiException` when no user is connected to the auth token.
 
-> ️ℹ️ Tip: When you just want the user name, use [HitboxUser::getUserNameByToken($authToken)](#static-getUserNameByToken) instead!
+> ️ℹ️ Tip: When you just want the user name, use [HitboxUser::getUserNameByToken($authToken)](#static-getusernamebytoken) instead!
 
 #### static getUserNameByToken()
 Returns the user name that is connected to the auth token.
@@ -233,8 +238,33 @@ $user = HitboxUser::getUserNameByToken($authToken);
 echo $user; // => jens1o
 
 // user doesn't exist:
-var_dump($user === null); // => bool(true)
+$user; // => null
 ```
+
+### HitboxAuthToken
+Holds auth token and you can create some.
+
+#### static getTokenByLogin()
+Returns an auth token by the user login and password
+
+```php
+<?php
+use jens1o\hitbox\exception\HitboxAuthException;
+use jens1o\hitbox\token\HitboxAuthToken;
+
+$token = null;
+
+try {
+    $token = HitboxAuthToken::getTokenByLogin('mycoolusername', 'mycoolpass');
+} catch(HitboxAuthException $e) {
+    // something went wrong with logging in
+}
+
+echo 'Your auth token ' . $token; // $token is now a instance of HitboxAuthToken, which provides a __toString() method.
+```
+> ️ℹ️ Note: This api throws `HitboxAuthException` instead of `HitboxApiException`.
+
+> ️ℹ️ Note: With the third parameter you are able to change the app. (Most likely you don't use that, it defaults to `desktop`).
 
 ## About row parameter
 > todo...

@@ -1,13 +1,13 @@
 <?php
-namespace jens1o\hitbox\exception;
+namespace jens1o\smashcast\exception;
 
 /**
- * Thrown when the hitbox api returns some bad response
+ * Thrown when the smashcast api returns some bad response
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    hitbox
+ * @package    smashcast
  * @subpackage exception
  */
-class HitboxApiException extends \Exception {}
+class SmashcastApiException extends \Exception {}

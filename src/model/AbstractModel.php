@@ -1,8 +1,8 @@
 <?php
-namespace jens1o\hitbox\model;
+namespace jens1o\smashcast\model;
 
-use jens1o\hitbox\HitboxApi;
-use jens1o\hitbox\util\RequestUtil;
+use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\util\RequestUtil;
 
 abstract class AbstractModel implements IModel {
 

@@ -1,7 +1,7 @@
 <?php
-namespace jens1o\hitbox\user\logos;
+namespace jens1o\smashcast\user\logos;
 
-use jens1o\hitbox\util\LogoSize;
+use jens1o\smashcast\util\LogoSize;
 
 /**
  * Handles the logos
@@ -9,7 +9,7 @@ use jens1o\hitbox\util\LogoSize;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox\user
+ * @package    jens1o\smashcast\user
  * @subpackage logos
  */
 class LogoHandler {

@@ -1,5 +1,5 @@
 <?php
-namespace jens1o\hitbox\model;
+namespace jens1o\smashcast\model;
 
 /**
  * Represents a model
@@ -7,7 +7,7 @@ namespace jens1o\hitbox\model;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox
+ * @package    jens1o\smashcast
  * @subpackage model
  */
 interface IModel {

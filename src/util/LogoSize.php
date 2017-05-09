@@ -1,5 +1,5 @@
 <?php
-namespace jens1o\hitbox\util;
+namespace jens1o\smashcast\util;
 
 /**
  * Pseudo-ENUM which holds the logo sizes
@@ -7,7 +7,7 @@ namespace jens1o\hitbox\util;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox
+ * @package    jens1o\smashcast
  * @subpackage util
  */
 interface LogoSize {

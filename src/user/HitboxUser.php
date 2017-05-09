@@ -1,22 +1,22 @@
 <?php
-namespace jens1o\hitbox\user;
+namespace jens1o\smashcast\user;
 
-use jens1o\hitbox\HitboxApi;
-use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
-use jens1o\hitbox\model\AbstractModel;
-use jens1o\hitbox\user\logos\LogoHandler;
-use jens1o\hitbox\util\{HttpMethod, LogoSize, RequestUtil};
+use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
+use jens1o\smashcast\model\AbstractModel;
+use jens1o\smashcast\user\logos\LogoHandler;
+use jens1o\smashcast\util\{HttpMethod, LogoSize, RequestUtil};
 
 /**
- * Represents a Hitbox User that can access to channels and media
+ * Represents a smashcast User that can access to channels and media
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox
+ * @package    jens1o\smashcast
  * @subpackage user
  */
-class HitboxUser extends AbstractModel {
+class SmashcastUser extends AbstractModel {
 
     /**
      * @inheritDoc
@@ -31,7 +31,7 @@ class HitboxUser extends AbstractModel {
 
     /**
      * Creates a new User object.
-     * **Warning!** This executes immediately a request to hitbox fetching all data when `$row` is not provided!
+     * **Warning!** This executes immediately a request to smashcast fetching all data when `$row` is not provided!
      *
      * @param   string|null     $identifier   The name of the user, can be `null` when `$row` is provided
      * @param   mixed[]|null    $row        All information about the user fetched from the api, can be `null` when `$userName` is provided
@@ -113,7 +113,7 @@ class HitboxUser extends AbstractModel {
      * Returns wether this user had validated their email
      *
      * @return bool
-     * @throws HitboxApiException
+     * @throws SmashcastApiException
      */
     public function hasVerifiedEmail(): bool {
         $request = $this->doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
@@ -131,10 +131,10 @@ class HitboxUser extends AbstractModel {
      * @param   string  $userName   The username of the user that you want the info from
      * @param   string  $password   The password of the user
      * @param   string  $app        The type of app this is(defaults to 'desktop')
-     * @return HitboxUser|null
-     * @throws HitboxAuthException
+     * @return smashcastUser|null
+     * @throws SmashcastAuthException
      */
-    public static function getUserByLogin(string $userName, string $password, ?string $app = null): ?HitboxUser {
+    public static function getUserByLogin(string $userName, string $password, ?string $app = null): ?smashcastUser {
         $app = $app ?? 'desktop';
 
         try {
@@ -146,8 +146,8 @@ class HitboxUser extends AbstractModel {
                 ],
                 'noAuthToken' => true
             ]);
-        } catch(HitboxApiException $e) {
-            throw new HitboxAuthException('Cannot authenticate with hitbox api! Check username or password.', 0, $e);
+        } catch(SmashcastApiException $e) {
+            throw new SmashcastAuthException('Cannot authenticate with smashcast api! Check username or password.', 0, $e);
             return null;
         }
 
@@ -159,14 +159,14 @@ class HitboxUser extends AbstractModel {
      * Returns the user the token belongs to or null when it is not assigned to anyone
      *
      * @param   string  $token  The token to check
-     * @return HitboxUser|null
-     * @throws HitboxApiException When the token is not connected to a user
+     * @return smashcastUser|null
+     * @throws SmashcastApiException When the token is not connected to a user
      */
-    public static function getUserByToken(string $token): ?HitboxUser {
+    public static function getUserByToken(string $token): ?smashcastUser {
         $userName = static::getUserNameByToken($token);
 
         if($userName === null) {
-            throw new HitboxApiException('The auth token is not in use by somebody!');
+            throw new SmashcastApiException('The auth token is not in use by somebody!');
             return null;
         }
 

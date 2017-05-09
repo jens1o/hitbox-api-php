@@ -1,23 +1,23 @@
-# hitbox-api-php
-Handles api requests to hitbox nicely!
+# smashcast-api-php
+Handles api requests to smashcast nicely!
 
 ### This library is not finished nor complete!
 I'll work on it, but it may take some time. At the moment, I'm completing the user object and will go on with implementing the Channel/Media object.
 
-If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/hitbox-api-php/issues/new).
+If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php/issues/new).
 
 ## Documentation
 
 0. [Preample](#preample)
-1. [Hitbox User](#hitbox-user)
+1. [smashcast User](#smashcast-user)
     1. [Get information about a user](#get-information-about-a-user)
     2. [Build users from other parameters](#build-users-from-other-parameters)
-    3. [HitboxAuthToken](#hitboxauthtoken)
+    3. [SmashcastAuthToken](#SmashcastAuthToken)
 
-### Preample
+### Preamble
 **tl;dr**: PHP library, not available via composer yet, clone it and execute `composer install`
 
-This is a php library making api requests to hitbox quite easy. It's designed to use models(like `HitboxUser`). It's using the composer autoloader, so if you want to init the library, here's how you go:
+This is a php library making api requests to smashcast quite easy. It's designed to use models(like `SmashcastUser`). It's using the composer autoloader, so if you want to init the library, here's how you go:
 
 0. Make sure you meet the requirements of this lib:
     - PHP 7.1+
@@ -35,41 +35,41 @@ require_once 'vendor/autoload.php';
 ```
 4. Use the lib.
 
-The exception thrown when something went wrong is `jens1o\hitbox\exception\HitboxApiException`. When authentication goes wrong it is `jens1o\hitbox\exception\HitboxAuthException`(extends `HitboxApiException`). You should catch them in any case and handle failures!
+The exception thrown when something went wrong is `jens1o\smashcast\exception\SmashcastApiException`. When authentication goes wrong it is `jens1o\smashcast\exception\SmashcastAuthException`(extends `SmashcastApiException`). You should catch them in any case and handle failures!
 
 The following chapter will teach you about the different models this library offers at the moment. If you feel something is missing, feel free to create a pr. Also, if you want to improve the English(fix grammar and spelling mistakes) in this documentation, it would be quite nice!
-### Hitbox User
-> Members of the hitbox community, owns streams and can broadcast
+### Smashcast User
+> Members of the Smashcast community, owns streams and can broadcast
 
 #### Get information about a user
 Instantiate a new class with the first parameter being the username as a string.
 
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 ```
-> ⚠️ Instantiating a user immediately executes a http request to hitbox asking for the account data! You should cache users and avoid instantiating them twice in one period of time(e.g. per request)! If you don't want that a http request is being executed, [you need to pass the account data as a row yourself as second parameter and set the first parameter to `null`](#about-row-parameter).
+> ⚠️ Instantiating a user immediately executes a http request to smashcast asking for the account data! You should cache users and avoid instantiating them twice in one period of time(e.g. per request)! If you don't want that a http request is being executed, [you need to pass the account data as a row yourself as second parameter and set the first parameter to `null`](#about-row-parameter).
 
 ##### Get data
-There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.hitbox.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private information) `user_email`, `recordings`, `videos`, `teams`, `livestream_count` and `partner_type` will be sent, too.
+There is a `__get()` method implemented, with this you can fetch data. See [the documentation](http://developers.smashcast.tv/#get-user-object) for the exact field names. When you have an auth token set(or login in with private information) `user_email`, `recordings`, `videos`, `teams`, `livestream_count` and `partner_type` will be sent, too.
 
 ```php
 <?php
-use jens1o\hitbox\HitboxApi;
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\user\smashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $user->user_name; // => jens1o
 
 $user->user_email; // => null
 
 // set user auth token
-HitboxApi::setUserAuthToken('HeyItsMyToken');
+SmashcastApi::setUserAuthToken('HeyItsMyToken');
 
-$newUser = new HitboxUser('jens1o');
+$newUser = new SmashcastUser('jens1o');
 
 $newUser->user_email; // => someEmail@someHost.tld
 ```
@@ -79,32 +79,32 @@ $newUser->user_email; // => someEmail@someHost.tld
 > ℹ️ Tip: You get the auth token by [logging in with user credentials](#build-users-from-other-parameters) or [use the OAuth flow](#oauth-flow)[not implemented yet].
 
 #### getUserId()
-Returns the id of this user in the database of hitbox.
+Returns the id of this user in the database of smashcast.
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $user->getUserId(); // => 1472612
 ```
-> ℹ️ Tip: This can also return `null` when the user does not exist; it is used internally for checking users, see [HitboxUser#exists()](#exists).
+> ℹ️ Tip: This can also return `null` when the user does not exist; it is used internally for checking users, see [SmashcastUser#exists()](#exists).
 
 #### exists()
 Returns wether this user exists. It should be called before requiring any data!
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $user->exists(); // => true
 
-$notExistingUser = new HitboxUser('jsopadjasdjofajfp');
+$notExistingUser = new SmashcastUser('jsopadjasdjofajfp');
 
 $notExistingUser->exists(); // => false
 ```
-> ️ℹ️ Note: This uses internally [HitboxUser#getUserId()](#getUserId) and checks wether it is null or not.
+> ️ℹ️ Note: This uses internally [SmashcastUser#getUserId()](#getUserId) and checks wether it is null or not.
 
 #### getLogos()
 Returns an instance of [LogoHandler](#logohandler) when the user exists.
@@ -113,11 +113,11 @@ Throws the exception `\BadMethodCallException` when the user does not exist.
 
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
-$user->getLogos(); // => instance of jens1o\hitbox\user\logos\LogoHandler
+$user->getLogos(); // => instance of jens1o\smashcast\user\logos\LogoHandler
 ```
 
 #### isLive()
@@ -125,9 +125,9 @@ Returns a bool wether the user is live at the moment.
 
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\smashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $user->isLive(); // => false, user is not streaming
 ```
@@ -137,9 +137,9 @@ Returns a bool wether this user had validated their email.
 
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\smashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $user->hasVerifiedEmail(); // => true, user validated their email
 ```
@@ -149,9 +149,9 @@ Returns the raw data this handler fetched from the api, useful for caching purpo
 ```php
 <?php
 
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 $data = $user->getData(); // $data holds now the data of the user
 ```
@@ -163,10 +163,10 @@ It is also possible to build users from other parameters. This is supposed to be
 
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 // first time initiate the user
-$user = new HitboxUser('jens1o');
+$user = new SmashcastUser('jens1o');
 
 // save data
 $dump = $user->getData();
@@ -174,65 +174,65 @@ $dump = $user->getData();
 // ...
 
 // need the user again later
-$restoredUser = new HitboxUser(null, $dump);
+$restoredUser = new SmashcastUser(null, $dump);
 
 // you can work now like before
 $user->user_name; // => jens1o
 
 ```
 
-> ️ℹ️ Note: This way the handler won't ask the (slow) hitbox api but uses the data you provided. This is useful for runtime caches. Note you should update the cache at least each 10 minutes.
+> ️ℹ️ Note: This way the handler won't ask the (slow) smashcast api but uses the data you provided. This is useful for runtime caches. Note you should update the cache at least each 10 minutes.
 
 #### static getUserByLogin()
 It's possible to get a user (with private information) by login with the user credentials.
 ```php
 <?php
-use jens1o\hitbox\exception\HitboxAuthException;
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\exception\SmashcastAuthException;
+use jens1o\smashcast\user\SmashcastUser;
 
 $user = null;
 
 try {
-    $user = HitboxUser::getUserByLogin('mycoolusername', 'mycoolpass');
-} catch(HitboxAuthException $e) {
+    $user = SmashcastUser::getUserByLogin('mycoolusername', 'mycoolpass');
+} catch(SmashcastAuthException $e) {
     // something went wrong with logging in
 }
 
 // now it's possible to get the user email:
 $user->user_email; // => someaddress@somehost.sometld
 ```
-> ️ℹ️ Note: This api throws `HitboxAuthException` instead of `HitboxApiException`.
+> ️ℹ️ Note: This api throws `SmashcastAuthException` instead of `SmashcastApiException`.
 
 > ️ℹ️ Note: With the third parameter you are able to change the app. (Most likely you don't use that, it defaults to `desktop`).
 
-> ️ℹ️ Tip: When you just want the user authtoken, use [HitboxAuthToken::getTokenByLogin()](#static-gettokenbylogin) instead!
+> ️ℹ️ Tip: When you just want the user authtoken, use [SmashcastAuthToken::getTokenByLogin()](#static-gettokenbylogin) instead!
 
 #### static getUserByToken()
 Returns the user that is mapped to that auth token.
 ```php
 <?php
 
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 $authToken = 'SuperSecretAuthToken';
 
-$user = HitboxUser::getUserByToken($authToken);
+$user = SmashcastUser::getUserByToken($authToken);
 
 $user->user_name; // => jens1o
 ```
-> ️ℹ️ Note: This api throws `HitboxApiException` when no user is connected to the auth token.
+> ️ℹ️ Note: This api throws `SmashcastApiException` when no user is connected to the auth token.
 
-> ️ℹ️ Tip: When you just want the user name, use [HitboxUser::getUserNameByToken($authToken)](#static-getusernamebytoken) instead!
+> ️ℹ️ Tip: When you just want the user name, use [smashcastUser::getUserNameByToken($authToken)](#static-getusernamebytoken) instead!
 
 #### static getUserNameByToken()
 Returns the user name that is connected to the auth token.
 ```php
 <?php
-use jens1o\hitbox\user\HitboxUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 $authToken = 'SuperSecretAuthToken';
 
-$user = HitboxUser::getUserNameByToken($authToken);
+$user = SmashcastUser::getUserNameByToken($authToken);
 
 // user exists:
 echo $user; // => jens1o
@@ -241,7 +241,7 @@ echo $user; // => jens1o
 $user; // => null
 ```
 
-### HitboxAuthToken
+### SmashcastAuthToken
 Holds auth token and you can create some.
 
 #### static getTokenByLogin()
@@ -249,20 +249,20 @@ Returns an auth token by the user login and password
 
 ```php
 <?php
-use jens1o\hitbox\exception\HitboxAuthException;
-use jens1o\hitbox\token\HitboxAuthToken;
+use jens1o\smashcast\exception\SmashcastAuthException;
+use jens1o\smashcast\token\SmashcastAuthToken;
 
 $token = null;
 
 try {
-    $token = HitboxAuthToken::getTokenByLogin('mycoolusername', 'mycoolpass');
-} catch(HitboxAuthException $e) {
+    $token = SmashcastAuthToken::getTokenByLogin('mycoolusername', 'mycoolpass');
+} catch(SmashcastAuthException $e) {
     // something went wrong with logging in
 }
 
-echo 'Your auth token ' . $token; // $token is now a instance of HitboxAuthToken, which provides a __toString() method.
+echo 'Your auth token ' . $token; // $token is now a instance of SmashcastAuthToken, which provides a __toString() method.
 ```
-> ️ℹ️ Note: This api throws `HitboxAuthException` instead of `HitboxApiException`.
+> ️ℹ️ Note: This api throws `SmashcastAuthException` instead of `SmashcastApiException`.
 
 > ️ℹ️ Note: With the third parameter you are able to change the app. (Most likely you don't use that, it defaults to `desktop`).
 
@@ -273,7 +273,7 @@ echo 'Your auth token ' . $token; // $token is now a instance of HitboxAuthToken
 > todo... c:
 
 ## Todo
-- [ ] Implement HitboxChannel Class
+- [ ] Implement SmashcastChannel Class
 - [ ] Implement OAuth Flow
 - [ ] Finish with every model
 - [ ] Write documentation

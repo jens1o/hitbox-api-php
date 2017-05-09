@@ -1,6 +1,6 @@
 {
-    "name": "jens1o/hitbox-api-php",
-    "description": "Handles api requests to hitbox nicely!",
+    "name": "jens1o/smashcast-api-php",
+    "description": "Handles api requests to smashcast nicely!",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -16,7 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "jens1o\\hitbox\\" : "src/"
+            "jens1o\\smashcast\\" : "src/"
         }
     }
 }

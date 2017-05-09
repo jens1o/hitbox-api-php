@@ -1,8 +1,8 @@
 <?php
-namespace jens1o\hitbox\token;
+namespace jens1o\smashcast\token;
 
-use jens1o\hitbox\exception\{HitboxApiException, HitboxAuthException};
-use jens1o\hitbox\util\{HttpMethod, RequestUtil};
+use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
+use jens1o\smashcast\util\{HttpMethod, RequestUtil};
 
 /**
  * Provides useful methods for auth tokens and holds them
@@ -10,10 +10,10 @@ use jens1o\hitbox\util\{HttpMethod, RequestUtil};
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox
+ * @package    jens1o\smashcast
  * @subpackage token
  */
-class HitboxAuthToken {
+class SmashcastAuthToken {
 
     /**
      * Holds the token string
@@ -42,7 +42,7 @@ class HitboxAuthToken {
     /**
      * Returns the token as plain text
      *
-     * @see HitboxAuthToken::getToken()
+     * @see SmashcastAuthToken::getToken()
      * @return string
      */
     public function __toString() {
@@ -53,9 +53,9 @@ class HitboxAuthToken {
      * Returns an auth token by logging in with credentials. Returns null when an error occurred
      *
      * @return Token|null
-     * @throws HitboxAuthException
+     * @throws SmashcastAuthException
      */
-    public static function getTokenByLogin(string $userName, string $password, ?string $app = null): ?HitboxAuthToken {
+    public static function getTokenByLogin(string $userName, string $password, ?string $app = null): ?SmashcastAuthToken {
         $app = $app ?? 'desktop';
 
         try {
@@ -67,8 +67,8 @@ class HitboxAuthToken {
                 ],
                 'noAuthToken' => true
             ]);
-        } catch(HitboxApiException $e) {
-            throw new HitboxAuthException('Cannot authenticate with hitbox api! Check username or password.', 0, $e);
+        } catch(SmashcastApiException $e) {
+            throw new SmashcastAuthException('Cannot authenticate with smashcast api! Check username or password.', 0, $e);
             return null;
         }
 
@@ -76,6 +76,29 @@ class HitboxAuthToken {
             return new self((string) $request->authToken);
         }
         return null;
+    }
+
+    /**
+     * Returns wether this token is valid by the provided app id
+     *
+     * @param   string  $appId  The app id
+     * @return bool
+     */
+    public function isValid(string $appId): bool {
+        try {
+            $request = RequestUtil::doRequest(HttpMethod::GET, '/auth/valid/' . $appId . '?token=' . $this->getToken, [
+                'query' => [
+                    'token' => $this->getToken()
+                ]
+            ]);
+        } catch(SmashcastApiException $e) {
+            var_dump($e);
+            return false;
+        }
+
+        if($request->error) return false; // should never happen, fallback
+
+        return true;
     }
 
     // TODO: Add useful methods when implementing them right

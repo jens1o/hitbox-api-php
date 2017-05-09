@@ -1,8 +1,8 @@
 <?php
-namespace jens1o\hitbox\user\logos;
+namespace jens1o\smashcast\user\logos;
 
-use jens1o\hitbox\HitboxApi;
-use jens1o\hitbox\util\HttpMethod;
+use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\util\HttpMethod;
 
 /**
  * Represents a logo that can be downloaded or just refers to a link
@@ -10,7 +10,7 @@ use jens1o\hitbox\util\HttpMethod;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox\user
+ * @package    jens1o\smashcast\user
  * @subpackage logos
  */
 class Logo {
@@ -70,13 +70,13 @@ class Logo {
         }
 
         try {
-            $stream = HitboxApi::getClient()
+            $stream = smashcastApi::getClient()
                 ->request(HttpMethod::GET, $this->getPath())
                 ->getBody()
                 ->getContents();
         } catch(\RuntimeException $e) {
             // rethrow exception
-            throw new HitboxApiException('Cannot download the logo!', 0, $e);
+            throw new SmashcastApiException('Cannot download the logo!', 0, $e);
             return null;
         }
 
@@ -90,7 +90,7 @@ class Logo {
      * @var string
      */
     public function getPath(): string {
-        return HitboxApi::IMAGE_URL . $this->url;
+        return smashcastApi::IMAGE_URL . $this->url;
     }
 
     /**

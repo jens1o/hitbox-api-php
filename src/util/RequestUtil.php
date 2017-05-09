@@ -1,9 +1,9 @@
 <?php
-namespace jens1o\hitbox\util;
+namespace jens1o\smashcast\util;
 
 use GuzzleHttp\Exception\GuzzleException;
-use jens1o\hitbox\HitboxApi;
-use jens1o\hitbox\exception\HitboxApiException;
+use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\exception\SmashcastApiException;
 
 /**
  * Manages requests (moved to here so static models can use it too)
@@ -11,7 +11,7 @@ use jens1o\hitbox\exception\HitboxApiException;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\hitbox
+ * @package    jens1o\smashcast
  * @subpackage util
  */
 class RequestUtil {
@@ -30,12 +30,12 @@ class RequestUtil {
      * @param   bool        $needsAuthToken     Wether this request **requires** an auth token.
      * @return mixed[]|null
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
-     * @throws HitboxApiException
+     * @throws SmashcastApiException
      */
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
         $needsAuthToken = $needsAuthToken ?? false;
 
-        $authToken = HitboxApi::getUserAuthToken();
+        $authToken = smashcastApi::getUserAuthToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;
 
@@ -46,17 +46,17 @@ class RequestUtil {
                 $parameters['query']['authToken'] = $authToken->getToken();
             }
         } elseif($needsAuthToken) {
-            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with HitboxApi::setAuthToken($authToken)!');
+            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with smashcastApi::setAuthToken($authToken)!');
         }
 
         unset($parameters['appendAuthToken']);
         unset($parameters['noAuthToken']);
 
         try {
-            self::$lastRequest = HitboxApi::getClient()->request($method, $path, $parameters);
+            self::$lastRequest = smashcastApi::getClient()->request($method, $path, $parameters);
         } catch(GuzzleException $e) {
             // rethrow exception
-            throw new HitboxApiException('Fetching data from the hitbox api failed!', 0, $e);
+            throw new SmashcastApiException('Fetching data from the smashcast api failed!', 0, $e);
             return null;
         }
 

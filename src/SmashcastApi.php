@@ -28,7 +28,7 @@ class SmashcastApi {
     /**
      * Holds the version string of this handler
      */
-    public const VERSION = '0.0.1 dev';
+    public const VERSION = '0.0.2 dev';
 
     /**
      * Holds the http client that connects to the api

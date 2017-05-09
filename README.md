@@ -58,7 +58,7 @@ There is a `__get()` method implemented, with this you can fetch data. See [the 
 ```php
 <?php
 use jens1o\smashcast\SmashcastApi;
-use jens1o\smashcast\user\smashcastUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 $user = new SmashcastUser('jens1o');
 
@@ -125,7 +125,7 @@ Returns a bool wether the user is live at the moment.
 
 ```php
 <?php
-use jens1o\smashcast\user\smashcastUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 $user = new SmashcastUser('jens1o');
 
@@ -137,7 +137,7 @@ Returns a bool wether this user had validated their email.
 
 ```php
 <?php
-use jens1o\smashcast\user\smashcastUser;
+use jens1o\smashcast\user\SmashcastUser;
 
 $user = new SmashcastUser('jens1o');
 
@@ -222,7 +222,7 @@ $user->user_name; // => jens1o
 ```
 > ️ℹ️ Note: This api throws `SmashcastApiException` when no user is connected to the auth token.
 
-> ️ℹ️ Tip: When you just want the user name, use [smashcastUser::getUserNameByToken($authToken)](#static-getusernamebytoken) instead!
+> ️ℹ️ Tip: When you just want the user name, use [SmashcastUser::getUserNameByToken($authToken)](#static-getusernamebytoken) instead!
 
 #### static getUserNameByToken()
 Returns the user name that is connected to the auth token.

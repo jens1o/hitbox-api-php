@@ -133,10 +133,10 @@ class SmashcastUser extends AbstractModel {
      * @param   string  $userName   The username of the user that you want the info from
      * @param   string  $password   The password of the user
      * @param   string  $app        The type of app this is(defaults to 'desktop')
-     * @return smashcastUser|null
+     * @return SmashcastUser|null
      * @throws SmashcastAuthException
      */
-    public static function getUserByLogin(string $userName, string $password, ?string $app = null): ?smashcastUser {
+    public static function getUserByLogin(string $userName, string $password, ?string $app = null): ?SmashcastUser {
         $app = $app ?? 'desktop';
 
         try {
@@ -161,10 +161,10 @@ class SmashcastUser extends AbstractModel {
      * Returns the user the token belongs to or null when it is not assigned to anyone
      *
      * @param   string  $token  The token to check
-     * @return smashcastUser|null
+     * @return SmashcastUser|null
      * @throws SmashcastApiException When the token is not connected to a user
      */
-    public static function getUserByToken(string $token): ?smashcastUser {
+    public static function getUserByToken(string $token): ?SmashcastUser {
         $userName = static::getUserNameByToken($token);
 
         if($userName === null) {

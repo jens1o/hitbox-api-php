@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\model;
 
-use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\util\RequestUtil;
 
 abstract class AbstractModel implements IModel {

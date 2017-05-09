@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\user;
 
-use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\user\logos\LogoHandler;

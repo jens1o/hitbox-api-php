@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\user\logos;
 
-use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\util\HttpMethod;
 
 /**
@@ -70,7 +70,7 @@ class Logo {
         }
 
         try {
-            $stream = smashcastApi::getClient()
+            $stream = SmashcastApi::getClient()
                 ->request(HttpMethod::GET, $this->getPath())
                 ->getBody()
                 ->getContents();
@@ -90,7 +90,7 @@ class Logo {
      * @var string
      */
     public function getPath(): string {
-        return smashcastApi::IMAGE_URL . $this->url;
+        return SmashcastApi::IMAGE_URL . $this->url;
     }
 
     /**

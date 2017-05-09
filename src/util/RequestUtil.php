@@ -2,7 +2,7 @@
 namespace jens1o\smashcast\util;
 
 use GuzzleHttp\Exception\GuzzleException;
-use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 
 /**
@@ -35,7 +35,7 @@ class RequestUtil {
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
         $needsAuthToken = $needsAuthToken ?? false;
 
-        $authToken = smashcastApi::getUserAuthToken();
+        $authToken = SmashcastApi::getUserAuthToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;
 
@@ -46,14 +46,14 @@ class RequestUtil {
                 $parameters['query']['authToken'] = $authToken->getToken();
             }
         } elseif($needsAuthToken) {
-            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with smashcastApi::setAuthToken($authToken)!');
+            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with SmashcastApi::setAuthToken($authToken)!');
         }
 
         unset($parameters['appendAuthToken']);
         unset($parameters['noAuthToken']);
 
         try {
-            self::$lastRequest = smashcastApi::getClient()->request($method, $path, $parameters);
+            self::$lastRequest = SmashcastApi::getClient()->request($method, $path, $parameters);
         } catch(GuzzleException $e) {
             // rethrow exception
             throw new SmashcastApiException('Fetching data from the smashcast api failed!', 0, $e);

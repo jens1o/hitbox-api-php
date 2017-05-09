@@ -13,7 +13,7 @@ use jens1o\smashcast\token\SmashcastAuthToken;
  * @package    jens1o
  * @subpackage smashcast
  */
-class smashcastApi {
+class SmashcastApi {
 
     /**
      * The base url for accessing the api

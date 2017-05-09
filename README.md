@@ -57,7 +57,7 @@ There is a `__get()` method implemented, with this you can fetch data. See [the 
 
 ```php
 <?php
-use jens1o\smashcast\smashcastApi;
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\user\smashcastUser;
 
 $user = new SmashcastUser('jens1o');

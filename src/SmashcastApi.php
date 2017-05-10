@@ -67,9 +67,9 @@ class SmashcastApi {
     public static function getClient() {
         if(self::$client === null) {
             self::$client = new Client([
-                'base_uri' => self::BASE_URL,
+                'base_uri' => static::BASE_URL,
                 'timeout' => 7,
-                'User-Agent' => 'jens1o/smashcast-api-php v' . self::VERSION
+                'User-Agent' => 'jens1o/smashcast-api-php v' . static::VERSION
             ]);
         }
 

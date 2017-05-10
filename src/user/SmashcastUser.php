@@ -161,18 +161,28 @@ class SmashcastUser extends AbstractModel {
      * Returns the user the token belongs to or null when it is not assigned to anyone
      *
      * @param   string  $token  The token to check
+     * @param   string  $app    For which app this 
      * @return SmashcastUser|null
      * @throws SmashcastApiException When the token is not connected to a user
      */
-    public static function getUserByToken(string $token): ?SmashcastUser {
-        $userName = static::getUserNameByToken($token);
+    public static function getUserByToken(string $token, string $app = null): ?SmashcastUser {
+        $app = $app ?? 'desktop';
 
-        if($userName === null) {
-            throw new SmashcastApiException('The auth token is not in use by somebody!');
+        try {
+            $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/login', [
+                'json' => [
+                    'app' => $app,
+                    'authToken' => $token
+                ],
+                'noAuthToken' => true
+            ]);
+        } catch(SmashcastApiException $e) {
+            throw new SmashcastAuthException('The token does not belong to any user!', 0, $e);
             return null;
         }
 
-        return new self($userName, null);
+
+        return new self(null, $request);
     }
 
     /**

@@ -43,6 +43,29 @@ class SmashcastApi {
     private static $authToken = null;
 
     /**
+     * The app name this client uses
+     * @var string
+     */
+    private static $appName = 'desktop';
+
+    /**
+     * Sets the app name this client uses
+     * @var string
+     */
+    public static function setAppName(string $appName) {
+        self::$appName = $appName;
+    }
+
+    /**
+     * Gets the app name this client uses
+     *
+     * @return string
+     */
+    public static function getAppName(): string {
+        return self::$appName;
+    }
+
+    /**
      * Sets the auth token
      *
      * @param   SmashcastAuthToken  $token  The auth token you'd got from a previous request

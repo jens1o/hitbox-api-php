@@ -56,7 +56,7 @@ class SmashcastAuthToken {
      * @throws SmashcastAuthException
      */
     public static function getTokenByLogin(string $userName, string $password, ?string $app = null): ?SmashcastAuthToken {
-        $app = $app ?? 'desktop';
+        $app = $app ?? SmashcastApi::getAppName();
 
         try {
             $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/token', [

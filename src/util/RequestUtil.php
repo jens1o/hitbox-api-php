@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\util;
 
-use GuzzleHttp\Exception\{GuzzleException, ClientException};
+use GuzzleHttp\Exception\{ClientException, GuzzleException};
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 

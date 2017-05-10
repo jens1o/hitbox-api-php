@@ -1,6 +1,7 @@
 <?php
 namespace jens1o\smashcast\token;
 
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
 use jens1o\smashcast\util\{HttpMethod, RequestUtil};
 

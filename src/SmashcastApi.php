@@ -49,8 +49,20 @@ class SmashcastApi {
     private static $appName = 'desktop';
 
     /**
-     * Sets the app name this client uses
-     * @var string
+     * Inits the client which will connect to Smashcast's api
+     *
+     * @param   string  $appName    The app name this client uses for requests.
+     */
+    public function __construct(string $appName = null) {
+        if($appName !== null) {
+            static::setAppName($appName);
+        }
+    }
+
+    /**
+     * Sets the app name this client uses. You should call this on startup!
+     *
+     * @param   string  $appName    The app name this client should use.
      */
     public static function setAppName(string $appName) {
         self::$appName = $appName;

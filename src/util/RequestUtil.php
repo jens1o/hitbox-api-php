@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\util;
 
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\{GuzzleException, ClientException};
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 
@@ -55,6 +55,20 @@ class RequestUtil {
         try {
             self::$lastRequest = SmashcastApi::getClient()->request($method, $path, $parameters);
         } catch(GuzzleException $e) {
+            /*
+                A little note on this if-statement:
+                Yeah, I know I can create a new catch-block, but I want that only one exception will be rethrown.
+            */
+            if($e instanceof ClientException && $e->getResponse()->getStatusCode() === 400) {
+                // try to encode
+                $response = @json_decode($e->getResponse()->getBody());
+                if(json_last_error() === JSON_ERROR_NONE && isset($response->error_msg)) {
+                    switch($response->error_msg) {
+                        case 'invalid_app':
+                            throw new SmashcastApiException('The app you defined with HitboxApi#setAppName is not registered at hitbox!');
+                    }
+                }
+            }
             // rethrow exception
             throw new SmashcastApiException('Fetching data from the smashcast api failed!', 0, $e);
             return null;

@@ -19,11 +19,6 @@ use jens1o\smashcast\util\{HttpMethod, LogoSize, RequestUtil};
 class SmashcastUser extends AbstractModel {
 
     /**
-     * @inheritDoc
-     */
-    public $appendAuthToken = false;
-
-    /**
      * Holds the logos
      * @var LogoHandler
      */
@@ -64,7 +59,7 @@ class SmashcastUser extends AbstractModel {
      * @return bool
      */
     public function exists(): bool {
-        return ($this->data->user_id !== null);
+        return $this->data->user_id !== null;
     }
 
     /**

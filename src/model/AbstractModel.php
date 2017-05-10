@@ -12,12 +12,6 @@ abstract class AbstractModel implements IModel {
      */
     public $data = null;
 
-
-    /**
-     * Wether the optional auth token will be appended or set via a GET parameter
-     */
-    private $appendAuthToken = false;
-
     /**
      * Executes the request and returns a json-decoded array
      *

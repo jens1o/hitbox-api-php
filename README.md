@@ -278,3 +278,4 @@ echo 'Your auth token ' . $token; // $token is now a instance of SmashcastAuthTo
 - [ ] Finish with every model
 - [ ] Write documentation
 - [ ] Create tests
+- [ ] Implement chat

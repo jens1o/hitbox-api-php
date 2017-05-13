@@ -28,7 +28,7 @@ class SmashcastApi {
     /**
      * Holds the version string of this handler
      */
-    public const VERSION = '0.0.2 dev';
+    public const VERSION = '0.3.0 dev';
 
     /**
      * Holds the http client that connects to the api
@@ -46,17 +46,31 @@ class SmashcastApi {
      * The app name this client uses
      * @var string
      */
-    private static $appName = 'desktop';
+    private static $appName = '';
+
+    /**
+     * The token for this app(required when using oauth things)
+     * @var string|null
+     */
+    private static $appToken = null;
+
+    /**
+     * The secret for this app(required when using oauth things)
+     * @var string|null
+     */
+    private static $appSecret = null;
 
     /**
      * Inits the client which will connect to Smashcast's api
      *
-     * @param   string  $appName    The app name this client uses for requests.
+     * @param   string  $appName    The app name this client uses for requests. (default `desktop`)
+     * @param   string  $appToken   The token for this app
+     * @param   string  $appSecret  The secret for this app
      */
-    public function __construct(string $appName = null) {
-        if($appName !== null) {
-            static::setAppName($appName);
-        }
+    public function __construct(?string $appName = null, ?string $appToken = null, ?string $appSecret = null) {
+        static::setAppName($appName ?? 'desktop');
+        static::setAppToken($appToken);
+        static::setAppSecret($appSecret);
     }
 
     /**
@@ -75,6 +89,42 @@ class SmashcastApi {
      */
     public static function getAppName(): string {
         return self::$appName;
+    }
+
+    /**
+     * Sets the app token this clients used. Necessary when using oauth.
+     *
+     * @param   string|null     $appToken   The app token.
+     */
+    public static function setAppToken(?string $appToken = null) {
+        self::$appToken = $appToken;
+    }
+
+    /**
+     * Returns the app token this client uses
+     *
+     * @return string
+     */
+    public static function getAppToken(): ?string {
+        return self::$appToken;
+    }
+
+    /**
+     * Sets the app secret this clients used. Necessary when using oauth.
+     *
+     * @param   string|null     $appSecret   The app token.
+     */
+    public static function setAppSecret(?string $appSecret = null) {
+        self::$appSecret = $appSecret;
+    }
+
+    /**
+     * Returns the app secret this client uses
+     *
+     * @return string
+     */
+    public static function getAppSecret(): ?string {
+        return self::$appSecret;
     }
 
     /**
@@ -99,7 +149,7 @@ class SmashcastApi {
      * Returns the client that should be used to connect to their api
      * @return Client
      */
-    public static function getClient() {
+    public static function getClient(): Client {
         if(self::$client === null) {
             self::$client = new Client([
                 'base_uri' => static::BASE_URL,

@@ -111,6 +111,7 @@ class SmashcastUser extends AbstractModel {
      * @throws SmashcastApiException
      */
     public function hasVerifiedEmail(): bool {
+        // Smashcast's api handles this right, however we can save some time
         if(!$this->exists()) return false;
 
         $request = $this->doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
@@ -195,4 +196,8 @@ class SmashcastUser extends AbstractModel {
         return null;
     }
 
+    /*
+     NOTE:
+     When updating the user profile, send `user_id` and `user_name` in any case. These might not be changed!
+    */
 }

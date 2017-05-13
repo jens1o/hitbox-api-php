@@ -23,6 +23,12 @@ class RequestUtil {
     private static $lastRequest = null;
 
     /**
+     * Holds the decoded json of the latest request
+     * @var mixed|mixed[]
+     */
+    private static $lastRequestJson = null;
+
+    /**
      * Executes the request and returns a json-decoded array
      *
      * @param   string      $method             With which http method it should request
@@ -65,7 +71,7 @@ class RequestUtil {
                 if(json_last_error() === JSON_ERROR_NONE && isset($response->error_msg)) {
                     switch($response->error_msg) {
                         case 'invalid_app':
-                            throw new SmashcastApiException('The app you defined with HitboxApi#setAppName is not registered at hitbox!');
+                            throw new SmashcastApiException('The app you defined with SmashcastApi#setAppName is not registered at hitbox!');
                     }
                 }
             }
@@ -74,7 +80,15 @@ class RequestUtil {
             return null;
         }
 
-        return json_decode(self::$lastRequest->getBody());
+        $json = @json_decode(self::$lastRequest->getBody());
+        self::$lastRequestJson = $json;
+        if($json === null || json_last_error() !== JSON_ERROR_NONE) {
+            throw new SmashcastApiException('Smashcast api didn\'t respond with valid json, maybe an error occurred?');
+        } elseif((isset($json->error) && $json->error === true)) {
+            throw new SmashcastApiException('The response looks like the request failed.');
+        }
+
+        return $json;
     }
 
     /**
@@ -84,6 +98,15 @@ class RequestUtil {
      */
     public static function getLastRequest() {
         return self::$lastRequest;
+    }
+
+    /**
+     * Returns the decoded json of the latest request
+     *
+     * @return mixed|mixed[]
+     */
+    public static function getLastRequestJson() {
+        return self::$lastRequestJson;
     }
 
 }

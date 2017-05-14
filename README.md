@@ -1,4 +1,4 @@
-# smashcast-api-php
+# smashcast-api-php [![Build Status](https://travis-ci.org/jens1o/smashcast-api-php.svg?branch=master)](https://travis-ci.org/jens1o/smashcast-api-php)
 Handles api requests to smashcast nicely!
 
 ### This library is not finished nor complete!

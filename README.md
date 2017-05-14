@@ -7,7 +7,7 @@ I'll work on it, but it may take some time. At the moment, I'm completing the us
 If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php/issues/new).
 
 ## Documentation
-
+### Code is documentation enough, I'm not sure I can do it like this, because it takes a lot of time I would like to invest in something else. If you have any question, just ask in the issues.
 0. [Preample](#preample)
 1. [smashcast User](#smashcast-user)
     1. [Get information about a user](#get-information-about-a-user)

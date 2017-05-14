@@ -244,7 +244,7 @@ class SmashcastUser extends AbstractModel {
     /**
      * Returns true when this user has connected with Twitter, false otherwise.
      *
-     * @param   bool    $fast   Wether to it fast and with a chance of false positives, or a detailed look
+     * @param   bool    $fast   Wether to do it fast and with a chance of false positives, or a detailed lookup
      * @return bool
      */
     public function isConnectedWithTwitter(bool $fast = false): bool {

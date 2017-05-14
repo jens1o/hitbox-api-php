@@ -173,7 +173,7 @@ class SmashcastUser extends AbstractModel {
                 'appendAuthToken' => false
             ], true);
         } catch(SmashcastApiException $e) {
-            throw new SmashcastApiException('Failed updating a user object!', 0, $e);
+            throw new SmashcastApiException('Updating an user object has failed!', 0, $e);
             return false;
         }
 
@@ -182,7 +182,7 @@ class SmashcastUser extends AbstractModel {
 
         // user_display_name must be omitted, so it's consistent with the api
         if(isset($updateParts['user_display_name'])) {
-            $newData['user_name'] = $newData['user_display_name'];
+            $newData['user_name'] = $updateParts['user_display_name'];
             unset($newData['user_display_name']);
         }
 

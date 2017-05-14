@@ -196,10 +196,16 @@ class SmashcastUser extends AbstractModel {
      * @inheritDoc
      */
     public function validateUpdate(array $updateParts): bool {
+        if(!$this->exists()) {
+            throw new SmashcastApiException('To update an user, the user must exist ;)');
+            return false;
+        }
+
         if(!$this->isAuthenticated()) {
             throw new SmashcastApiException('You need to be authenticated to update user settings!');
             return false;
         }
+
         // check for forbidden, unchangeable fields
         $fields = ['user_id', 'user_name', 'authToken'];
         $failedFields = [];
@@ -223,7 +229,7 @@ class SmashcastUser extends AbstractModel {
         // check wether new fields have been invented
         $nonExistingFields = [];
         foreach($updateParts as $updatePart => $index) {
-            // user_display_name is omitted/merged into user_name
+            // user_display_name is omitted/merged into user_name later and does not exist in the plain GET request
             if(!array_key_exists($updatePart, $currentData) && $updatePart !== 'user_display_name') {
                 $nonExistingFields[] = $updatePart;
             }

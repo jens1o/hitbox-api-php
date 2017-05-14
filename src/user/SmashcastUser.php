@@ -166,6 +166,7 @@ class SmashcastUser extends AbstractModel {
             'user_id' => $this->data->user_id,
             'user_name' => $this->data->user_name
         ], $updateParts);
+
         try {
             $this->doRequest(HttpMethod::PUT, 'user/' . $this->data->user_name, [
                 'json' => $userSettings,

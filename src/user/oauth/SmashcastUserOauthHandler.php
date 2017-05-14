@@ -51,8 +51,6 @@ class SmashcastUserOauthList implements \Iterator {
      * @throws SmashcastApiException
      */
     public function loadContent() {
-        $this->list = null;
-
         try {
             $response = RequestUtil::doRequest(HttpMethod::GET, 'oauthaccess/' . $this->username, [
                 'appendAuthToken' => false

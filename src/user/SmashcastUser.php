@@ -242,7 +242,7 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Returns true when this user has connected with twitter, false otherwise.
+     * Returns true when this user has connected with Twitter, false otherwise.
      *
      * @return bool
      */
@@ -255,6 +255,36 @@ class SmashcastUser extends AbstractModel {
         */
         try {
             $response = $this->doRequest(HttpMethod::GET, 'social/twitter', [
+                'query' => [
+                    'user_name' => $this->data->user_name
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
+
+        if(isset($response->message) && $response->message === 'connected') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true when this user has connected with Facebook, false otherwise.
+     *
+     * @return bool
+     */
+    public function isConnectedWithFacebook(): bool {
+        // undocumented thing, but thanks to Hitakashi for telling me...
+
+        /*
+            For anything needing this:
+            ENDPOINT/facebook?user_name=blah&authToken=blah
+        */
+        try {
+            $response = $this->doRequest(HttpMethod::GET, 'facebook', [
                 'query' => [
                     'user_name' => $this->data->user_name
                 ],

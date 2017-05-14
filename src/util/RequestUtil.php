@@ -71,7 +71,7 @@ class RequestUtil {
                 if(json_last_error() === JSON_ERROR_NONE && isset($response->error_msg)) {
                     switch($response->error_msg) {
                         case 'invalid_app':
-                            throw new SmashcastApiException('The app you defined with SmashcastApi#setAppName is not registered at hitbox!');
+                            throw new SmashcastApiException('The app you defined with SmashcastApi#setAppName is not registered at Smashcast!');
                     }
                 }
             }

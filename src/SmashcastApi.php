@@ -46,7 +46,7 @@ class SmashcastApi {
      * The app name this client uses
      * @var string
      */
-    private static $appName = '';
+    private static $appName = 'desktop';
 
     /**
      * The token for this app(required when using oauth things)

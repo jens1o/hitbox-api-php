@@ -244,17 +244,19 @@ class SmashcastUser extends AbstractModel {
     /**
      * Returns true when this user has connected with Twitter, false otherwise.
      *
+     * @param   bool    $fast   Wether to it fast and with a chance of false positives, or a detailed look
      * @return bool
      */
-    public function isConnectedWithTwitter(): bool {
+    public function isConnectedWithTwitter(bool $fast = false): bool {
         // undocumented thing, but thanks to Hitakashi for telling me...
 
         /*
             For anything needing this:
-            ENDPOINT/social/twitter?user_name=blah&authToken=blah
+            ENDPOINT/twitter/verify?user_name=blah&authToken=blah NOT FAST
+            ENDPOINT/social/twitter?user_name=blah&authToken=blah FAST
         */
         try {
-            $response = $this->doRequest(HttpMethod::GET, 'social/twitter', [
+            $response = $this->doRequest(HttpMethod::GET, $fast ? 'social/twitter' : 'twitter/verify', [
                 'query' => [
                     'user_name' => $this->data->user_name
                 ],
@@ -299,6 +301,36 @@ class SmashcastUser extends AbstractModel {
         }
 
         return false;
+    }
+
+    /**
+     * Returns a string when a channel is connected with a youtube channel, null otherwise.
+     *
+     * @return string|null
+     */
+    public function isConnectedWithYoutube(): ?string {
+        // undocumented thing, but thanks to Hitakashi for telling me...
+
+        /*
+            For anything needing this:
+            ENDPOINT/social/youtube?user_name=blah&authToken=blah
+        */
+        try {
+            $response = $this->doRequest(HttpMethod::GET, 'social/youtube', [
+                'query' => [
+                    'user_name' => $this->data->user_name
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return null;
+        }
+
+        if(isset($response->channel)) {
+            return $response->channel;
+        }
+
+        return null;
     }
 
     /**

@@ -52,7 +52,7 @@ class RequestUtil {
                 $parameters['query']['authToken'] = $authToken->getToken();
             }
         } elseif($needsAuthToken) {
-            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with SmashcastApi::setAuthToken($authToken)!');
+            throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with SmashcastApi::setUserAuthToken($authToken)!');
         }
 
         unset($parameters['appendAuthToken']);

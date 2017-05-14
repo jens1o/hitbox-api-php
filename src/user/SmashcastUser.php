@@ -242,6 +242,36 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
+     * Returns true when this user has connected with twitter, false otherwise.
+     *
+     * @return bool
+     */
+    public function isConnectedWithTwitter(): bool {
+        // undocumented thing, but thanks to Hitakashi for telling me...
+
+        /*
+            For anything needing this:
+            ENDPOINT/social/twitter?user_name=blah&authToken=blah
+        */
+        try {
+            $response = $this->doRequest(HttpMethod::GET, 'social/twitter', [
+                'query' => [
+                    'user_name' => $this->data->user_name
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
+
+        if(isset($response->message) && $response->message === 'connected') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Returns the user object by username and password. This includes private information!
      *
      * @param   string  $userName   The username of the user that you want the info from

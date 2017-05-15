@@ -153,7 +153,7 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Updates the user, you **must not** specify `user_id` and `user_name`!
+     * Updates the user, you **must not** specify `user_id` and `user_name`! Returns true when successful, false otherwise.
      *
      * @param   mixed[]     $updateParts    The parts you want to update
      * @return bool

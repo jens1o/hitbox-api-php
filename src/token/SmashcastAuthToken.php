@@ -80,24 +80,23 @@ class SmashcastAuthToken {
     }
 
     /**
-     * Returns wether this token is valid by the provided app id
+     * Returns wether this token is valid by the provided app id(fallback to `SmashcastApi::getAppToken()`)
      *
-     * @param   string  $appId  The app id
+     * @param   string|null     $appId      The app id
      * @return bool
      */
-    public function isValid(string $appId): bool {
+    public function isValid(?string $appId = null): bool {
+        if($appId === null) $appId = SmashcastApi::getAppName();
+
         try {
-            $request = RequestUtil::doRequest(HttpMethod::GET, 'auth/valid/' . $appId . '?token=' . $this->getToken, [
+            $request = RequestUtil::doRequest(HttpMethod::GET, 'auth/valid/' . $appId, [
                 'query' => [
                     'token' => $this->getToken()
                 ]
             ]);
         } catch(SmashcastApiException $e) {
-            var_dump($e);
             return false;
         }
-
-        if($request->error) return false; // should never happen, fallback
 
         return true;
     }

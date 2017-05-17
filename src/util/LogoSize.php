@@ -13,12 +13,12 @@ namespace jens1o\smashcast\util;
 interface LogoSize {
 
     /**
-     * 200 x 200
+     * 200px x 200px big
      */
     public const DEFAULT = 'default';
 
     /**
-     * 50 x 50
+     * 50px x 50px big
      */
     public const SMALL = 'small';
 

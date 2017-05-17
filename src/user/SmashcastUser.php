@@ -33,7 +33,7 @@ class SmashcastUser extends AbstractModel {
 
     /**
      * Creates a new User object.
-     * **Warning!** This executes immediately a request to smashcast fetching all data when `$row` is not provided!
+     * **Warning!** This executes immediately a request to Smashcast fetching all data when `$row` is not provided!
      *
      * @param   string|null     $identifier   The name of the user, can be `null` when `$row` is provided
      * @param   mixed[]|null    $row        All information about the user fetched from the api, can be `null` when `$userName` is provided

@@ -134,7 +134,7 @@ class SmashcastUser extends AbstractModel {
         // Smashcast's api handles this right, however we can save some time
         if(!$this->exists()) return false;
 
-        $request = $this->doRequest(HttpMethod::GET, '/user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+        $request = $this->doRequest(HttpMethod::GET, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
 
         if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
             return false;
@@ -186,7 +186,7 @@ class SmashcastUser extends AbstractModel {
             unset($newData['user_display_name']);
         }
 
-        // finally: update
+        // finally: update, this casts `$newData` to a `\stdClass` class
         $this->data = (object) $newData;
 
         return true;
@@ -346,7 +346,7 @@ class SmashcastUser extends AbstractModel {
         $app = $app ?? SmashcastApi::getAppName();
 
         try {
-            $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/login', [
+            $request = RequestUtil::doRequest(HttpMethod::POST, 'auth/login', [
                 'json' => [
                     'login' => $userName,
                     'pass' => $password,
@@ -375,7 +375,7 @@ class SmashcastUser extends AbstractModel {
         $app = $app ?? SmashcastApi::getAppName();
 
         try {
-            $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/login', [
+            $request = RequestUtil::doRequest(HttpMethod::POST, 'auth/login', [
                 'json' => [
                     'app' => $app,
                     'authToken' => $token

@@ -60,7 +60,7 @@ class SmashcastAuthToken {
         $app = $app ?? SmashcastApi::getAppName();
 
         try {
-            $request = RequestUtil::doRequest(HttpMethod::POST, '/auth/token', [
+            $request = RequestUtil::doRequest(HttpMethod::POST, 'auth/token', [
                 'json' => [
                     'login' => $userName,
                     'pass' => $password,
@@ -87,7 +87,7 @@ class SmashcastAuthToken {
      */
     public function isValid(string $appId): bool {
         try {
-            $request = RequestUtil::doRequest(HttpMethod::GET, '/auth/valid/' . $appId . '?token=' . $this->getToken, [
+            $request = RequestUtil::doRequest(HttpMethod::GET, 'auth/valid/' . $appId . '?token=' . $this->getToken, [
                 'query' => [
                     'token' => $this->getToken()
                 ]

@@ -149,7 +149,7 @@ class SmashcastUser extends AbstractModel {
      * @return bool
      */
     public function isAuthenticated(): bool {
-        return isset($this->data->login) && $this->data->login === 'true';
+        return (isset($this->data->login) && $this->data->login === 'true') || isset($this->data->user_email);
     }
 
     /**

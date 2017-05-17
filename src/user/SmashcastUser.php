@@ -405,9 +405,4 @@ class SmashcastUser extends AbstractModel {
 
         return null;
     }
-
-    /*
-     NOTE:
-     When updating the user profile, send `user_id` and `user_name` in any case. These might not be changed!
-    */
 }

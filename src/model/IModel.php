@@ -18,11 +18,6 @@ interface IModel {
     public function __construct(?string $identifier = null, ?\stdClass $row = null);
 
     /**
-     * Executes an api request
-     */
-    public function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null);
-
-    /**
      * Returns the data
      */
     public function __get($needle);

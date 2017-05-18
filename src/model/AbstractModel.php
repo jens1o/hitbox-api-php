@@ -21,7 +21,7 @@ abstract class AbstractModel implements IModel {
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
      * @see RequestUtil::doRequest()
      */
-    public function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
+    private function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
         return RequestUtil::doRequest($method, $path, $parameters, $needsAuthToken);
     }
 

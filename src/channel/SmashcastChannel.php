@@ -111,6 +111,7 @@ class SmashcastChannel {
      *
      * @param   string  $userName The name of the user you want to add as an editor.
      * @return bool
+     * @throws \BadMethodCallException
      */
     public function addEditor(string $userName): bool {
         if($this->channelName === strtolower($userName)) {
@@ -119,13 +120,14 @@ class SmashcastChannel {
         }
 
         try {
-            $request = RequestUtil::doRequest(HttpMethod::POST, 'editor/' . $this->channelName, [
+            $response = RequestUtil::doRequest(HttpMethod::POST, 'editors/' . $this->channelName, [
                 'json' => [
                     'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
-                    'editor'=> $userName,
+                    'editor' => $userName,
                     'remove' => false
-                ]
-            ]);
+                ],
+                'appendAuthToken' => false
+            ], true);
         } catch(SmashcastApiException $e) {
             return false;
         }

@@ -196,6 +196,62 @@ class SmashcastChannel {
         return false;
     }
 
+    public function removeEditor(string $userName): bool {
+        if($this->channelName === strtolower($userName)) {
+            throw new \BadMethodCallException('You may not want to remove yourself as an editor!');
+            return false;
+        }
+
+        if(!$this->isEditor($userName)) {
+            throw new \BadMethodCallException($userName . ' is not an editor in this channel!');
+            return false;
+        }
+
+        try {
+            $response = RequestUtil::doRequest(HttpMethod::POST, 'editors/' . $this->channelName, [
+                'json' => [
+                    'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
+                    'editor' => $userName,
+                    'remove' => true
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
+
+        if(isset($response->message) && $response->message === 'success') {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Toggles the existence of `$userName` being and editor in this channel.
+     * Returns an array with two keys:
+     *  [*] 'success'(boolean) describing the success of the action
+     *  [*] 'action'(enum `removed` or `added`) describing what happened.
+     * (The second key may be useful?)
+     *
+     * @param   string  $userName   Which user do you like to toggle?
+     * @return array
+     * @throws \BadMethodCallException
+     */
+    public function toggleEditor(string $userName): array {
+        if($this->isEditor($userName)) {
+            return [
+                'success' => $this->removeEditor($userName),
+                'action' => 'removed'
+            ];
+        }
+
+        return [
+            'success' => $this->addEditor($userName),
+            'action' => 'added'
+        ];
+    }
+
     // TODO: Get a person which tests running ads. Or can I do that myself?
 
 }

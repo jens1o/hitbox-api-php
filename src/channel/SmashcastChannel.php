@@ -24,6 +24,12 @@ class SmashcastChannel {
     private $channelName;
 
     /**
+     * Holds the cached editor list
+     * @var \stdClass[]
+     */
+    private $editorList;
+
+    /**
      * Creates a new channel object based on the name.
      *
      * @param   string  $identifier     The identifier for the name
@@ -86,11 +92,26 @@ class SmashcastChannel {
     }
 
     /**
+     * Invalidates the cache and renews it and returns the instance.
+     *
+     * @return SmashcastChannel
+     */
+    public function invalidateCache(): SmashcastChannel {
+        $this->getEditors(true);
+        return $this;
+    }
+
+    /**
      * Returns the list of editors for this channel or null when an error occurred.
      *
+     * @param   $skipCache  Wether to skip the cache or not.
      * @return mixed[]|null
      */
-    public function getEditors(): ?array {
+    public function getEditors(bool $skipCache = false): ?array {
+        if(!$skipCache && $this->editorList !== null) {
+            return $this->editorList;
+        }
+
         try {
             $response = RequestUtil::doRequest(HttpMethod::GET, 'editors/' . $this->channelName, [
                 'appendAuthToken' => false
@@ -100,10 +121,32 @@ class SmashcastChannel {
         }
 
         if(isset($response->list)) {
+            // update cache
+            $this->editorList = $response->list;
             return $response->list;
         }
 
         return null;
+    }
+
+    /**
+     * Returns true when `$userName` is an editor in this channel.
+     *
+     * @param   string  $userName   The username you want to check
+     * @return bool
+     */
+    public function isEditor(string $userName): bool {
+        $editors = $this->getEditors();
+        // do this here, this improves MUCH the performance than doing it on every call!
+        $userName = strtolower($userName);
+
+        foreach($editors as $editor) {
+            if(strtolower($editor->user_name) === $userName) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -116,6 +159,11 @@ class SmashcastChannel {
     public function addEditor(string $userName): bool {
         if($this->channelName === strtolower($userName)) {
             throw new \BadMethodCallException('You may not want to add yourself as an editor!');
+            return false;
+        }
+
+        if($this->isEditor($userName)) {
+            throw new \BadMethodCallException($userName . ' is already an editor in this channel!');
             return false;
         }
 

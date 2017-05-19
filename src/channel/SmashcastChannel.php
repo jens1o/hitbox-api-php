@@ -198,10 +198,11 @@ class SmashcastChannel {
 
     /**
      * Removes `$userName` existence of being an editor in this channel. Returns wether the action has been completed successfully.
-     * Warning: This can produce discussing! I'd warned you!
+     * Warning: This can produce fights! I'd warned you!
      *
      * @param   string  $userName   The name of the user you want to remove as an editor.
      * @return bool
+     * @throws \BadMethodCallException
      */
     public function removeEditor(string $userName): bool {
         if($this->channelName === strtolower($userName)) {

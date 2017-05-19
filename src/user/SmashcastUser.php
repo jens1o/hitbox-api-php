@@ -86,6 +86,7 @@ class SmashcastUser extends AbstractModel {
      * Returns the logohandler that manages the logos(or null when the user does not exist)
      *
      * @return LogoHandler|null
+     * @throws SmashcastApiException
      */
     public function getLogos(): ?LogoHandler {
         if($this->logoHandler === null) {
@@ -134,6 +135,7 @@ class SmashcastUser extends AbstractModel {
         // Smashcast's api handles this right, however we can save some time
         if(!$this->exists()) return false;
 
+        // This api endpoint **do not** return 4xx when it is not validated!
         $request = $this->doRequest(HttpMethod::GET, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
 
         if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
@@ -246,6 +248,7 @@ class SmashcastUser extends AbstractModel {
      *
      * @param   bool    $fast   Wether to do it fast and with a chance of false positives, or a detailed lookup
      * @return bool
+     * @throws SmashcastApiException
      */
     public function isConnectedWithTwitter(bool $fast = false): bool {
         // undocumented thing, but thanks to Hitakashi for telling me...
@@ -277,6 +280,7 @@ class SmashcastUser extends AbstractModel {
      * Returns true when this user has connected with Facebook, false otherwise.
      *
      * @return bool
+     * @throws SmashcastApiException
      */
     public function isConnectedWithFacebook(): bool {
         // undocumented thing, but thanks to Hitakashi for telling me...
@@ -307,6 +311,7 @@ class SmashcastUser extends AbstractModel {
      * Returns a string when a channel is connected with a youtube channel, null otherwise.
      *
      * @return string|null
+     * @throws SmashcastApiException
      */
     public function isConnectedWithYoutube(): ?string {
         // undocumented thing, but thanks to Hitakashi for telling me...
@@ -395,8 +400,10 @@ class SmashcastUser extends AbstractModel {
      *
      * @param   string  $token  The token to Check
      * @return string|null
+     * @throws SmashcastApiException
      */
     public static function getUserNameByToken(string $token): ?string {
+        // this api do not throw 4xx on failure, so we don't need to catch it
         $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
 
         if(isset($request->user_name)) {

@@ -2,6 +2,7 @@
 namespace jens1o\smashcast\user;
 
 use jens1o\smashcast\SmashcastApi;
+use jens1o\smashcast\channel\SmashcastChannel;
 use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\token\SmashcastAuthToken;
@@ -35,9 +36,9 @@ class SmashcastUser extends AbstractModel {
      * Creates a new User object.
      * **Warning!** This executes immediately a request to Smashcast fetching all data when `$row` is not provided!
      *
-     * @param   string|null     $identifier   The name of the user, can be `null` when `$row` is provided
-     * @param   mixed[]|null    $row        All information about the user fetched from the api, can be `null` when `$userName` is provided
-     * @throws \BadMethodCallException  when `$userName` and `$row` are null
+     * @param   string|null     $identifier     The name of the user, can be `null` when `$row` is provided
+     * @param   mixed[]|null    $row            All information about the user fetched from the api, can be `null` when `$userName` is provided
+     * @throws \BadMethodCallException  when `$identifier` and `$row` are null
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
         if($row !== null) {
@@ -49,6 +50,15 @@ class SmashcastUser extends AbstractModel {
         } else {
             throw new \BadMethodCallException('Try to call ' . self::class . ' with both arguments null. One must be given!');
         }
+    }
+
+    /**
+     * Returns the channel object for this user
+     *
+     * @return SmashcastChannel
+     */
+    public function getChannel(): SmashcastChannel {
+        return new SmashcastChannel($this->data->user_name);
     }
 
     /**
@@ -155,14 +165,14 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Updates the user, you **must not** specify `user_id` and `user_name`! Returns true when successful, false otherwise.
+     * Updates the user, you **must not** specify `user_id` and `user_name`! Returns the same object when successful, null otherwise.
      *
      * @param   mixed[]     $updateParts    The parts you want to update
-     * @return bool
+     * @return SmashcastUser|null
      * @throws SmashcastApiException When validating failed
      */
-    public function update(array $updateParts): bool {
-        if(!$this->validateUpdate($updateParts)) return false;
+    public function update(array $updateParts): ?SmashcastUser {
+        if(!$this->validateUpdate($updateParts)) return null;
 
         $userSettings = array_merge([
             'user_id' => $this->data->user_id,
@@ -191,7 +201,7 @@ class SmashcastUser extends AbstractModel {
         // finally: update, this casts `$newData` to a `\stdClass` class
         $this->data = (object) $newData;
 
-        return true;
+        return $this;
     }
 
     /**

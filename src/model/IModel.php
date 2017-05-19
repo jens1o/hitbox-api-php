@@ -26,7 +26,7 @@ interface IModel {
     /**
      * Updates the options of this model
      */
-    public function update(array $updateParts): bool;
+    public function update(array $updateParts);
 
     /**
      * Validates wether the user provided invalid data to update

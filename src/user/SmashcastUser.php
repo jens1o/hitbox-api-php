@@ -33,6 +33,12 @@ class SmashcastUser extends AbstractModel {
     private $userAuthToken = null;
 
     /**
+     * Returns the channel for this user
+     * @var SmashcastChannel
+     */
+    private $channel = null;
+
+    /**
      * Creates a new User object.
      * **Warning!** This executes immediately a request to Smashcast fetching all data when `$row` is not provided!
      *
@@ -58,7 +64,11 @@ class SmashcastUser extends AbstractModel {
      * @return SmashcastChannel
      */
     public function getChannel(): SmashcastChannel {
-        return new SmashcastChannel($this->data->user_name);
+        if($this->channel === null) {
+            $this->channel = new SmashcastChannel($this->data->user_name);
+        }
+
+        return $this->channel;
     }
 
     /**

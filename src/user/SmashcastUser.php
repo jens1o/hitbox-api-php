@@ -72,6 +72,16 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
+     * Returns the username.
+     *
+     * @return string
+     */
+    public function __toString(): string {
+        return $this->user_name;
+    }
+
+
+    /**
      * Returns the id for this user
      *
      * @return int|null

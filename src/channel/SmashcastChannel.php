@@ -43,6 +43,15 @@ class SmashcastChannel {
      *
      * @return string
      */
+    public function __toString() {
+        return $this->channelName;
+    }
+
+    /**
+     * Returns the channel name
+     *
+     * @return string
+     */
     public function getChannelName(): string {
         return $this->channelName;
     }

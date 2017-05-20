@@ -107,12 +107,13 @@ class SmashcastChannel {
     }
 
     /**
-     * Updates the cache of the editor list and returns the instance.
+     * Updates the cache of the editor list and the list of channels hosting this channel. Returns the same instance..
      *
      * @return SmashcastChannel
      */
     public function invalidateCache(): SmashcastChannel {
         $this->getEditors(true);
+        $this->getHostingChannels(true);
         return $this;
     }
 
@@ -340,8 +341,8 @@ class SmashcastChannel {
      * Returns a list of channels hosting this channel or null when an error occurred.
      * Note: There is a difference between `[]`(array) and `null`(not a string)
      *
-     * @param bool $skipCache
-     * @return void
+     * @param   bool    $skipCache  Wether to skip cache or not.
+     * @return \stdClass[]|null
      */
     public function getHostingChannels(bool $skipCache = false): ?array {
         if(!$skipCache && $this->hostingChannels !== null) {

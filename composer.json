@@ -25,7 +25,7 @@
             "jens1o\\smashcast\\oauth\\": "src/oauth/",
             "jens1o\\smashcast\\token\\": "src/token/",
             "jens1o\\smashcast\\user\\": "src/user/",
-            "jens1o\\smashcast\\user\\logos\\": "src/user/logos/",
+            "jens1o\\smashcast\\user\\logo\\": "src/user/logo/",
             "jens1o\\smashcast\\user\\oauth\\": "src/user/oauth/",
             "jens1o\\smashcast\\util\\": "src/util/"
         }

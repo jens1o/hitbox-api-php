@@ -1,5 +1,5 @@
 <?php
-namespace jens1o\smashcast\user\logos;
+namespace jens1o\smashcast\user\logo;
 
 use jens1o\smashcast\util\LogoSize;
 
@@ -10,7 +10,7 @@ use jens1o\smashcast\util\LogoSize;
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
  * @package    jens1o\smashcast\user
- * @subpackage logos
+ * @subpackage logo
  */
 class LogoHandler {
 

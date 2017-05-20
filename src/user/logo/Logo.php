@@ -1,5 +1,5 @@
 <?php
-namespace jens1o\smashcast\user\logos;
+namespace jens1o\smashcast\user\logo;
 
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\util\HttpMethod;
@@ -11,7 +11,7 @@ use jens1o\smashcast\util\HttpMethod;
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
  * @package    jens1o\smashcast\user
- * @subpackage logos
+ * @subpackage logo
  */
 class Logo {
 
@@ -86,7 +86,7 @@ class Logo {
     }
 
     /**
-     * Returns the path of this logos
+     * Returns the path of this logo
      * @var string
      */
     public function getPath(): string {

@@ -1,4 +1,9 @@
 <?php
 namespace jens1o\smashcast\media\live;
 
-class SmashcastLiveMedia {}
+use jens1o\smashcast\model\AbstractModel;
+
+class SmashcastLiveMedia extends AbstractModel {
+
+
+}

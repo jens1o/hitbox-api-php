@@ -101,7 +101,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Invalidates the cache and renews it and returns the instance.
+     * Updates the cache of the editor list and returns the instance.
      *
      * @return SmashcastChannel
      */

@@ -107,7 +107,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Updates the cache of the editor list and the list of channels hosting this channel. Returns the same instance..
+     * Updates the cache of the editor list and the list of channels hosting this channel. Returns the same instance.
      *
      * @return SmashcastChannel
      */

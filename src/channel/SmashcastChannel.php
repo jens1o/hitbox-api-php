@@ -30,6 +30,12 @@ class SmashcastChannel {
     private $editorList;
 
     /**
+     * Holds the cached list of channels hosting this channel
+     * @var \stdClass[]
+     */
+    private $hostingList;
+
+    /**
      * Creates a new channel object based on the name.
      *
      * @param   string  $identifier     The identifier for the name
@@ -298,7 +304,7 @@ class SmashcastChannel {
 
         return false;
     }
-    
+
     /**
      * Sends a facebook post to the account of this channel. Returns wether the action was successfully executed.
      *
@@ -328,6 +334,34 @@ class SmashcastChannel {
         }
 
         return false;
+    }
+
+    /**
+     * Returns a list of channels hosting this channel or null when an error occurred.
+     * Note: There is a difference between `[]`(array) and `null`(not a string)
+     *
+     * @param bool $skipCache
+     * @return void
+     */
+    public function getHostingChannels(bool $skipCache = false): ?array {
+        if(!$skipCache && $this->hostingChannels !== null) {
+            return $this->hostingChannels;
+        }
+
+       try {
+            $response = RequestUtil::doRequest(HttpMethod::GET, 'hosters/' . $this->channelName, [
+                'appendAuthToken' => false
+            ], true);
+       } catch(SmashcastApiException $e) {
+           return null;
+       }
+
+       if(isset($response->hosters)) {
+           $this->hostingChannels = $response->hosters;
+           return $response->hosters;
+       }
+
+       return null;
     }
 
     // TODO: Get a person which tests running ads. Or can I do that myself?

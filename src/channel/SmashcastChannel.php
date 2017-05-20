@@ -365,6 +365,26 @@ class SmashcastChannel {
        return null;
     }
 
+    /**
+     * Returns true when `$userName` hosts this channel, false when it doesn't
+     *
+     * @param   string  $userName   The name of the user you want to check
+     * @return bool
+     */
+    public function isHoster(string $userName): bool {
+        $hosters = $this->getHostingChannels();
+        // do this here, this improves MUCH the performance than doing it on every call!
+        $userName = strtolower($userName);
+
+        foreach($hosters as $hoster) {
+            if(strtolower($hoster->user_name) === $userName) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // TODO: Get a person which tests running ads. Or can I do that myself?
 
 }

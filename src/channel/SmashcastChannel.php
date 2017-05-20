@@ -298,6 +298,39 @@ class SmashcastChannel {
 
         return false;
     }
+    
+    /**
+     * Sends a facebook post to the account of this channel. Returns wether the action was successfully executed.
+     *
+     * @param   string  $message    The message you want to send, remember you need to know the character limit!
+     * @return bool
+     * @throws \InvalidArgumentException When the tweet is too long.
+     */
+    public function sendFacebookPost(string $message): bool {
+        $suffix = ' via @smashcast_tv';
+
+        try {
+            $response = RequestUtil::doRequest(HttpMethod::POST, 'facebook/post', [
+                'json' => [
+                    'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
+                    'user_name' => $this->channelName,
+                    'message' => $message
+                ],
+                'query' => [
+                    'user_name' => $this->channelName
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
+
+        if(isset($response->message) && $response->message === 'success') {
+            return true;
+        }
+
+        return false;
+    }
 
     // TODO: Get a person which tests running ads. Or can I do that myself?
 

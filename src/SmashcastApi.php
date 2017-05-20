@@ -139,14 +139,9 @@ class SmashcastApi {
     /**
      * Returns the auth token
      *
-     * @return SmashcastAuthToken
+     * @return SmashcastAuthToken|null
      */
-    public static function getUserAuthToken() {
-        if(self::$authToken === null) {
-            throw new \BadMethodCallException('You must set an auth token before you can get it back ;)');
-            return null;
-        }
-
+    public static function getUserAuthToken(): ?SmashcastAuthToken {
         return self::$authToken;
     }
 

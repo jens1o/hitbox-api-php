@@ -10,7 +10,7 @@ namespace jens1o\smashcast\model;
  * @package    jens1o\smashcast
  * @subpackage model
  */
-interface IModel {
+interface IModel extends IUpdatable {
 
     /**
      * Creates a new model
@@ -21,15 +21,4 @@ interface IModel {
      * Returns the data
      */
     public function __get($needle);
-
-
-    /**
-     * Updates the options of this model
-     */
-    public function update(array $updateParts);
-
-    /**
-     * Validates wether the user provided invalid data to update
-     */
-    public function validateUpdate(array $updateParts): bool;
 }

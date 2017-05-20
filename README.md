@@ -23,4 +23,4 @@ require_once 'vendor/autoload.php';
 ```
 4. Use the lib.
 
-### I recommend head over to the non-existing examples folder, or just dig through the code.
+### I recommend head over to the examples folder, or just dig through the code.

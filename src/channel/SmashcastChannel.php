@@ -3,6 +3,7 @@ namespace jens1o\smashcast\channel;
 
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
+use jens1o\smashcast\media\live\SmashcastLiveMedia;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\util\{HttpMethod, RequestUtil};
 
@@ -36,12 +37,31 @@ class SmashcastChannel {
     private $hostingList;
 
     /**
+     * Holds the instance of this channel's live media
+     * @var SmashcastLiveMedia
+     */
+    private $liveMedia;
+
+    /**
      * Creates a new channel object based on the name.
      *
      * @param   string  $identifier     The identifier for the name
      */
     public function __construct(string $identifier) {
         $this->channelName = strtolower($identifier);
+    }
+
+    /**
+     * Returns the live media for this 
+     *
+     * @return SmashcastLiveMedia
+     */
+    public function getLiveMedia(): SmashcastLiveMedia {
+        if($this->liveMedia === null) {
+            $this->liveMedia = new SmashcastLiveMedia($this->channelName);
+        }
+
+        return $this->liveMedia;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace jens1o\smashcast\user;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\channel\SmashcastChannel;
 use jens1o\smashcast\exception\{SmashcastApiException, SmashcastAuthException};
+use jens1o\smashcast\media\live\SmashcastLiveMedia;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\token\SmashcastAuthToken;
 use jens1o\smashcast\user\logos\LogoHandler;
@@ -69,6 +70,15 @@ class SmashcastUser extends AbstractModel {
         }
 
         return $this->channel;
+    }
+
+    /**
+     * Returns the live media for this user. (Shortcut function)
+     *
+     * @return SmashcastLiveMedia
+     */
+    public function getLiveMedia(): SmashcastLiveMedia {
+        return $this->getChannel()->getLiveMedia();
     }
 
     /**

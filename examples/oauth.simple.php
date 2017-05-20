@@ -18,6 +18,6 @@ if(isset($_GET['authToken'])) {
 } else {
     // IMPORTANT NOTE: THIS IS VULNERABLE FOR XSS! YOU SHOULD ALWAYS ESCAPE THEM!
     echo 'Request Token: ' . $_GET['request_token'];
-    echo '<br>Auth Token: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . SmashcastOauthHandler::getAuthTokenFromRequestToken($_GET['request_token']);
+    echo '<br>Auth Token: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . SmashcastOauthHandler::getAuthTokenFromRequestToken($_GET['request_token'], $_GET['state'], 'somestatevalue');
     echo '<br><a href="' . $_SERVER['SCRIPT_NAME'] . '">Refresh!</a>';
 }

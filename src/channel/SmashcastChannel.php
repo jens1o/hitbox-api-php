@@ -307,8 +307,6 @@ class SmashcastChannel {
      * @throws \InvalidArgumentException When the tweet is too long.
      */
     public function sendFacebookPost(string $message): bool {
-        $suffix = ' via @smashcast_tv';
-
         try {
             $response = RequestUtil::doRequest(HttpMethod::POST, 'facebook/post', [
                 'json' => [

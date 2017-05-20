@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use jens1o\smashcast\SmashcastApi;
+use jens1o\smashcast\user\SmashcastUser;
 
 SmashcastApi::setAppName('OAuthTestJens');
 $user = SmashcastUser::getUserByLogin('jens1o', PASSWORD);

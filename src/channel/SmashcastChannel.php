@@ -261,7 +261,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Sends a tweet to the twitter account of this channel
+     * Sends a tweet to the twitter account of this channel. Returns wether the action was successfully executed.
      *
      * @param   string  $message    The message you want to send, remember you need to know the character limit!
      * @return bool

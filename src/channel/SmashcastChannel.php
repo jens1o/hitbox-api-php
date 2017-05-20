@@ -260,6 +260,45 @@ class SmashcastChannel {
         ];
     }
 
+    /**
+     * Sends a tweet to the twitter account of this channel
+     *
+     * @param   string  $message    The message you want to send, remember you need to know the character limit!
+     * @return bool
+     * @throws \InvalidArgumentException When the tweet is too long.
+     */
+    public function sendTweet(string $message): bool {
+        $suffix = ' via @smashcast_tv';
+        $tweetLength = 144;
+
+        if(strlen($message . $suffix) > $tweetLength) {
+            throw new \InvalidArgumentException('The message MUST NOT be longer than ' . $tweetLength . ' chars(even when appending the Smashcast suffix)! Length: ' . strlen($message . $suffix));
+            return false;
+        }
+
+        try {
+            $response = RequestUtil::doRequest(HttpMethod::POST, 'twitter/post', [
+                'json' => [
+                    'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
+                    'user_name' => $this->channelName,
+                    'message' => $message
+                ],
+                'query' => [
+                    'user_name' => $this->channelName
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
+
+        if(isset($response->message) && $response->message === 'success') {
+            return true;
+        }
+
+        return false;
+    }
+
     // TODO: Get a person which tests running ads. Or can I do that myself?
 
 }

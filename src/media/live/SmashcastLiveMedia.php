@@ -3,6 +3,7 @@ namespace jens1o\smashcast\media\live;
 
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\model\AbstractModel;
+use jens1o\smashcast\util\{HttpMethod, RequestUtil};
 
 /**
  * Represents live media from an user

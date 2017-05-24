@@ -3,7 +3,8 @@ namespace jens1o\smashcast\user\oauth;
 
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\model\AbstractModel;
-use jens1o\smashcast\util\{HttpMethod, RequestUtil};
+use jens1o\smashcast\util\RequestUtil;
+use jens1o\util\HttpMethod;
 
 /**
  * Holds a list of oauth applications an user has authenticated with.

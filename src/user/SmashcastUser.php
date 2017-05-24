@@ -8,7 +8,8 @@ use jens1o\smashcast\media\live\SmashcastLiveMedia;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\token\SmashcastAuthToken;
 use jens1o\smashcast\user\logo\LogoHandler;
-use jens1o\smashcast\util\{HttpMethod, LogoSize, RequestUtil};
+use jens1o\smashcast\util\{LogoSize, RequestUtil};
+use jens1o\util\HttpMethod;
 
 /**
  * Represents a smashcast User that can access to channels and media

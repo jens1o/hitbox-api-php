@@ -5,7 +5,8 @@ use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\media\live\SmashcastLiveMedia;
 use jens1o\smashcast\model\AbstractModel;
-use jens1o\smashcast\util\{HttpMethod, RequestUtil};
+use jens1o\smashcast\util\RequestUtil;
+use jens1o\util\HttpMethod;
 
 /**
  * Represents a channel which can host other channels, is decorated with videos, has a chat...

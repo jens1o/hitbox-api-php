@@ -21,4 +21,11 @@ interface IModel extends IUpdatable {
      * Returns the data
      */
     public function __get($needle);
+
+    /**
+     * Returns wether this Model does exist
+     *
+     * @return bool
+     */
+    public function exists(): bool;
 }

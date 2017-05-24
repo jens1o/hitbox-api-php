@@ -3,7 +3,8 @@ namespace jens1o\smashcast\oauth;
 
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
-use jens1o\smashcast\util\{HttpMethod, RequestUtil};
+use jens1o\util\HttpMethod;
+use jens1o\smashcast\util\RequestUtil;
 
 /**
  * Manages oauth-related requests

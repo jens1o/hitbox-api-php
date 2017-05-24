@@ -2,7 +2,7 @@
 namespace jens1o\smashcast\user\logo;
 
 use jens1o\smashcast\SmashcastApi;
-use jens1o\smashcast\util\HttpMethod;
+use jens1o\util\HttpMethod;
 
 /**
  * Represents a logo that can be downloaded or just refers to a link

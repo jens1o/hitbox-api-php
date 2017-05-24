@@ -64,6 +64,7 @@ class SmashcastUser extends AbstractModel {
      * Returns the channel object for this user
      *
      * @return SmashcastChannel|null
+     * @throws \BadMethodCallException
      */
     public function getChannel(): ?SmashcastChannel {
         if($this->channel === null) {
@@ -82,6 +83,7 @@ class SmashcastUser extends AbstractModel {
      * Returns the live media for this user. (Shortcut function)
      *
      * @return SmashcastLiveMedia|null
+     * @throws \BadMethodCallException
      * @see SmashcastLiveMedia#getLiveMedia()
      */
     public function getLiveMedia(): ?SmashcastLiveMedia {

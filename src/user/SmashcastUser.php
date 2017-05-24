@@ -63,10 +63,15 @@ class SmashcastUser extends AbstractModel {
     /**
      * Returns the channel object for this user
      *
-     * @return SmashcastChannel
+     * @return SmashcastChannel|null
      */
-    public function getChannel(): SmashcastChannel {
+    public function getChannel(): ?SmashcastChannel {
         if($this->channel === null) {
+            if(!$this->exists()) {
+                throw new \BadMethodCallException('Cannot return a channel object on non-existing users!');
+                return null;
+            }
+
             $this->channel = new SmashcastChannel($this->data->user_name);
         }
 
@@ -76,10 +81,15 @@ class SmashcastUser extends AbstractModel {
     /**
      * Returns the live media for this user. (Shortcut function)
      *
-     * @return SmashcastLiveMedia
+     * @return SmashcastLiveMedia|null
      * @see SmashcastLiveMedia#getLiveMedia()
      */
-    public function getLiveMedia(): SmashcastLiveMedia {
+    public function getLiveMedia(): ?SmashcastLiveMedia {
+        if(!$this->exists()) {
+            throw new \BadMethodCallException('Cannot return a live media object on non-existing users!');
+            return null;
+        }
+
         return $this->getChannel()->getLiveMedia();
     }
 

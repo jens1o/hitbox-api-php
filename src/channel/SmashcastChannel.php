@@ -53,7 +53,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Returns the live media for this 
+     * Returns the live media for this channel
      *
      * @return SmashcastLiveMedia
      */

@@ -56,7 +56,7 @@ class SmashcastUser extends AbstractModel {
             // call their api
             $this->data = $this->doRequest(HttpMethod::GET, 'user/' . $identifier);
         } else {
-            throw new \BadMethodCallException('Try to call ' . self::class . ' with both arguments null. One must be given!');
+            throw new \BadMethodCallException('Try to call ' . static::class . ' with both arguments null. One must be given!');
         }
     }
 

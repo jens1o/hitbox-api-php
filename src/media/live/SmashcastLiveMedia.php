@@ -114,7 +114,7 @@ class SmashcastLiveMedia extends AbstractModel {
                 $this->data = (object) static::$defaultFields;
             }
         } else {
-            throw new \BadMethodCallException('Try to call ' . self::class . ' with both arguments null. One must be given!');
+            throw new \BadMethodCallException('Try to call ' . static::class . ' with both arguments null. One must be given!');
         }
     }
 

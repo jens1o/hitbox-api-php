@@ -102,9 +102,7 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Shorthand function to check wether this user exists
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function exists(): bool {
         return $this->data->user_id !== null;

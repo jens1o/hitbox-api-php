@@ -77,6 +77,7 @@ class SmashcastUser extends AbstractModel {
      * Returns the live media for this user. (Shortcut function)
      *
      * @return SmashcastLiveMedia
+     * @see SmashcastLiveMedia#getLiveMedia()
      */
     public function getLiveMedia(): SmashcastLiveMedia {
         return $this->getChannel()->getLiveMedia();

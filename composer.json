@@ -7,7 +7,8 @@
     "authors": [
         {
             "name": "Jens Hausdorf",
-            "email": "jenshausdorf@gmail.com"
+            "email": "jenshausdorf@gmail.com",
+            "role": "Developer / Maintainer"
         }
     ],
     "minimum-stability": "stable",

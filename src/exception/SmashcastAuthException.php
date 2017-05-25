@@ -7,7 +7,7 @@ namespace jens1o\smashcast\exception;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    smashcast
+ * @package    jens1o\smashcast
  * @subpackage exception
  */
 class SmashcastAuthException extends SmashcastApiException {}

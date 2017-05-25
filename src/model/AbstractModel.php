@@ -4,6 +4,15 @@ namespace jens1o\smashcast\model;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\util\RequestUtil;
 
+/**
+ * Abstract implementation for a model
+ *
+ * @author     jens1o
+ * @copyright  Jens Hausdorf 2017
+ * @license    MIT License
+ * @package    jens1o\smashcast
+ * @subpackage model
+ */
 abstract class AbstractModel implements IModel {
 
     /**

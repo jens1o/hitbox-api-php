@@ -12,8 +12,8 @@ use jens1o\util\HttpMethod;
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    namespace
- * @subpackage subpackage
+ * @package    jens1o\smashcast\media
+ * @subpackage live
  */
 class SmashcastLiveMedia extends AbstractModel {
 

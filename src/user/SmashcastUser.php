@@ -232,7 +232,7 @@ class SmashcastUser extends AbstractModel {
         }
 
         // update the class itself
-        $newData = array_merge($updateParts, (array) $this->data);
+        $newData = array_merge((array) $this->data, $updateParts);
 
         // user_display_name must be omitted, so it's consistent with the api
         if(isset($updateParts['user_display_name'])) {

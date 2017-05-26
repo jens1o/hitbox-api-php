@@ -55,7 +55,7 @@ abstract class AbstractModel implements IModel {
     }
 
     /**
-     * Returns true when the user has been created with an auth token
+     * Returns true when there is an auth token
      *
      * @return bool
      */

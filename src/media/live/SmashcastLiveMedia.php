@@ -163,6 +163,7 @@ class SmashcastLiveMedia extends AbstractModel {
                     $tmp[$hashtag] = true;
                 }
             }
+            unset($tmp);
         }
 
         return $this->hashtags;

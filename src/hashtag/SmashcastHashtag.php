@@ -30,7 +30,7 @@ class SmashcastHashtag {
      * @param   string  $hashtag    The text of the hashtag(excluding `#`)
      */
     public function __construct(string $hashtag) {
-        $this->hashtag = $hashtag;
+        $this->hashtag = strtolower($hashtag);
     }
 
     /**

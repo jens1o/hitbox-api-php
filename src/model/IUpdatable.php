@@ -11,6 +11,7 @@ namespace jens1o\smashcast\model;
  * @subpackage model
  */
 interface IUpdatable {
+
     /**
      * Updates the options of this model
      */

@@ -66,6 +66,15 @@ class SmashcastChannel {
     }
 
     /**
+     * Shortcut function to get the time the user has been registered.
+     *
+     * @return \DateTime|null
+     */
+    public function getTimeCreated(): ?\DateTime {
+        return $this->getLiveMedia()->getTimeCreated();
+    }
+
+    /**
      * Returns the channel name
      *
      * @return string

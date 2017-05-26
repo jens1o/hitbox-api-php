@@ -47,6 +47,7 @@ class SmashcastUser extends AbstractModel {
      * @param   string|null     $identifier     The name of the user, can be `null` when `$row` is provided
      * @param   mixed[]|null    $row            All information about the user fetched from the api, can be `null` when `$userName` is provided
      * @throws \BadMethodCallException  when `$identifier` and `$row` are null
+     * @throws SmashcastApiException  When getting data from the api failed
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
         if($row !== null) {
@@ -119,6 +120,21 @@ class SmashcastUser extends AbstractModel {
      */
     public function exists(): bool {
         return $this->data->user_id !== null;
+    }
+
+    /**
+     * Shortcut function to get the time the user has been registered.
+     *
+     * @return \DateTime|null
+     * @throws \BadMethodCallException When the user does not exist.
+     */
+    public function getTimeCreated(): ?\DateTime {
+        if(!$this->exists()) {
+            throw new \BadMethodCallException('You cannot get the time when an user created an account on non-existing users! ;)');
+            return null;
+        }
+
+        return $this->getChannel()->getLiveMedia()->getTimeCreated();
     }
 
     /**
@@ -195,15 +211,6 @@ class SmashcastUser extends AbstractModel {
         }
 
         return true;
-    }
-
-    /**
-     * Returns true when the user has been created with an auth token
-     *
-     * @return bool
-     */
-    public function isAuthenticated(): bool {
-        return (isset($this->data->login) && $this->data->login === 'true') || isset($this->data->authToken) || isset($this->data->user_email);
     }
 
     /**

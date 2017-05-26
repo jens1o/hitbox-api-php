@@ -1,6 +1,7 @@
 <?php
 namespace jens1o\smashcast\media\live;
 
+use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\hashtag\SmashcastHashtag;
 use jens1o\smashcast\model\AbstractModel;
@@ -93,13 +94,19 @@ class SmashcastLiveMedia extends AbstractModel {
     ];
 
     /**
+     * Holds the time when the channel had been created
+     * @var \DateTime
+     */
+    private $dateCreated = null;
+
+    /**
      * Creates a new Live Media object.
      * **Warning!** This executes immediately a request to Smashcast fetching all data when `$row` is not provided!
      *
      * @param   string|null     $identifier     The name of the user, can be `null` when `$row` is provided
      * @param   mixed[]|null    $row            All information about the user fetched from the api, can be `null` when `$userName` is provided
-     * @throws \BadMethodCallException  when `$identifier` and `$row` are null
-     * @throws SmashcastApiException
+     * @throws \BadMethodCallException when `$identifier` and `$row` are null
+     * @throws SmashcastApiException When getting data from the api failed
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
         if($row !== null) {
@@ -107,17 +114,36 @@ class SmashcastLiveMedia extends AbstractModel {
             $this->data = (object) array_merge(static::$defaultFields, (array) $row);
         } elseif($identifier !== null) {
             // call their api
-            try {
-                $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
-                if(isset($response->livestream)) {
-                    $this->data = (object) array_merge(static::$defaultFields, (array) $response->livestream[0]);
-                }
-            } catch(SmashcastApiException $e) {
-                $this->data = (object) static::$defaultFields;
+            $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
+            if(isset($response->livestream)) {
+                $this->data = (object) array_merge(static::$defaultFields, (array) $response->livestream[0]);
             }
         } else {
             throw new \BadMethodCallException('Try to call ' . static::class . ' with both arguments null. One must be given!');
         }
+    }
+
+    /**
+     * Returns a \DateTime containing the date when the channel was created. Returns `null`(not a string on failure)
+     *
+     * @return \DateTime|null
+     */
+    public function getTimeCreated(): ?\DateTime {
+        if($this->dateCreated === null) {
+            if($this->data->media_date_added === null) {
+                // shortcut
+                return null;
+            }
+
+            try {
+                $this->dateCreated = new \DateTime($this->data->media_date_added);
+            } catch(\Throwable $e) {
+                // failure, eat it.
+                return null;
+            }
+        }
+
+        return $this->dateCreated;
     }
 
     /**
@@ -176,12 +202,79 @@ class SmashcastLiveMedia extends AbstractModel {
         return $this->data->media_id !== null;
     }
 
-    public function update(array $updateParts) {
-        throw new \BadMethodCallException('Not implemented yet.');
+    /**
+     * Updates the live media, for example the title. Returns `null`(not a string) on error, the updated instance on success.
+     *
+     * @param   mixed[]     $updateParts    The parts to update.
+     * @return SmashcastUser|null
+     * @throws SmashcastApiException When validating failed
+     */
+    public function update(array $updateParts): ?SmashcastLiveMedia {
+        if(!$this->validateUpdate($updateParts)) return null;
+
+        $tmp = (array) $this->data;
+
+        // unset some data, because we want to access that api obeying the rules. But of course, you can overwrite it to make some action!
+        unset($tmp['media_description']);
+        unset($tmp['media_hosted_name']);
+
+        $userSettings = array_merge($tmp, $updateParts);
+
+        try {
+            // discard response, it's just a copy of what we've sent before
+            $this->doRequest(HttpMethod::PUT, 'media/live/' . $this->data->media_id, [
+                'json' => [
+                    'media_type' => 'live',
+                    'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
+                    'livestream' => [$userSettings],
+                    'media_name' => $this->data->media_id
+                ],
+                'appendAuthToken' => false
+            ], true);
+        } catch(SmashcastApiException $e) {
+            throw new SmashcastApiException('Updating a live media failed!', 0, $e);
+            return null;
+        }
+
+        // update the class itself
+        $this->data = (object) array_merge((array) $this->data, $updateParts);
+
+        return $this;
     }
 
+    /**
+     * Validates and returns wether this update process is valid.
+     *
+     * @param   mixed[]     $updateParts    The parts to validate.
+     * @return bool
+     * @throws SmashcastApiException When validating failed
+     */
     public function validateUpdate(array $updateParts): bool {
-        throw new \BadMethodCallException('Not implemented yet.');
+        if(!$this->exists()) {
+            throw new SmashcastApiException('Non existing live media cannot be updated.');
+            return false;
+        }
+
+        if(!$this->isAuthenticated()) {
+            throw new SmashcastApiException('You need to be authenticated to update medias.');
+            return false;
+        }
+
+        // check for forbidden fields
+        $forbiddenFields = ['media_user_name', 'media_id', 'channel'];
+        $failedFields = [];
+        foreach($forbiddenFields as $forbiddenField) {
+            if(array_key_exists($forbiddenField, $updateParts)) {
+                $failedFields[] = $forbiddenField;
+            }
+        }
+
+        if(count($failedFields)) {
+            throw new SmashcastApiException('You MUST omit ' . implode(', ', $failedFields) . ' when trying to update an user object!');
+            return false;
+        }
+
+        return true;
     }
 
 }

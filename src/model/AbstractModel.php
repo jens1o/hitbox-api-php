@@ -54,4 +54,12 @@ abstract class AbstractModel implements IModel {
         return $this->data;
     }
 
+    /**
+     * Returns true when the user has been created with an auth token
+     *
+     * @return bool
+     */
+    public function isAuthenticated(): bool {
+        return SmashcastApi::getUserAuthToken() !== null;
+    }
 }

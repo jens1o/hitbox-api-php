@@ -23,7 +23,7 @@ class SmashcastApi {
     /**
      * Where all the images are saved on
      */
-    public const IMAGE_URL = 'https://edge.sf.hitbox.tv'; // TODO: Check before each release wether they changed the url, it will be changed!
+    public const IMAGE_URL = 'https://edge.sf.hitbox.tv'; // TODO: Check before each release whether they changed the url, it will be changed!
 
     /**
      * Holds the version string of this handler

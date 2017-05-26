@@ -64,7 +64,7 @@ class SmashcastOauthHandler {
                 throw new SmashcastApiException('States do not match!');
             }
         }
-        // check first wether both the app token and the app secret has been defined
+        // check first whether both the app token and the app secret has been defined
         $appToken = SmashcastApi::getAppToken();
         $appSecret = SmashcastApi::getAppSecret();
         if($appToken === null || $appSecret === null) {

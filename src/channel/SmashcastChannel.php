@@ -187,7 +187,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Adds `$username` as an editor to this channel. Returns wether the action has been completed successfully.
+     * Adds `$username` as an editor to this channel. Returns whether the action has been completed successfully.
      *
      * @param   string  $userName The name of the user you want to add as an editor.
      * @return bool
@@ -225,7 +225,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Removes `$userName` existence of being an editor in this channel. Returns wether the action has been completed successfully.
+     * Removes `$userName` existence of being an editor in this channel. Returns whether the action has been completed successfully.
      * Warning: This can produce fights! I'd warned you!
      *
      * @param   string  $userName   The name of the user you want to remove as an editor.
@@ -289,7 +289,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Sends a tweet to the twitter account of this channel. Returns wether the action was successfully executed.
+     * Sends a tweet to the twitter account of this channel. Returns whether the action was successfully executed.
      *
      * @param   string  $message    The message you want to send, remember you need to know the character limit!
      * @return bool
@@ -328,7 +328,7 @@ class SmashcastChannel {
     }
 
     /**
-     * Sends a facebook post to the account of this channel. Returns wether the action was successfully executed.
+     * Sends a facebook post to the account of this channel. Returns whether the action was successfully executed.
      *
      * @param   string  $message    The message you want to send, remember you need to know the character limit!
      * @return bool

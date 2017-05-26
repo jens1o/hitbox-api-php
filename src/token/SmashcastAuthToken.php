@@ -81,7 +81,7 @@ class SmashcastAuthToken {
     }
 
     /**
-     * Returns wether this token is valid by the provided app id(defaults to `SmashcastApi::getAppToken()`)
+     * Returns whether this token is valid by the provided app id(defaults to `SmashcastApi::getAppToken()`)
      *
      * @param   string|null     $appId      The app id
      * @return bool

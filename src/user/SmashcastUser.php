@@ -157,7 +157,7 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Returns wether the user is live atm
+     * Returns whether the user is live atm
      *
      * @return bool
      */
@@ -178,7 +178,7 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Returns wether this user had validated their email
+     * Returns whether this user had validated their email
      *
      * @return bool
      * @throws SmashcastApiException
@@ -280,7 +280,7 @@ class SmashcastUser extends AbstractModel {
 
         $currentData = (array) $this->data;
 
-        // check wether new fields have been invented
+        // check whether new fields have been invented
         $nonExistingFields = [];
         foreach($updateParts as $updatePart => $index) {
             // user_display_name is omitted/merged into user_name later and does not exist in the plain GET request

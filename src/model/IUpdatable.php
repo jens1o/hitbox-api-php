@@ -17,7 +17,7 @@ interface IUpdatable {
     public function update(array $updateParts);
 
     /**
-     * Validates wether the user provided invalid data to update
+     * Validates whether the user provided invalid data to update
      */
     public function validateUpdate(array $updateParts): bool;
 }

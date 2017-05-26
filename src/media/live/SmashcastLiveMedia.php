@@ -2,6 +2,7 @@
 namespace jens1o\smashcast\media\live;
 
 use jens1o\smashcast\exception\SmashcastApiException;
+use jens1o\smashcast\hashtag\SmashcastHashtag;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\util\RequestUtil;
 use jens1o\util\HttpMethod;
@@ -22,6 +23,7 @@ class SmashcastLiveMedia extends AbstractModel {
      * Added to maintain some consistency that the api itself does not provide :(
      *
      * @var string[]
+     * @see https://www.youtube.com/watch?v=HP362ccZBmY
      */
     public static $defaultFields = [
         'media_user_name' => null,
@@ -102,13 +104,13 @@ class SmashcastLiveMedia extends AbstractModel {
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
         if($row !== null) {
             // prefer $row when provided, so we don't need to call their api again
-            $this->data = (object) array_merge($row, static::$defaultFields);
+            $this->data = (object) array_merge(static::$defaultFields, (array) $row);
         } elseif($identifier !== null) {
             // call their api
             try {
                 $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
                 if(isset($response->livestream)) {
-                    $this->data = (object) array_merge($response->livestream[0], static::$defaultFields);
+                    $this->data = (object) array_merge(static::$defaultFields, (array) $response->livestream[0]);
                 }
             } catch(SmashcastApiException $e) {
                 $this->data = (object) static::$defaultFields;
@@ -116,6 +118,54 @@ class SmashcastLiveMedia extends AbstractModel {
         } else {
             throw new \BadMethodCallException('Try to call ' . static::class . ' with both arguments null. One must be given!');
         }
+    }
+
+    /**
+     * Returns whether the channel is live at the moment.
+     *
+     * @return bool
+     */
+    public function isLive(): bool {
+        return $this->data->media_is_live !== null && $this->data->media_is_live !== "0";
+    }
+
+    /**
+     * Returns the stream title, or null when an error occurred
+     *
+     * @return string|null
+     */
+    public function getStreamTitle(): ?string {
+        return $this->data->media_status;
+    }
+
+    /**
+     * Returns an list of instantiated hashtags
+     *
+     * @return SmashcastHashtag[]
+     */
+    public function getHashtags(): array {
+        if($this->hashtags === null) {
+            if($this->data->media_status === null) {
+                // shortcut
+                return [];
+            }
+
+            // TODO: Maybe put this inside another class to follow the single responsibility principle?
+
+            preg_match_all('/#(\w+)/', $this->data->media_status, $matches);
+
+            $this->hashtags = [];
+            $tmp = [];
+            foreach($matches[1] as $hashtag) {
+                // fix for having one hashtag more than once
+                if(!isset($tmp[$hashtag])) {
+                    $this->hashtags[] = new SmashcastHashtag($hashtag);
+                    $tmp[$hashtag] = true;
+                }
+            }
+        }
+
+        return $this->hashtags;
     }
 
     /**

@@ -21,7 +21,7 @@ class SmashcastHashtag {
     /**
      * Base url for hashtags.
      */
-    public const HASHTAG_URL = 'https://www.smashcast.tv/browse/hashtag/';
+    public const HASHTAG_URL = 'https://www.smashcast.tv/browse/hashtags/';
 
     /**
      * Creates a new hashtag.

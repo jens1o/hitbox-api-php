@@ -8,7 +8,8 @@
         {
             "name": "Jens Hausdorf",
             "email": "jenshausdorf@gmail.com",
-            "role": "Developer / Maintainer"
+            "role": "Developer / Maintainer",
+            "homepage": "https://jens-hausdorf.de"
         }
     ],
     "minimum-stability": "stable",

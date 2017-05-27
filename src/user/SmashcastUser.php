@@ -335,7 +335,7 @@ class SmashcastUser extends AbstractModel {
         return false;
     }
 
-    /
+    /**
      * Returns true when this user has connected with Facebook, false otherwise.
      *
      * @return bool

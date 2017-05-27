@@ -13,7 +13,7 @@ use jens1o\smashcast\util\RequestUtil;
  * @package    jens1o\smashcast
  * @subpackage model
  */
-abstract class AbstractModel implements IModel {
+abstract class AbstractModel implements IModel, IUpdatable {
 
     /**
      * Saved data about the model

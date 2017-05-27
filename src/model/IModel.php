@@ -10,7 +10,7 @@ namespace jens1o\smashcast\model;
  * @package    jens1o\smashcast
  * @subpackage model
  */
-interface IModel extends IUpdatable {
+interface IModel {
 
     /**
      * Creates a new model

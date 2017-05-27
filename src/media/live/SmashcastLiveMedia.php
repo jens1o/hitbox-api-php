@@ -4,6 +4,7 @@ namespace jens1o\smashcast\media\live;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\hashtag\SmashcastHashtag;
+use jens1o\smashcast\media\details\SmashcastStreamDetails;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\util\RequestUtil;
 use jens1o\util\HttpMethod;
@@ -22,7 +23,6 @@ class SmashcastLiveMedia extends AbstractModel {
     /**
      * The default fields that will be used when the api provided some kind of invalid response.
      * Added to maintain some consistency that the api itself does not provide :(
-     *
      * @var string[]
      * @see https://www.youtube.com/watch?v=HP362ccZBmY
      */
@@ -117,10 +117,25 @@ class SmashcastLiveMedia extends AbstractModel {
             $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
             if(isset($response->livestream)) {
                 $this->data = (object) array_merge(static::$defaultFields, (array) $response->livestream[0]);
+            } else {
+                $this->data = (object) static::$defaultFields;
             }
         } else {
             throw new \BadMethodCallException('Try to call ' . static::class . ' with both arguments null. One must be given!');
         }
+    }
+
+    /**
+     * Returns the stream details for this stream.
+     *
+     * @return SmashcastStreamDetails
+     */
+    public function getStreamDetails(): SmashcastStreamDetails {
+        if($this->streamDetails === null) {
+            $this->streamDetails = new SmashcastStreamDetails($this->data->media_id);
+        }
+
+        return $this->streamDetails;
     }
 
     /**
@@ -152,7 +167,7 @@ class SmashcastLiveMedia extends AbstractModel {
      * @return bool
      */
     public function isLive(): bool {
-        return $this->data->media_is_live !== null && $this->data->media_is_live !== "0";
+        return $this->data->media_is_live !== null && $this->data->media_is_live !== '0';
     }
 
     /**

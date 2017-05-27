@@ -152,7 +152,21 @@ class SmashcastStreamDetails extends AbstractModel {
     public function getUserAgent(): ?string {
         return $this->data->useragent;
     }
+    
+    /**
+     * Returns the hostname of this stream.
+     *
+     * @return string
+     */
+    public function getHostName(): string {
+        return $this->data->hostname;
+    }
 
+    /**
+     * Returns the log date.
+     *
+     * @return \DateTime|null
+     */
     public function getLogDate(): ?\DateTime {
         if($this->logDate === null) {
             if($this->data->log_date === null) {

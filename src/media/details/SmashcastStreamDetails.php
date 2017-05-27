@@ -152,7 +152,7 @@ class SmashcastStreamDetails extends AbstractModel {
     public function getUserAgent(): ?string {
         return $this->data->useragent;
     }
-    
+
     /**
      * Returns the hostname of this stream.
      *

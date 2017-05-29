@@ -14,7 +14,7 @@ if($date === null) {
 }
 
 // basic php things, not api related.
-$date->diff(new DateTime/* diff to now */);
+$diff->diff(new DateTime/* diff to now */);
 $age = $diff->format('%y years, %m months, %d days');
 
 echo 'The channel is ' . $age . ' old';

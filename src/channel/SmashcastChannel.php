@@ -10,6 +10,8 @@ use jens1o\util\HttpMethod;
 
 /**
  * Represents a channel which can host other channels, is decorated with videos, has a chat...
+ * Note: This class relies on that you have set an auth token yourself, because mostly we
+ * need to send it right into the body
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017

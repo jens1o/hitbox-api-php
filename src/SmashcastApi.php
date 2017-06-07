@@ -38,7 +38,7 @@ class SmashcastApi {
 
     /**
      * Holds the auth token for accessing private/more data
-     * @var string
+     * @var SmashcastAuthToken
      */
     private static $authToken = null;
 
@@ -154,7 +154,9 @@ class SmashcastApi {
             self::$client = new Client([
                 'base_uri' => static::BASE_URL,
                 'timeout' => 7,
-                'User-Agent' => 'jens1o/smashcast-api-php v' . static::VERSION
+                'headers' => [
+                    'User-Agent' => 'jens1o/smashcast-api-php v' . self::VERSION
+                ]
             ]);
         }
 

@@ -1,7 +1,7 @@
 {
     "name": "jens1o/smashcast-api-php",
     "description": "Handles api requests to smashcast nicely!",
-    "version": "0.8.0-dev",
+    "version": "0.8.1-dev",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -15,8 +15,8 @@
     "minimum-stability": "stable",
     "require": {
         "php": ">=7.1",
-        "guzzlehttp/guzzle": ">=6.2",
-        "jens1o/php-utils": "^0.1.1"
+        "guzzlehttp/guzzle": ">=6.2.3",
+        "jens1o/php-utils": "^0.2"
     },
     "autoload": {
         "psr-4": {

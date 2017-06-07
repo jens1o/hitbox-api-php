@@ -1,7 +1,7 @@
 {
     "name": "jens1o/smashcast-api-php",
     "description": "Handles api requests to smashcast nicely!",
-    "version": "0.8.1-dev",
+    "version": "0.8.1",
     "type": "library",
     "license": "MIT",
     "authors": [

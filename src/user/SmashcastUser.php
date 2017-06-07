@@ -116,7 +116,9 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * @inheritDoc
+     * Returns whether this user exists
+     * 
+     * @return bool
      */
     public function exists(): bool {
         return $this->data->user_id !== null;
@@ -207,6 +209,25 @@ class SmashcastUser extends AbstractModel {
         $request = $this->doRequest(HttpMethod::GET, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
 
         if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Resends the activation email, returns false on failure, true on success.
+     *
+     * @return bool
+     */
+    public function resendActivationEmail(): bool {
+        // first check wether this user exists
+        if(!$this->exists()) return false;
+
+        try {
+            $this->doRequest(HttpMethod::POST, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+        } catch(SmashcastApiException $e) {
+            // API throws 403 when we're already activated
             return false;
         }
 

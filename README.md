@@ -2,7 +2,9 @@
 Handles api requests to smashcast nicely!
 
 ### This library is not finished nor complete!
-I'll work on it, but it may take some time. At the moment, I'm completing the user object and will go on with implementing the Channel/Media object.
+I'll work on it, but it may take some time.
+
+#### Implementations may change due to restructure and refactor... Verify that updating the libs may result in a breaking change!
 
 If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php/issues/new).
 

@@ -18,7 +18,7 @@ If something is missing, or something is not well explained or when you have a q
 2. In your script, add:
 ```php
 <?php
-require_once 'vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 // other code...
 ```
@@ -31,7 +31,7 @@ require_once 'vendor/autoload.php';
 3. In your script, add:
 ```php
 <?php
-require_once 'vendor/autoload.php';
+require_once './vendor/autoload.php';
 
 // other code...
 ```

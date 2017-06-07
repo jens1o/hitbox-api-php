@@ -1,5 +1,5 @@
 <?php
-namespace jens1o\smashcast\media\details;
+namespace jens1o\smashcast\media\live\details;
 
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\util\HttpMethod;

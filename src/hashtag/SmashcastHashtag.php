@@ -25,7 +25,7 @@ class SmashcastHashtag {
 
     /**
      * Creates a new hashtag.
-     * Note: We do not check for the hashtag, because string comparing is very slow in php and maybe the streamer want to put two hashtags?
+     * Note: We do not check for the hashtag, because string comparing is very slow in php and maybe the streamer wants to put two hashtags?
      *
      * @param   string  $hashtag    The text of the hashtag(excluding `#`)
      */

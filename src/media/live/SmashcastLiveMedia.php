@@ -4,7 +4,7 @@ namespace jens1o\smashcast\media\live;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\hashtag\SmashcastHashtag;
-use jens1o\smashcast\media\details\SmashcastStreamDetails;
+use jens1o\smashcast\media\live\details\SmashcastStreamDetails;
 use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\util\RequestUtil;
 use jens1o\util\HttpMethod;

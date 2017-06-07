@@ -28,7 +28,7 @@ class SmashcastApi {
     /**
      * Holds the version string of this handler
      */
-    public const VERSION = '0.7.0 dev';
+    public const VERSION = '0.8.0 dev';
 
     /**
      * Holds the http client that connects to the api
@@ -37,10 +37,10 @@ class SmashcastApi {
     private static $client = null;
 
     /**
-     * Holds the auth token for accessing private/more data
-     * @var SmashcastAuthToken
+     * Holds the auth token for accessing private/more data (string while in startup)
+     * @var SmashcastAuthToken|string
      */
-    private static $authToken = null;
+    private static $authToken = '';
 
     /**
      * The app name this client uses
@@ -139,9 +139,13 @@ class SmashcastApi {
     /**
      * Returns the auth token
      *
-     * @return SmashcastAuthToken|null
+     * @return SmashcastAuthToken
      */
-    public static function getUserAuthToken(): ?SmashcastAuthToken {
+    public static function getUserAuthToken(): SmashcastAuthToken {
+        if(self::$authToken === '') {
+            self::$authToken = new SmashcastAuthToken('');
+        }
+
         return self::$authToken;
     }
 

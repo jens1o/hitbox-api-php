@@ -41,15 +41,15 @@ class RequestUtil {
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
         $needsAuthToken = $needsAuthToken ?? false;
 
-        $authToken = SmashcastApi::getUserAuthToken();
+        $authToken = SmashcastApi::getUserAuthToken()->getToken();
         $appendAuthToken = $parameters['appendAuthToken'] ?? false;
         $noAuthToken = $parameters['noAuthToken'] ?? false;
 
-        if($authToken !== null && !$noAuthToken) {
+        if(!empty($authToken) && !$noAuthToken) {
             if($appendAuthToken) {
-                $path .= '/' . $authToken->getToken();
+                $path .= '/' . $authToken;
             } else {
-                $parameters['query']['authToken'] = $authToken->getToken();
+                $parameters['query']['authToken'] = $authToken;
             }
         } elseif($needsAuthToken) {
             throw new \BadMethodCallException('No auth token set(or it was overwritten by `noAuthToken`) but the wanted resource needs one! Set the token with SmashcastApi::setUserAuthToken($authToken)!');

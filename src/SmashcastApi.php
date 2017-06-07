@@ -142,7 +142,7 @@ class SmashcastApi {
      * @return SmashcastAuthToken
      */
     public static function getUserAuthToken(): SmashcastAuthToken {
-        if(self::$authToken === '') {
+        if(!(self::$authToken instanceof SmashcastAuthToken)) {
             self::$authToken = new SmashcastAuthToken('');
         }
 

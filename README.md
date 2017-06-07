@@ -12,6 +12,20 @@ If something is missing, or something is not well explained or when you have a q
     - `allow_url_fopen` must be enabled
     - You comply with the [MIT License](LICENSE)
     - You installed some root certificates, since all connections this library creates are secured via ssl.
+
+#### Install using composer:
+1. Execute `composer require jens1o/smashcast-api-php`
+2. In your script, add:
+```php
+<?php
+require_once 'vendor/autoload.php';
+
+// other code...
+```
+3. Use the lib.
+
+
+##### Download without composer
 1. Download/Clone this repository
 2. Execute `composer install` in your clone
 3. In your script, add:

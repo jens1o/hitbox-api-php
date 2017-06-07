@@ -37,10 +37,10 @@ class SmashcastApi {
     private static $client = null;
 
     /**
-     * Holds the auth token for accessing private/more data (string while in startup)
-     * @var SmashcastAuthToken|string
+     * Holds the auth token for accessing private/more data (null while in startup)
+     * @var SmashcastAuthToken|null
      */
-    private static $authToken = '';
+    private static $authToken = null;
 
     /**
      * The app name this client uses

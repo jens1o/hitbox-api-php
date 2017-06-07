@@ -202,10 +202,6 @@ class SmashcastUser extends AbstractModel {
      * @throws SmashcastApiException
      */
     public function hasVerifiedEmail(): bool {
-        /*
-            For anyone wondering you can set 
-         */
-
         // Smashcast's api handles this right, however we can save some time
         if(!$this->exists()) return false;
 
@@ -223,7 +219,6 @@ class SmashcastUser extends AbstractModel {
      * Resends the activation email, returns false on failure, true on success.
      *
      * @return bool
-     * @todo This is somewhat broken... I don't know why :(
      */
     public function resendActivationEmail(): bool {
         // first check wether this user exists

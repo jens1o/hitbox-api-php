@@ -2,7 +2,7 @@
 Handles api requests to smashcast nicely!
 
 ### This library is not finished nor complete!
-I'll work on it, but it may take some time.
+I'll work on it, but it may take some time. At the moment, I'm facing to creating tests.
 
 #### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!
 

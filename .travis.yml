@@ -5,7 +5,11 @@ php:
   - nightly
 before_install:
   - phpenv rehash
+cache:
+  directories:
+   - $HOME/.composer/cache
 script:
   # we do a simple lint
-  # TODO: Do some advanced testing here
   - find . -type f -name '*.php' -print0 |xargs -0 -I file -P 4 php -l file > /dev/null
+  # phpunit tests
+  - vendor/bin/phpunit

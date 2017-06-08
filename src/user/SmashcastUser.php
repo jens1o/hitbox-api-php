@@ -199,6 +199,7 @@ class SmashcastUser extends AbstractModel {
 
     /**
      * Returns whether this user had validated their email
+     * Also returns false on general failure.
      *
      * @return bool
      * @throws SmashcastApiException
@@ -207,8 +208,11 @@ class SmashcastUser extends AbstractModel {
         // Smashcast's api handles this right, however we can save some time
         if(!$this->exists()) return false;
 
-        // This api endpoint **do not** return 4xx when it is not validated!
-        $request = $this->doRequest(HttpMethod::GET, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+        try {
+            $request = $this->doRequest(HttpMethod::GET, 'user/checkVerifiedEmail/' . $this->data->user_name, ['noAuthToken' => true]);
+        } catch(SmashcastApiException $e) {
+            return false;
+        }
 
         if(!isset($request->user->user_activated) || $request->user->user_activated == '0') {
             return false;
@@ -490,15 +494,19 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
-     * Returns to which username the token belongs to(returns null when not existing)
+     * Returns to which username the token belongs to(returns null when not existing/on error)
      *
      * @param   string  $token  The token to Check
      * @return string|null
      * @throws SmashcastApiException
      */
     public static function getUserNameByToken(string $token): ?string {
-        // this api do not throw 4xx on failure, so we don't need to catch it
-        $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
+
+        try {
+            $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
+        } catch(SmashcastApiException $e) {
+            return null;
+        }
 
         if(isset($request->user_name)) {
             return $request->user_name;

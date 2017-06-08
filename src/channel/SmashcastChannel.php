@@ -69,6 +69,7 @@ class SmashcastChannel {
 
     /**
      * Shortcut function to get the time the user has been registered.
+     * Returns null when there was an error parsing the date
      *
      * @return \DateTime|null
      */
@@ -96,9 +97,10 @@ class SmashcastChannel {
 
     /**
      * Returns the stream key for this channel, or null when an error occurred.
-     *
+     * Note: This returns the plain key. You need to prepend the channel name and `?key=`.
+     * Example: jens1o?key=V2YOpgLH [Tip: This token is invalid.]
+     * 
      * @return string|null
-     * @todo Test that method when I do not stream c: But seems to work c:
      */
     public function getStreamKey(): ?string {
         try {
@@ -118,9 +120,10 @@ class SmashcastChannel {
 
     /**
      * Resets the stream key for the channel. Do not test this while streaming. Returns null on failure, and new key as a string when successful
-     *
+     * Note: This returns the plain key. You need to prepend the channel name and `?key=`.
+     * Example: jens1o?key=V2YOpgLH [Tip: This token is invalid.]
+     * 
      * @return string|null
-     * @todo Test this function as soon as I go offline <3
      */
     public function resetStreamKey(): ?string {
         try {

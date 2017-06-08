@@ -126,9 +126,11 @@ class SmashcastUser extends AbstractModel {
 
     /**
      * Shortcut function to get the time the user has been registered.
+     * Returns an instance of `\DateTime` or `null` on failure
      *
      * @return \DateTime|null
      * @throws \BadMethodCallException When the user does not exist.
+     * @see SmashcastLiveMedia#getTimeCreated
      */
     public function getTimeCreated(): ?\DateTime {
         if(!$this->exists()) {

@@ -275,11 +275,10 @@ class SmashcastChannel {
     }
 
     /**
-     * Toggles the existence of `$userName` being and editor in this channel.
+     * Toggles the existence of `$userName` being an editor in this channel.
      * Returns an array with two keys:
-     *  [*] 'success'(boolean) describing the success of the action
-     *  [*] 'action'(enum `removed` or `added`) describing what happened.
-     * (The second key may be useful?)
+     *  * success [bool] describing the success of the action
+     *  * action [enum `removed` or `added`] describing what happened.
      *
      * @param   string  $userName   Which user do you like to toggle?
      * @return array
@@ -346,6 +345,7 @@ class SmashcastChannel {
      * @throws \InvalidArgumentException When the tweet is too long.
      */
     public function sendFacebookPost(string $message): bool {
+        // Facebook max post length is around 64k, we do not need to check this :D
         try {
             $response = RequestUtil::doRequest(HttpMethod::POST, 'facebook/post', [
                 'json' => [

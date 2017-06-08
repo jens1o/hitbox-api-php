@@ -2,7 +2,6 @@ language: php
 sudo: false
 php:
   - 7.1
-  - nightly
 before_install:
   - phpenv rehash
 install:

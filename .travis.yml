@@ -5,6 +5,8 @@ php:
   - nightly
 before_install:
   - phpenv rehash
+install:
+  - composer install
 cache:
   directories:
    - $HOME/.composer/cache

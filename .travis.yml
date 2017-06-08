@@ -12,6 +12,6 @@ cache:
    - $HOME/.composer/cache
 script:
   # we do a simple lint
-  - find . -type f -name '*.php' -print0 |xargs -0 -I file -P 4 php -l file > /dev/null
+  - find . -type f -name '*.php' -not -path './vendor/*' -print0 |xargs -0 -I file -P 4 php -l file > /dev/null
   # phpunit tests
   - vendor/bin/phpunit

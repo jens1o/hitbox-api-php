@@ -262,7 +262,7 @@ class SmashcastUser extends AbstractModel {
         try {
             $this->doRequest(HttpMethod::POST, "user/{$this->data->user_name}/team/default", [
                 'json' => [
-                    // cleaner interface, why should an id an string???
+                    // cleaner interface, why should an id be a string???
                     'group_id' => (string) $groupId
                 ],
                 'appendAuthToken' => false

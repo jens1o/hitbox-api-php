@@ -270,7 +270,6 @@ class SmashcastUser extends AbstractModel {
 
             return true;
         } catch(SmashcastApiException $e) {
-            throw $e;
             return false;
         }
     }

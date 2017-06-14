@@ -253,6 +253,29 @@ class SmashcastUser extends AbstractModel {
     }
 
     /**
+     * Sets the default team for this user. Returns `true` on success, `false` on failure.
+     *
+     * @param   int     $groupId
+     * @return bool
+     */
+    public function setDefaultTeam(int $groupId): bool {
+        try {
+            $this->doRequest(HttpMethod::POST, "user/{$this->data->user_name}/team/default", [
+                'json' => [
+                    // cleaner interface, why should an id an string???
+                    'group_id' => (string) $groupId
+                ],
+                'appendAuthToken' => false
+            ]);
+
+            return true;
+        } catch(SmashcastApiException $e) {
+            throw $e;
+            return false;
+        }
+    }
+
+    /**
      * Updates the user, you **must not** specify `user_id` and `user_name`! Returns the same object when successful, null otherwise.
      *
      * @param   mixed[]     $updateParts    The parts you want to update

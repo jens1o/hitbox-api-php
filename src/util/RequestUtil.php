@@ -84,7 +84,7 @@ class RequestUtil {
         self::$lastRequestJson = $json;
         if($json === null || json_last_error() !== JSON_ERROR_NONE) {
             throw new SmashcastApiException('Smashcast api didn\'t respond with valid json, maybe an error occurred?');
-        } elseif(isset($json->error) && $json->error == true) {
+        } elseif((isset($json->error) && $json->error == true) || (isset($json->success) && $json->success == false)) {
             throw new SmashcastApiException('The response looks like the request failed.');
         }
 

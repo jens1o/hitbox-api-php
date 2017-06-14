@@ -57,7 +57,7 @@ class SmashcastHashtag {
      * @return string
      */
     public function getLink(): string {
-        return sprintf(static::HASHTAG_URL, $this->hashtag);
+        return sprintf(self::HASHTAG_URL, $this->hashtag);
     }
 
 }

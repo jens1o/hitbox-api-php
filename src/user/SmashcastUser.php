@@ -237,9 +237,9 @@ class SmashcastUser extends AbstractModel {
                     'authToken' => SmashcastApi::getUserAuthToken()->getToken(),
 
                     // just some fake data the normal client would send
+                    'return' => '/settings' . '/' . $this->data->user_name . '/account',
                     // Q: Can we change the title? That would be awesome!
                     // A: Technically yes, but we should rather not do that.
-                    'return' => '/settings' . '/' . $this->data->user_name . '/account',
                     'title' => 'Email Verification'
                 ],
                 'appendAuthToken' => false

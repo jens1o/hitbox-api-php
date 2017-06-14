@@ -21,7 +21,7 @@ class SmashcastHashtag {
     /**
      * Base url for hashtags.
      */
-    public const HASHTAG_URL = 'https://www.smashcast.tv/browse/hashtags/';
+    public const HASHTAG_URL = 'https://www.smashcast.tv/browse/hashtags/%s';
 
     /**
      * Creates a new hashtag.
@@ -57,7 +57,7 @@ class SmashcastHashtag {
      * @return string
      */
     public function getLink(): string {
-        return static::HASHTAG_URL . $this->hashtag;
+        return sprintf(static::HASHTAG_URL, $this->hashtag);
     }
 
 }

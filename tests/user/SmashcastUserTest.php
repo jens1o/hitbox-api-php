@@ -8,7 +8,7 @@ class SmashcastUserTest extends TestCase {
 
     public function testNull() {
         // TODO: Write tests
-        $this->markTestSkipped('There is no tests, yet.');
+        $this->markTestSkipped('There are no tests, yet.');
     }
 
 }

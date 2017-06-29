@@ -336,7 +336,7 @@ class SmashcastUser extends AbstractModel {
                 $failedFields[] = $field;
             }
         }
-        if(count($failedFields)) {
+        if($failedFields !== []) {
             throw new SmashcastApiException('You MUST omit ' . implode(', ', $failedFields) . ' when trying to update an user object!');
             return false;
         }
@@ -356,7 +356,7 @@ class SmashcastUser extends AbstractModel {
                 $nonExistingFields[] = $updatePart;
             }
         }
-        if(count($nonExistingFields)) {
+        if([] !== $nonExistingFields) {
             throw new SmashcastApiException('When updating a user profile, you must not invent new, non-existing fields! (New fields: ' . implode(', ', $nonExistingFields) . ')');
         }
 

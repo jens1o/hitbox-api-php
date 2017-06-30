@@ -154,6 +154,7 @@ class SmashcastChannel {
 
     /**
      * Returns the list of editors for this channel or null when an error occurred.
+     * Note: This can only be executed by the channel admin.
      *
      * @param   $skipCache  Wether to skip the cache or not.
      * @return mixed[]|null

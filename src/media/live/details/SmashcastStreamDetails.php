@@ -209,7 +209,7 @@ class SmashcastStreamDetails extends AbstractModel {
     *
     * @deprecated
     * @ignore
-    * @return void
+    * @return bool
     * @throws \BadMethodCallException in any case.
     */
     public function validateUpdate(array $updateParts): bool {

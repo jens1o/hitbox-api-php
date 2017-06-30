@@ -99,7 +99,7 @@ class SmashcastChannel {
      * Returns the stream key for this channel, or null when an error occurred.
      * Note: This returns the plain key. You need to prepend the channel name and `?key=`.
      * Example: jens1o?key=V2YOpgLH [Tip: This token is invalid.]
-     * 
+     *
      * @return string|null
      */
     public function getStreamKey(): ?string {
@@ -122,7 +122,7 @@ class SmashcastChannel {
      * Resets the stream key for the channel. Do not test this while streaming. Returns null on failure, and new key as a string when successful
      * Note: This returns the plain key. You need to prepend the channel name and `?key=`.
      * Example: jens1o?key=V2YOpgLH [Tip: This token is invalid.]
-     * 
+     *
      * @return string|null
      */
     public function resetStreamKey(): ?string {
@@ -310,7 +310,7 @@ class SmashcastChannel {
      */
     public function sendTweet(string $message): bool {
         $suffix = ' via @smashcast_tv';
-        $tweetLength = 144;
+        static $tweetLength = 144;
 
         if(strlen($message . $suffix) > $tweetLength) {
             throw new \InvalidArgumentException('The message MUST NOT be longer than ' . $tweetLength . ' chars(even when appending the Smashcast suffix)! Length: ' . strlen($message . $suffix));

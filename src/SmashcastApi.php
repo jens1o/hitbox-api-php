@@ -151,6 +151,9 @@ class SmashcastApi {
 
     /**
      * Returns the client that should be used to connect to their api
+     *
+     * @ignore
+     * @internal Only for internal uses
      * @return Client
      */
     public static function getClient(): Client {

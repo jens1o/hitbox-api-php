@@ -46,6 +46,12 @@ class SmashcastChannel {
     private $liveMedia;
 
     /**
+     * Holds how many views this channel has
+     * @var int
+     */
+    private $totalViews;
+
+    /**
      * Creates a new channel object based on the name.
      *
      * @param   string  $identifier     The identifier for the name
@@ -419,6 +425,35 @@ class SmashcastChannel {
         }
 
         return false;
+    }
+
+    /**
+     * Returns how many views this channel has, null on failure
+     *
+     * @param   bool    $skipCache  When true, you get a fresh result ;)
+     * @return int|null
+     */
+    public function getTotalViews(bool $skipCache = false): ?int {
+        // always retry on failure
+        if(!$skipCache && $this->totalViews !== null) {
+            return $this->totalViews;
+        }
+
+        try {
+            $response = RequestUtil::doRequest(HttpMethod::GET, 'media/views/' . $this->channelName, ['noAuthToken' => true]);
+        } catch(SmashcastApiException $e) {
+            $this->totalViews = null;
+            return null;
+        }
+
+        if(isset($response->total_live_views)) {
+            // when `$response->total_live_views` is `false`, it gets a `0`
+            $this->totalViews = (int) $response->total_live_views;
+            return $this->totalViews;
+        }
+
+        $this->totalViews = null;
+        return null;
     }
 
     // TODO: Get a person which tests running ads. Or can I do that myself?

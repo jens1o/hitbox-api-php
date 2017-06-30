@@ -446,7 +446,7 @@ class SmashcastChannel {
             return null;
         }
 
-        if(isset($response->total_live_views)) {
+        if(isset($response->total_live_views) && $response->total_live_views !== null) {
             // when `$response->total_live_views` is `false`, it gets a `0`
             $this->totalViews = (int) $response->total_live_views;
             return $this->totalViews;

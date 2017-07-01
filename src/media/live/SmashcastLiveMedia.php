@@ -109,10 +109,10 @@ class SmashcastLiveMedia extends AbstractModel {
      * @throws SmashcastApiException When getting data from the api failed
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
-        if($row !== null) {
+        if(null !== $row) {
             // prefer $row when provided, so we don't need to call their api again
             $this->data = (object) array_merge(static::$defaultFields, (array) $row);
-        } elseif($identifier !== null) {
+        } elseif(null !== $identifier) {
             // call their api
             $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
             if(isset($response->livestream)) {
@@ -167,7 +167,7 @@ class SmashcastLiveMedia extends AbstractModel {
      * @return bool
      */
     public function isLive(): bool {
-        return $this->data->media_is_live !== null && $this->data->media_is_live !== '0';
+        return null !== $this->data->media_is_live && $this->data->media_is_live !== '0';
     }
 
     /**
@@ -214,7 +214,7 @@ class SmashcastLiveMedia extends AbstractModel {
      * @inheritDoc
      */
     public function exists(): bool {
-        return $this->data->media_id !== null;
+        return null !== $this->data->media_id;
     }
 
     /**

@@ -2,9 +2,9 @@
 namespace jens1o\smashcast\channel;
 
 use jens1o\smashcast\SmashcastApi;
+use jens1o\smashcast\emojis\SmashcastChatEmojis;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\media\live\SmashcastLiveMedia;
-use jens1o\smashcast\model\AbstractModel;
 use jens1o\smashcast\util\RequestUtil;
 use jens1o\util\HttpMethod;
 
@@ -46,6 +46,12 @@ class SmashcastChannel {
     private $liveMedia;
 
     /**
+     * Holds the instance of the emojis of this channel
+     * @var SmashcastChatEmojis
+     */
+    private $chatEmojis;
+
+    /**
      * Holds how many views this channel has
      * @var int
      */
@@ -71,6 +77,14 @@ class SmashcastChannel {
         }
 
         return $this->liveMedia;
+    }
+
+    public function getChatEmojis(): SmashcastChatEmoji {
+        if($this->chatEmojis === null) {
+            $this->chatEmojis = new SmashcastChatEmoji($this->channelName);
+        }
+
+        return $this->chatEmojis;
     }
 
     /**
@@ -166,7 +180,7 @@ class SmashcastChannel {
      * @return mixed[]|null
      */
     public function getEditors(bool $skipCache = false): ?array {
-        if(!$skipCache && $this->editorList !== null) {
+        if(!$skipCache && null !== $this->editorList) {
             return $this->editorList;
         }
 
@@ -387,7 +401,7 @@ class SmashcastChannel {
      * @return \stdClass[]|null
      */
     public function getHostingChannels(bool $skipCache = false): ?array {
-        if(!$skipCache && $this->hostingChannels !== null) {
+        if(!$skipCache && null !== $this->hostingChannels) {
             return $this->hostingChannels;
         }
 
@@ -438,7 +452,7 @@ class SmashcastChannel {
      */
     public function getTotalViews(bool $skipCache = false): ?int {
         // always retry on failure
-        if(!$skipCache && $this->totalViews !== null) {
+        if(!$skipCache && null !== $this->totalViews) {
             return $this->totalViews;
         }
 
@@ -449,7 +463,7 @@ class SmashcastChannel {
             return null;
         }
 
-        if(isset($response->total_live_views) && $response->total_live_views !== null) {
+        if(isset($response->total_live_views) && null !== $response->total_live_views) {
             // when `$response->total_live_views` is `false`, it gets a `0`
             $this->totalViews = (int) $response->total_live_views;
             return $this->totalViews;

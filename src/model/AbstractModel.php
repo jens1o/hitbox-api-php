@@ -60,6 +60,6 @@ abstract class AbstractModel implements IModel, IUpdatable {
      * @return bool
      */
     public function isAuthenticated(): bool {
-        return SmashcastApi::getUserAuthToken() !== null;
+        return !empty(SmashcastApi::getUserAuthToken()->getToken());
     }
 }

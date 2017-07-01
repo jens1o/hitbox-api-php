@@ -31,10 +31,10 @@ class SmashcastStreamDetails extends AbstractModel {
      * @throws SmashcastApiException  When getting data from the api failed
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
-        if($row !== null) {
+        if(null !== $row) {
             // prefer $row when provided, so we don't need to call their api again
             $this->data = $row;
-        } elseif($identifier !== null) {
+        } elseif(null !== $identifier) {
             // call their api (and pass the exception to the user :P)
             $response = $this->doRequest(HttpMethod::GET, 'mediainfo/live/' . $identifier, ['noAuthToken' => true]);
             if(isset($response->mediainfo)) {
@@ -189,7 +189,7 @@ class SmashcastStreamDetails extends AbstractModel {
      * @inheritDoc
      */
     public function exists(): bool {
-        return $this->data->media_id !== null && $this->data->media_id !== '0';
+        return null !== $this->data->media_id && $this->data->media_id !== '0';
     }
 
     /**

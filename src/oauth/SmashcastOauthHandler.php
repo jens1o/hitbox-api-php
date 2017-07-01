@@ -28,7 +28,7 @@ class SmashcastOauthHandler {
     public static function init(bool $forceAuth, ?string $state = null) {
         $appToken = SmashcastApi::getAppToken();
 
-        if($appToken === null) {
+        if(null === $appToken) {
             throw new \BadMethodCallException('You didn\'t set any app token, but this is needed when dealing with oauth!');
             return;
         }
@@ -38,7 +38,7 @@ class SmashcastOauthHandler {
         if($forceAuth) {
             $url .= '&force_auth=true';
         }
-        if($state !== null) {
+        if(null !== $state) {
             $url .= '&state=' . $state;
         }
 
@@ -59,7 +59,7 @@ class SmashcastOauthHandler {
      * @throws SmashcastApiException When states don't match or the exchange process failed.
      */
     public static function getAuthTokenFromRequestToken(string $requestToken, ?string $receivedState = null, ?string $savedState = null): ?string {
-        if($receivedState !== null && $savedState !== null) {
+        if(null !== $receivedState && null !== $savedState) {
             if($receivedState !== $savedState) {
                 throw new SmashcastApiException('States do not match!');
             }

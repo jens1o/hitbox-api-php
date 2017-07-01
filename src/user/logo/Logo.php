@@ -65,7 +65,7 @@ class Logo {
      * @return string|null
      */
     public function getStream(): ?string {
-        if($this->stream !== null) {
+        if(null !== $this->stream) {
             return $this->stream;
         }
 

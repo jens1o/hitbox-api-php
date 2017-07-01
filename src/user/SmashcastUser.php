@@ -50,10 +50,10 @@ class SmashcastUser extends AbstractModel {
      * @throws SmashcastApiException  When getting data from the api failed
      */
     public function __construct(?string $identifier = null, ?\stdClass $row = null) {
-        if($row !== null) {
+        if(null !== $row) {
             // prefer $row when provided, so we don't need to call their api again
             $this->data = $row;
-        } elseif($identifier !== null) {
+        } elseif(null !== $identifier) {
             // call their api
             $this->data = $this->doRequest(HttpMethod::GET, 'user/' . $identifier);
         } else {
@@ -117,11 +117,11 @@ class SmashcastUser extends AbstractModel {
 
     /**
      * Returns whether this user exists
-     * 
+     *
      * @return bool
      */
     public function exists(): bool {
-        return $this->data->user_id !== null;
+        return null !== $this->data->user_id;
     }
 
     /**

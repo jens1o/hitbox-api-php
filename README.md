@@ -46,6 +46,7 @@ If you have any questions, do not hesitate to file an issue or ask me via twitte
 I plan to do a documentation, but first I want to make sure I don't have any breaking changes.
 
 ### Roadmap
-- Explore in chat possibillities => search for a good lib to accomplish this
+- Write some templates making contributions easier
+- Explore in chat possibilities => search for a good lib to accomplish this
 - Finalize structure
 - Make a documentation that everybody understands(I think I need some help when it comes to grammar...) :)

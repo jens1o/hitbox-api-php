@@ -1,4 +1,4 @@
-# smashcast-api-php [![Build Status](https://travis-ci.org/jens1o/smashcast-api-php.svg?branch=master)](https://travis-ci.org/jens1o/smashcast-api-php)
+# smashcast-api-php [![Build Status](https://travis-ci.org/jens1o/smashcast-api-php.svg?branch=master)](https://travis-ci.org/jens1o/smashcast-api-php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 Handles api requests to smashcast nicely!
 
 ### This library is not finished nor complete!
@@ -50,3 +50,5 @@ I plan to do a documentation, but first I want to make sure I don't have any bre
 - Explore in chat possibilities => search for a good lib to accomplish this
 - Finalize structure
 - Make a documentation that everybody understands(I think I need some help when it comes to grammar...) :)
+
+**Working on your first Pull Request?** You can learn how from this *free* series [How to Contribute to an Open Source Project on GitHub](https://egghead.io/series/how-to-contribute-to-an-open-source-project-on-github)

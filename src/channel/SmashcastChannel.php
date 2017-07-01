@@ -428,7 +428,10 @@ class SmashcastChannel {
     }
 
     /**
-     * Returns how many views this channel has, null on failure
+     * Returns how many views this channel has, null on failure.
+     *
+     * Note: The Smashcast API returns `false` when the channel has zero views. This client
+     * still returns `0` then!
      *
      * @param   bool    $skipCache  When true, you get a fresh result ;)
      * @return int|null

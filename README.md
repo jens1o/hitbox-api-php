@@ -6,6 +6,8 @@ I'll work on it, but it may take some time. At the moment, I'm facing to creatin
 
 #### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!
 
+
+## Installation
 If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php/issues/new).
 
 0. Make sure you meet the requirements of this lib:
@@ -42,3 +44,8 @@ require_once './vendor/autoload.php';
 ### I recommend head over to the examples folder, or just dig through the code.
 If you have any questions, do not hesitate to file an issue or ask me via twitter.
 I plan to do a documentation, but first I want to make sure I don't have any breaking changes.
+
+### Roadmap
+- Explore in chat possibillities => search for a good lib to accomplish this
+- Finalize structure
+- Make a documentation that everybody understands(I think I need some help when it comes to grammar...) :)

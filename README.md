@@ -40,3 +40,5 @@ require_once './vendor/autoload.php';
 4. Use the lib.
 
 ### I recommend head over to the examples folder, or just dig through the code.
+If you have any questions, do not hesitate to file an issue or ask me via twitter.
+I plan to do a documentation, but first I want to make sure I don't have any breaking changes.

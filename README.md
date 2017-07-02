@@ -1,7 +1,7 @@
 # smashcast-api-php [![Build Status](https://travis-ci.org/jens1o/smashcast-api-php.svg?branch=master&style=flat-square)](https://travis-ci.org/jens1o/smashcast-api-php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![Packagist](https://img.shields.io/packagist/dt/jens1o/smashcast-api-php.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php) [![Packagist](https://img.shields.io/packagist/v/jens1o/smashcast-api-php.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php) [![license](https://img.shields.io/github/license/jens1o/smashcast-api-php.svg?style=flat-square)]() [![Discord](https://img.shields.io/discord/331087484790243339.svg?style=flat-square)](https://discord.gg/SSQxmaB)
 Handles api requests to smashcast nicely!
 
-This library is **actively supported** and I'll update it constantly. If you want to contribute, don't hesitate to do anything. If you have any problems, just ask me. 
+This library is **actively supported** and I'll update it constantly. If you want to contribute, don't hesitate to do anything. If you have any problems, just ask me.
 I'll work on it, but it may take some time. At the moment, I'm facing to creating tests.
 
 #### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!

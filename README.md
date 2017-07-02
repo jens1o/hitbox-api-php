@@ -1,7 +1,7 @@
 # smashcast-api-php [![Build Status](https://travis-ci.org/jens1o/smashcast-api-php.svg?branch=master)](https://travis-ci.org/jens1o/smashcast-api-php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 Handles api requests to smashcast nicely!
 
-### This library is not finished nor complete!
+This library is **actively supported** and I'll update it constantly. If you want to contribute, don't hesitate to do anything. If you have any problems, just ask me. 
 I'll work on it, but it may take some time. At the moment, I'm facing to creating tests.
 
 #### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!

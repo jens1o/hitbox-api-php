@@ -1,5 +1,5 @@
 {
-    "name": "jens1o/smashcast-api-php",
+    "name": "jens1o/smashcast-api-php-unofficial",
     "description": "Handles api requests to smashcast nicely!",
     "version": "0.8.1",
     "type": "library",

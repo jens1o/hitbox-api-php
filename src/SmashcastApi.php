@@ -162,7 +162,7 @@ class SmashcastApi {
                 'base_uri' => static::BASE_URL,
                 'timeout' => 7,
                 'headers' => [
-                    'User-Agent' => 'jens1o/smashcast-api-php v' . self::VERSION
+                    'User-Agent' => 'jens1o/smashcast-api-php-unofficial v' . self::VERSION
                 ]
             ]);
         }

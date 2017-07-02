@@ -1,4 +1,4 @@
-# smashcast-api-php [![Travis](https://img.shields.io/travis/jens1o/smashcast-api-php.svg?style=flat-square)](https://travis-ci.org/jens1o/smashcast-api-php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) <img src="https://img.shields.io/badge/composer-jens1o%2Fsmashcast--api--php-brightgreen.svg?style=flat-square"> [![Packagist](https://img.shields.io/packagist/v/jens1o/smashcast-api-php.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php) [![license](https://img.shields.io/github/license/jens1o/smashcast-api-php.svg?style=flat-square)]()
+# smashcast-api-php [![Travis](https://img.shields.io/travis/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)](https://travis-ci.org/jens1o/smashcast-api-php-unofficial) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) <img src="https://img.shields.io/badge/composer-jens1o%2Fsmashcast--api--php-brightgreen.svg?style=flat-square"> [![Packagist](https://img.shields.io/packagist/v/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php-unofficial) [![license](https://img.shields.io/github/license/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)]()
 Handles api requests to smashcast nicely!
 
 This library is **actively supported** and I'll update it constantly. If you want to contribute, don't hesitate to do anything. If you have any problems, just ask me.
@@ -8,7 +8,7 @@ I'll work on it, but it may take some time. At the moment, I'm facing to creatin
 
 
 ## Installation
-If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php/issues/new).
+If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php-unofficial/issues/new).
 
 0. Make sure you meet the requirements of this lib:
     - PHP 7.1+
@@ -18,7 +18,7 @@ If something is missing, or something is not well explained or when you have a q
     - You installed some root certificates, since all connections this library creates are secured via ssl.
 
 #### Install using composer:
-1. Execute `composer require jens1o/smashcast-api-php`
+1. Execute `composer require jens1o/smashcast-api-php-unofficial`
 2. In your script, add:
 ```php
 <?php

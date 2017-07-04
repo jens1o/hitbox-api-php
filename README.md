@@ -1,10 +1,10 @@
-# smashcast-api-php [![Travis](https://img.shields.io/travis/jens1o/smashcast-api-php.svg?style=flat-square)](https://travis-ci.org/jens1o/smashcast-api-php) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) <img src="https://img.shields.io/badge/composer-jens1o%2Fsmashcast--api--php--unofficial-brightgreen.svg?style=flat-square"> [![Packagist](https://img.shields.io/packagist/v/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php-unofficial) [![license](https://img.shields.io/github/license/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)]()
+# smashcast-api-php [![Travis](https://img.shields.io/travis/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)](https://travis-ci.org/jens1o/smashcast-api-php-unofficial) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) <img src="https://img.shields.io/badge/composer-jens1o%2Fsmashcast--api--php--unofficial-brightgreen.svg?style=flat-square"> [![Packagist](https://img.shields.io/packagist/v/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)](https://packagist.org/packages/jens1o/smashcast-api-php-unofficial) [![license](https://img.shields.io/github/license/jens1o/smashcast-api-php-unofficial.svg?style=flat-square)]()
 Handles api requests to smashcast nicely!
 
 This library is **actively supported** and I'll update it constantly. If you want to contribute, don't hesitate to do anything. If you have any problems, just ask me.
 I'll work on it, but it may take some time. At the moment, I'm facing to creating tests.
 
-**I spend around 1 hour per day with this library, so be patient. Please keep in mind I'm an pupil and have to learn for class tests :)**
+**I spend around half an hour per day with this library, so be patient. Please keep in mind I'm an pupil and have to learn for class tests :)**
 
 #### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!
 

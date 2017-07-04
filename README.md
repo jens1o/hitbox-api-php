@@ -6,8 +6,6 @@ I'll work on it, but it may take some time. At the moment, I'm facing to creatin
 
 **I spend around half an hour per day with this library, so be patient. Please keep in mind I'm an pupil and have to learn for class tests :)**
 
-#### Implementations may change due to restructure and refactor... Verify that updating the api client may result in a breaking change!
-
 
 ## Installation
 If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php-unofficial/issues/new).

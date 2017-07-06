@@ -357,6 +357,7 @@ class SmashcastUser extends AbstractModel {
                 $nonExistingFields[] = $updatePart;
             }
         }
+
         if([] !== $nonExistingFields) {
             throw new SmashcastApiException('When updating a user profile, you must not invent new, non-existing fields! (New fields: ' . implode(', ', $nonExistingFields) . ')');
         }

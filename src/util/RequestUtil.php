@@ -1,7 +1,7 @@
 <?php
 namespace jens1o\smashcast\util;
 
-use GuzzleHttp\Exception\{ClientException, GuzzleException};
+use GuzzleHttp\Exception\ClientException;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\smashcast\exception\SmashcastApiException;
 
@@ -58,7 +58,7 @@ class RequestUtil {
 
         try {
             self::$lastRequest = SmashcastApi::getClient()->request($method, $path, $parameters);
-        } catch(GuzzleException $e) {
+        } catch(\Throwable $e) {
             /*
                 A little note on this if-statement:
                 Yeah, I know I can create a new catch-block, but I want that only one exception will be rethrown.

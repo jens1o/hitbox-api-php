@@ -102,7 +102,7 @@ class SmashcastUser extends AbstractModel {
      * @return string
      */
     public function __toString(): string {
-        return $this->user_name;
+        return $this->data->user_name;
     }
 
 

@@ -92,7 +92,7 @@ class SmashcastAuthToken {
         try {
             $request = RequestUtil::doRequest(HttpMethod::GET, 'auth/valid/' . $appId, [
                 'query' => [
-                    'token' => $this->getToken()
+                    'token' => $this->token
                 ]
             ]);
         } catch(SmashcastApiException $e) {

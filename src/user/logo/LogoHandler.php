@@ -38,7 +38,7 @@ class LogoHandler {
     /**
      * Returns the logo that fits the given size, or null when it wasn't found
      *
-     * @param   string  $size   Wether `small` or `normal`
+     * @param   string  $size   Whether `small` or `normal`
      * @throws \InvalidArgumentException
      */
     public function getLogo(string $size): ?Logo {

@@ -33,7 +33,7 @@ class RequestUtil {
      *
      * @param   string      $method             With which http method it should request
      * @param   mixed[]     $parameters         Parameters for the request
-     * @param   bool        $needsAuthToken     Wether this request **requires** an auth token.
+     * @param   bool        $needsAuthToken     Whether this request **requires** an auth token.
      * @return mixed[]|null
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
      * @throws SmashcastApiException

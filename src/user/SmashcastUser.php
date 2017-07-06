@@ -227,7 +227,7 @@ class SmashcastUser extends AbstractModel {
      * @return bool
      */
     public function resendActivationEmail(): bool {
-        // first check wether this user exists
+        // first check whether this user exists
         if(!$this->exists()) return false;
 
         try {
@@ -366,7 +366,7 @@ class SmashcastUser extends AbstractModel {
     /**
      * Returns true when this user has connected with Twitter, false otherwise.
      *
-     * @param   bool    $fast   Wether to do it fast and with a chance of false positives, or a detailed lookup
+     * @param   bool    $fast   Whether to do it fast and with a chance of false positives, or a detailed lookup
      * @return bool
      * @throws SmashcastApiException
      */

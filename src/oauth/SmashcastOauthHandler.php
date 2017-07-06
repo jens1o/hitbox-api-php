@@ -21,7 +21,7 @@ class SmashcastOauthHandler {
      * Does the first job. Redirects to the Smashcast OAuth authentication page.
      * Note: You can do this by yourself! This is just existing so it makes starting easier(it just builds an url and redirects towards it)
      *
-     * @param   bool            $forceAuth  Wether the authentication must be refreshed in case it exists
+     * @param   bool            $forceAuth  Whether the authentication must be refreshed in case it exists
      * @param   string|null     $state      You can send a string to Smashcast, and you'll get this back. **You should save this and compare later!**
      * @throws \BadMethodCallException When an app token has not been set
      */

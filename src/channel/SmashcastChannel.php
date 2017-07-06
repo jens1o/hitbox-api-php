@@ -176,7 +176,7 @@ class SmashcastChannel {
      * Returns the list of editors for this channel or null when an error occurred.
      * Note: This can only be executed by the channel admin.
      *
-     * @param   $skipCache  Wether to skip the cache or not.
+     * @param   $skipCache  Whether to skip the cache or not.
      * @return mixed[]|null
      */
     public function getEditors(bool $skipCache = false): ?array {
@@ -397,7 +397,7 @@ class SmashcastChannel {
      * Returns a list of channels hosting this channel or null when an error occurred.
      * Note: There is a difference between `[]`(array) and `null`(not a string)
      *
-     * @param   bool    $skipCache  Wether to skip cache or not.
+     * @param   bool    $skipCache  Whether to skip cache or not.
      * @return \stdClass[]|null
      */
     public function getHostingChannels(bool $skipCache = false): ?array {

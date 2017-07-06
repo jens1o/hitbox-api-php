@@ -258,7 +258,7 @@ class SmashcastLiveMedia extends AbstractModel {
     }
 
     /**
-     * Validates and returns wether this update process is valid.
+     * Validates and returns whether this update process is valid.
      *
      * @param   mixed[]     $updateParts    The parts to validate.
      * @return bool

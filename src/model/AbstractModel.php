@@ -26,7 +26,7 @@ abstract class AbstractModel implements IModel, IUpdatable {
      *
      * @param   string      $method             With which http method it should request
      * @param   mixed[]     $parameters         Parameters for the request
-     * @param   bool        $needsAuthToken     Wether this request **requires** an auth token.
+     * @param   bool        $needsAuthToken     Whether this request **requires** an auth token.
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
      * @see RequestUtil::doRequest()
      */

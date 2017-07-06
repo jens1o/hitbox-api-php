@@ -336,6 +336,7 @@ class SmashcastUser extends AbstractModel {
                 $failedFields[] = $field;
             }
         }
+
         if([] !== $failedFields) {
             throw new SmashcastApiException('You MUST omit ' . implode(', ', $failedFields) . ' when trying to update an user object!');
             return false;

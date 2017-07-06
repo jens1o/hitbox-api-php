@@ -38,12 +38,11 @@ class RequestUtil {
      * @throws \BadMethodCallException When `$needsAuthToken` is true and no auth token was set
      * @throws SmashcastApiException
      */
-    public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = null) {
-        $needsAuthToken = $needsAuthToken ?? false;
+    public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = false) {
 
         $authToken = SmashcastApi::getUserAuthToken()->getToken();
-        $appendAuthToken = $parameters['appendAuthToken'] ?? false;
-        $noAuthToken = $parameters['noAuthToken'] ?? false;
+        $appendAuthToken = (bool) $parameters['appendAuthToken'] ?? false;
+        $noAuthToken = (bool) $parameters['noAuthToken'] ?? false;
 
         if(!empty($authToken) && !$noAuthToken) {
             if($appendAuthToken) {

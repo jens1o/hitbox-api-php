@@ -8,7 +8,7 @@ I'll work on it, but it may take some time. At the moment, I'm facing to creatin
 
 
 ## Installation
-If something is missing, or something is not well explained or when you have a question, feel free to [open a issue](https://github.com/jens1o/smashcast-api-php-unofficial/issues/new).
+If something is missing, or something is not well explained or when you have a question, feel free to [open an issue](https://github.com/jens1o/smashcast-api-php-unofficial/issues/new).
 
 0. Make sure you meet the requirements of this lib:
     - PHP 7.1+

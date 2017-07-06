@@ -65,7 +65,7 @@ class RequestUtil {
             */
             if($e instanceof ClientException && $e->getResponse()->getStatusCode() === 400) {
                 // try to encode
-                $response = @json_decode($e->getResponse()->getBody());
+                $response = json_decode($e->getResponse()->getBody());
                 if(json_last_error() === JSON_ERROR_NONE && isset($response->error_msg)) {
                     switch($response->error_msg) {
                         case 'invalid_app':
@@ -78,7 +78,7 @@ class RequestUtil {
             return null;
         }
 
-        $json = @json_decode(self::$lastRequest->getBody());
+        $json = json_decode(self::$lastRequest->getBody());
         self::$lastRequestJson = $json;
         if($json === null || json_last_error() !== JSON_ERROR_NONE) {
             throw new SmashcastApiException('Smashcast api didn\'t respond with valid json, maybe an error occurred?');

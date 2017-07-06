@@ -24,7 +24,7 @@ class RequestUtil {
 
     /**
      * Holds the decoded json of the latest request
-     * @var mixed|mixed[]
+     * @var mixed|mixed[]|null
      */
     private static $lastRequestJson = null;
 
@@ -101,7 +101,7 @@ class RequestUtil {
     /**
      * Returns the decoded json of the latest request
      *
-     * @return mixed|mixed[]
+     * @return mixed|mixed[]|null
      */
     public static function getLastRequestJson() {
         return self::$lastRequestJson;

@@ -40,8 +40,8 @@ class RequestUtil {
      */
     public static function doRequest(string $method, string $path, array $parameters = [], bool $needsAuthToken = false) {
         $authToken = SmashcastApi::getUserAuthToken()->getToken();
-        $appendAuthToken = (bool) $parameters['appendAuthToken'] ?? false;
-        $noAuthToken = (bool) $parameters['noAuthToken'] ?? false;
+        $appendAuthToken = (bool) ($parameters['appendAuthToken'] ?? false);
+        $noAuthToken = (bool) ($parameters['noAuthToken'] ?? false);
 
         if(!empty($authToken) && !$noAuthToken) {
             if($appendAuthToken) {

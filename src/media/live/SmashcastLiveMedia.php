@@ -113,7 +113,7 @@ class SmashcastLiveMedia extends AbstractModel {
             // prefer $row when provided, so we don't need to call their api again
             $this->data = (object) array_merge(static::$defaultFields, (array) $row);
         } elseif(null !== $identifier) {
-            // call their api
+            // call the api
             $response = $this->doRequest(HttpMethod::GET, 'media/live/' . $identifier, ['appendAuthToken' => false]);
             if(isset($response->livestream)) {
                 $this->data = (object) array_merge(static::$defaultFields, (array) $response->livestream[0]);
@@ -139,7 +139,7 @@ class SmashcastLiveMedia extends AbstractModel {
     }
 
     /**
-     * Returns a \DateTime containing the date when the channel was created. Returns `null`(not a string on failure)
+     * Returns a \DateTime containing the date when the channel was created. Returns `null`(not a string) on failure
      *
      * @return \DateTime|null
      */

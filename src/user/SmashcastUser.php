@@ -525,7 +525,6 @@ class SmashcastUser extends AbstractModel {
      * @throws SmashcastApiException
      */
     public static function getUserNameByToken(string $token): ?string {
-
         try {
             $request = RequestUtil::doRequest(HttpMethod::GET, 'userfromtoken/' . $token, ['noAuthToken' => true]);
         } catch(SmashcastApiException $e) {

@@ -192,6 +192,8 @@ class SmashcastStreamDetails extends AbstractModel {
         return null !== $this->data->media_id && $this->data->media_id !== '0';
     }
 
+    // TODO: Split AbstractModel into AbstractModel and AbstractUpdateable and remove these methods afterwards.
+
     /**
      * You MUST NOT update stream details!
      *

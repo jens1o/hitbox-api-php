@@ -1,41 +1,38 @@
 <?php
-namespace jens1o\smashcast\user\logo;
+namespace jens1o\smashcast\emoji;
 
 use jens1o\smashcast\model\IDownloadable;
 use jens1o\smashcast\SmashcastApi;
 use jens1o\util\HttpMethod;
 
 /**
- * Represents a logo that can be downloaded or just refers to a link
+ * Represents a emoji of a channel
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
  * @license    MIT License
- * @package    jens1o\smashcast\user
- * @subpackage logo
+ * @package    jens1o\smashcast
+ * @subpackage emoji
  */
-class Logo implements IDownloadable {
+class SmashcastEmoji implements IDownloadable {
 
     /**
-     * Holds the url where this logo is saved on
+     * Holds the relative url for this emoji
      * @var string
      */
-    private $url = null;
+    public $url;
 
     /**
-     * Cached stream of the logo
+     * Holds the abbreviation of this emoji
      * @var string
      */
-    private $stream = null;
+    public $short;
 
     /**
-     * Creates a new logo representation
-     *
-     * @param   string  $url    The uri (without the host) the image is hosted on
+     * Holds the alternative abbreviation of this emoji
+     * @var string
      */
-    public function __construct(string $url) {
-        $this->url = $url;
-    }
+    public $shortAlt;
 
     /**
      * @inheritDoc
@@ -82,15 +79,14 @@ class Logo implements IDownloadable {
     }
 
     /**
-     * Returns the path of this logo
-     * @var string
+     * @inheritDoc
      */
     public function getPath(): string {
         return SmashcastApi::IMAGE_URL . $this->url;
     }
 
     /**
-     * @see getPath()
+     * @inheritDoc
      */
     public function __toString(): string {
         return $this->getPath();

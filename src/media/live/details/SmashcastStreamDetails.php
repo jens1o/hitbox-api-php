@@ -5,7 +5,8 @@ use jens1o\smashcast\model\AbstractModel;
 use jens1o\util\HttpMethod;
 
 /**
- * Represents live stream details
+ * Represents live stream details. When you use this class while
+ * a stream is not online, it will have the latest values.
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017

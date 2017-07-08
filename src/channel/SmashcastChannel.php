@@ -2,7 +2,7 @@
 namespace jens1o\smashcast\channel;
 
 use jens1o\smashcast\SmashcastApi;
-use jens1o\smashcast\emojis\SmashcastChatEmojis;
+use jens1o\smashcast\emoji\SmashcastChannelEmojis;
 use jens1o\smashcast\exception\SmashcastApiException;
 use jens1o\smashcast\media\live\SmashcastLiveMedia;
 use jens1o\smashcast\util\RequestUtil;
@@ -79,9 +79,14 @@ class SmashcastChannel {
         return $this->liveMedia;
     }
 
-    public function getChatEmojis(): SmashcastChatEmoji {
+    /**
+     * Returns the chat emojis for this channel
+     *
+     * @return SmashcastChannelEmojis
+     */
+    public function getChatEmojis(): SmashcastChannelEmojis {
         if($this->chatEmojis === null) {
-            $this->chatEmojis = new SmashcastChatEmoji($this->channelName);
+            $this->chatEmojis = new SmashcastChannelEmojis($this->channelName);
         }
 
         return $this->chatEmojis;

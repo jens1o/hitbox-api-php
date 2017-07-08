@@ -1,10 +1,13 @@
 <?php
-namespace jens1o\smashcast\emojis;
+namespace jens1o\smashcast\emoji;
 
 use jens1o\smashcast\model\AbstractModel;
 
 /**
  * Manages the emojis of a channel
+ *
+ * **WARNING:** This api does not care nor throws an exception when the channel does not exist.
+ * It justs returns all default emojis... Please check first whether the channel exists...
  *
  * @author     jens1o
  * @copyright  Jens Hausdorf 2017
@@ -12,7 +15,7 @@ use jens1o\smashcast\model\AbstractModel;
  * @package    jens1o\smashcast
  * @subpackage emojis
  */
-class SmashcastChatEmojis extends AbstractModel {
+class SmashcastChannelEmojis extends AbstractModel {
 
     /**
      * Holds the name of this channel
@@ -22,15 +25,18 @@ class SmashcastChatEmojis extends AbstractModel {
 
     /**
      * Holds the list of (saved) emojis
-     * @var Emoji[]
+     * @var SmashcastEmoji[][]
      */
     private $emojiList;
 
     /**
      * Holds whether the `$emojiList` is complete
-     * @var bool
+     * @var bool[][]
      */
-    private $listIsComplete = false;
+    private $listIsComplete = [
+        'premium' => false,
+        'standard' => false
+    ];
 
     /**
      * Creates a new channel object based on the name.
@@ -38,7 +44,8 @@ class SmashcastChatEmojis extends AbstractModel {
      * @param   string  $identifier     The identifier for the name
      */
     public function __construct(string $identifier) {
-        $this->channelName = strtolower($identifier);
+        // The apis called in this class don't care about whether the channelname is uppercased or not...
+        $this->channelName = $identifier;
     }
 
     /**
@@ -46,12 +53,16 @@ class SmashcastChatEmojis extends AbstractModel {
      *
      * @param   bool    $premiumOnly    whether we only need sub-emojis
      * @param   bool    $skipCache      whether to skip the cache and get fresh data
-     * @return Emoji[]
+     * @return \stdClass[]
      */
     public function getEmojis(bool $premiumOnly = false, bool $skipCache = false): array {
-        if(!$skipCache && null !== $this->emojiList && $this->listIsComplete) {
-            // TODO: Make logic happen!
+        $arrayKey = $premiumOnly ? 'premium' : 'standard';
+
+        if(!$skipCache && null !== $this->emojiList[$arrayKey] && $this->listIsComplete[$arrayKey]) {
+            return $this->emojiList[$arrayKey];
         }
+
+
     }
 
 }

@@ -53,7 +53,7 @@ class SmashcastChannelEmojis {
     }
 
     /**
-     * Returns the emojis for this channel
+     * Returns the emojis for this channel, returns null on failure
      *
      * @param   bool    $premiumOnly    whether we only need sub-emojis
      * @param   bool    $skipCache      whether to skip the cache and get fresh data

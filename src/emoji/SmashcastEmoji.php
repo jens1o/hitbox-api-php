@@ -35,6 +35,12 @@ class SmashcastEmoji implements IDownloadable {
     public $shortAlt;
 
     /**
+     * Cached stream of the downloaded emoji
+     * @var string
+     */
+    private $stream;
+
+    /**
      * @inheritDoc
      */
     public function download(string $location): bool {

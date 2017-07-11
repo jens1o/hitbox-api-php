@@ -4,3 +4,4 @@ composer.lock
 test.php
 password.php
 .vscode
+examples/downloads/

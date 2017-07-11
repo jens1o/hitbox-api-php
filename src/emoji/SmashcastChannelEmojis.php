@@ -1,7 +1,8 @@
 <?php
 namespace jens1o\smashcast\emoji;
 
-use jens1o\smashcast\model\AbstractModel;
+use jens1o\smashcast\util\RequestUtil;
+use jens1o\util\HttpMethod;
 
 /**
  * Manages the emojis of a channel
@@ -15,7 +16,7 @@ use jens1o\smashcast\model\AbstractModel;
  * @package    jens1o\smashcast
  * @subpackage emojis
  */
-class SmashcastChannelEmojis extends AbstractModel {
+class SmashcastChannelEmojis {
 
     /**
      * Holds the name of this channel
@@ -27,7 +28,10 @@ class SmashcastChannelEmojis extends AbstractModel {
      * Holds the list of (saved) emojis
      * @var SmashcastEmoji[][]
      */
-    private $emojiList;
+    private $emojiList = [
+        'premium' => [],
+        'standard' => []
+    ];
 
     /**
      * Holds whether the `$emojiList` is complete
@@ -53,16 +57,39 @@ class SmashcastChannelEmojis extends AbstractModel {
      *
      * @param   bool    $premiumOnly    whether we only need sub-emojis
      * @param   bool    $skipCache      whether to skip the cache and get fresh data
-     * @return \stdClass[]
+     * @return Emoji[]|null
      */
-    public function getEmojis(bool $premiumOnly = false, bool $skipCache = false): array {
+    public function getEmojis(bool $premiumOnly = false, bool $skipCache = false): ?array {
         $arrayKey = $premiumOnly ? 'premium' : 'standard';
 
         if(!$skipCache && null !== $this->emojiList[$arrayKey] && $this->listIsComplete[$arrayKey]) {
             return $this->emojiList[$arrayKey];
         }
 
+        try {
+            $list = RequestUtil::doRequest(HttpMethod::GET, "chat/icons/{$this->channelName}", [
+                'query' => [
+                    'premiumOnly' => $premiumOnly ? 'true' : 'false'
+                ]
+            ]);
+        } catch(SmashcastApiException $e) {
+            // clear cache
+            $this->emojiList[$arrayKey] = [];
+            return null;
+        }
 
+        // refresh list
+        $this->emojiList[$arrayKey] = array_map(function($emojiData) {
+            $emoji = new SmashcastEmoji;
+
+            $emoji->url = $emojiData->icon_path;
+            $emoji->short = $emojiData->icon_short;
+            $emoji->shortAlt = $emojiData->icon_short_alt;
+
+            return $emoji;
+        }, $list->items);
+
+        return $this->emojiList[$arrayKey];
     }
 
 }

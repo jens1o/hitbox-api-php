@@ -70,7 +70,8 @@ class SmashcastChannelEmojis {
             $list = RequestUtil::doRequest(HttpMethod::GET, "chat/icons/{$this->channelName}", [
                 'query' => [
                     'premiumOnly' => $premiumOnly ? 'true' : 'false'
-                ]
+                ],
+                'noAuthToken' => true
             ]);
         } catch(SmashcastApiException $e) {
             // clear cache

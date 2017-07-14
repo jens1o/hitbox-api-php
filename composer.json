@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "jens1o\\smashcast\\" : "src/",
+            "jens1o\\smashcast\\": "src/",
             "jens1o\\smashcast\\channel\\": "src/channel/",
             "jens1o\\smashcast\\exception\\": "src/exception/",
             "jens1o\\smashcast\\hashtag\\": "src/hashtag/",

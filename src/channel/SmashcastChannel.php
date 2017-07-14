@@ -258,6 +258,8 @@ class SmashcastChannel {
         }
 
         if(isset($response->message) && $response->message === 'success') {
+            // update cache
+            $this->invalidateCache();
             return true;
         }
 
@@ -297,6 +299,8 @@ class SmashcastChannel {
         }
 
         if(isset($response->message) && $response->message === 'success') {
+            // update cache
+            $this->invalidateCache();
             return true;
         }
 
@@ -335,7 +339,7 @@ class SmashcastChannel {
      * @throws \InvalidArgumentException When the tweet is too long.
      */
     public function sendTweet(string $message): bool {
-        $suffix = ' via @smashcast_tv';
+        static $suffix = ' via @smashcast_tv';
         static $tweetLength = 144;
 
         if(strlen($message . $suffix) > $tweetLength) {

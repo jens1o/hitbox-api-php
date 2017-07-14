@@ -167,13 +167,13 @@ class SmashcastChannel {
     }
 
     /**
-     * Updates the cache of the editor list and the list of channels hosting this channel. Returns the same instance.
+     * Clears the cache of the editor list and the list of channels hosting this channel. Returns the same instance.
      *
      * @return SmashcastChannel
      */
     public function invalidateCache(): SmashcastChannel {
-        $this->getEditors(true);
-        $this->getHostingChannels(true);
+        $this->editorList = null;
+        $this->hostingChannels = null;
         return $this;
     }
 
